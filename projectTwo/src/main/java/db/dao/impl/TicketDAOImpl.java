@@ -18,8 +18,20 @@ public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {
 
 	@Override
 	public List<TicketDTO> getAllTicketInfo() {
-		return getInfoBySql("select * from TicketInfo");
-
+		// return getInfoBySql("select * from TicketInfo");
+		return getInfoBySql("select"
+				+ "			tic_info.TicketID 'TicketID', " 
+				+ "			tic_info.TranNo 'TranNo',"
+				+ "			tic_info.Seat 'Seat'," 
+				+ "			sta_info_dep.StationName 'Departure_ST',"
+				+ "			sta_info_des.StationName 'Destination_ST',"
+				+ "			tic_info.Departure_time 'Departure_time',"
+				+ "			tic_info.Arrival_time 'Arrival_time'," 
+				+ "			tic_info.price 'price',"
+				+ "			tic_info.Date 'Date'" 
+				+ "	from TicketInfo tic_info"
+				+ "	left join StationInfo sta_info_des on tic_info.Destination_ST = sta_info_des.StationID"
+				+ "	left join StationInfo sta_info_dep on tic_info.Departure_ST = sta_info_dep.StationID;");
 	}
 
 	@Override
@@ -29,16 +41,17 @@ public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {
 		return executeUpdate(sql);
 
 	}
+
 	@Override
 	public int updateTicketInfo(TicketDTO dataSource) {
 		String sql = dataSource.getUpdataSql();
 		System.out.println(sql);
 		return executeUpdate(sql);
 	}
-	
+
 	@Override
 	public int deleteTicketInfo(int TicketID) {
-		return executeUpdate(String.format("delete from TicketInfo where TicketID = %d;",TicketID));
+		return executeUpdate(String.format("delete from TicketInfo where TicketID = %d;", TicketID));
 	}
 
 	private List<TicketDTO> getInfoBySql(String sql) {

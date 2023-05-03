@@ -32,48 +32,31 @@ public class Bookingadmin extends HttpServlet {
 	public Bookingadmin() {
 		super();
 	}
-
-	Connection conn;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {	
-		try {
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			conn = DriverManager.getConnection(
-					"jdbc:sqlserver://localhost:1433;databaseName=projectTWO;TrustServerCertificate=True", "sa",
-					"Passw0rd!!");
-			String sql = "select * from TicketInfo";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery();
-			List<TicketDTO> tks = new ArrayList<>();
-			TicketDTO tk_dto = null;
-			while (rs.next()) {
-				tk_dto = new TicketDTO();
-				tk_dto.setTicketID(rs.getInt("TicketID"));
-				tk_dto.setTranNo(rs.getString("TranNo"));
-				tk_dto.setSeat(rs.getString("Seat"));
-				tk_dto.setDeparture_ST(rs.getString("Departure_ST"));
-				tk_dto.setDestination_ST(rs.getString("Destination_ST"));
-				tk_dto.setDeparture_time(rs.getString("Departure_time"));
-				tk_dto.setArrival_time(rs.getString("Arrival_time"));
-				tk_dto.setPrice(rs.getInt("Price"));
-				tk_dto.setDate(rs.getDate("Date"));
-				tks.add(tk_dto);
-			}
-			request.setAttribute("tks", tks);
-			stmt.close();
-			request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+		String action = request.getParameter("action");
+		if(action == null) {
+			action = "";
 		}
+		switch (action) {
+		case Utils.ACTION_CREATE:
+			create(request, response);
+			break;
+		case Utils.ACTION_QUERY:
+			query(request, response);
+			break;
+		case Utils.ACTION_UPDATE:
+			update(request, response);
+			break;
+		case Utils.ACTION_DELETE:
+			delete(request, response);
+			break;
+		default:
+			index(request, response);
+			break;
+		}	
+			
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -82,9 +65,30 @@ public class Bookingadmin extends HttpServlet {
 	}
 
 	public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BookingDAO bookingDAO = new BookingDAOImpl();
-		request.setAttribute("stationList", bookingDAO.getAllStationInfo());
-		request.setAttribute("priceInfos", bookingDAO.getAllPriceInfo());
 		request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
+	}
+
+	public void create(HttpServletRequest request, HttpServletResponse response) {
+		TicketDAO tkaDao = new TicketDAOImpl();
+		
+	}
+	public void query(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			TicketDAO ticketDao = new TicketDAOImpl();
+			List<TicketDTO> tks = ticketDao.getAllTicketInfo();
+			request.setAttribute("tks", tks);
+			request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
+		} catch (ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	public void update(HttpServletRequest request, HttpServletResponse response) {
+		TicketDAO tkaDao = new TicketDAOImpl();
+		
+	}
+	public void delete(HttpServletRequest request, HttpServletResponse response) {
+		TicketDAO tkaDao = new TicketDAOImpl();
+		
 	}
 }

@@ -14,7 +14,7 @@ public class TicketDTO {
 	private String Departure_time;
 	private String Arrival_time;
 	private int price;
-	private Date Date;
+	private String Date;
 
 	public TicketDTO() {
 	}
@@ -28,7 +28,7 @@ public class TicketDTO {
 		this.Departure_time = rs.getString("Departure_time");
 		this.Arrival_time = rs.getString("Arrival_time");
 		this.price = rs.getInt("price");
-		this.Date = rs.getDate("Date");
+		setDate(rs.getDate("Date"));
 
 	}
 
@@ -122,12 +122,13 @@ public class TicketDTO {
 		this.price = price;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return Date;
 	}
 
 	public void setDate(Date date) {
-		Date = date;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date = sdf.format(date);
 	}
 
 }

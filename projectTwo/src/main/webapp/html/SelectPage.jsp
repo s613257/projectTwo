@@ -228,7 +228,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
          }
          xhttp.open("POST", "<%=basePath%>WebServices");
          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-         xhttp.send("params=" + params);
+         xhttp.send("service=GetAllTranInfo&params=" + params);
          
          
 		queryResult.style.display="";
