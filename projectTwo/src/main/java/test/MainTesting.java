@@ -6,7 +6,7 @@ public class MainTesting {
 
 	public static void main(String[] args) {
 //		-----Ticket-----
-//		DAOTesting.testTicketInfoDAO();
+		DAOTesting.testTicketInfoDAO();
 //		TicketDTO tkdto = new TicketDTO();
 //		-----Insert-----
 //		tkdto.setTicketID(200);
@@ -36,8 +36,8 @@ public class MainTesting {
 //		tkaDao.updateTicketInfo(tkdto);
 //		tkaDao.deleteTicketInfo(200);
 //		-----Booking-----
-//		DAOTesting.testBookingDAOByTran();
-//		DAOTesting.testBookingDAOByStation();
+		DAOTesting.testBookingDAOByTran();
+		DAOTesting.testBookingDAOByStation();
 		DAOTesting.testBookingDAOByPrice();
 	}
 }
