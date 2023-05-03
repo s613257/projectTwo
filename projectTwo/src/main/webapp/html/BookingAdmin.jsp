@@ -1,9 +1,7 @@
 <%@page import="model.dto.TicketDTO"%>
-<%@page import="model.dto.PriceInfoDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Map.*"%>
 <%@page import="java.util.*"%>
-<%@page import="model.dto.StationInfoDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,17 +30,11 @@ td {
 </style>
 </head>
 
-<%
-Map<Set<String>, Integer> priceInfos = (Map<Set<String>, Integer>) request.getAttribute("priceInfos");
-String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-		+ request.getContextPath() + "/";
-%>
-
 
 <body onload="showPrice()">
 
 
-	<form method="POST" action="">
+	<form method="POST" action="" id="myForm">
 		<header
 			class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark">
 			<div class="container-fluid d-flex align-items-center">
@@ -65,7 +57,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<div class="inline-input-group row">
 								<div class="col-input col">
 									<button type="button" title="查詢訂票資訊"
-										class="btn btn-secondary  mt-3" id="search" onclick="search()">查詢訂票資訊</button>
+										class="btn btn-secondary  mt-3" id="search" onclick="show()">查詢訂票資訊</button>
 								</div>
 								<div class="col-input col">
 									<button type="button" title="新增單筆資料"
@@ -77,7 +69,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div>
 						<hr>
 						<table id="queryResult"
-							class="table table-bordered table-striped table-sm">
+							class="table table-bordered table-striped table-sm"
+							style="display: none">
 							<thead class="table-light">
 								<tr>
 									<th scope="col" class="align-middle">訂票編號</th>
@@ -95,8 +88,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							</thead>
 							<tbody>
 								<%
-								List<TicketDTO> tk = (ArrayList<TicketDTO>) request.getAttribute("tk");
-								for (TicketDTO tk_dto : tk) {
+								List<TicketDTO> tks = (ArrayList<TicketDTO>) request.getAttribute("tks");
+								for (TicketDTO tk_dto : tks) {
 								%>
 								<tr>
 									<td><%=tk_dto.getTicketID()%></td>
@@ -108,10 +101,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<td><%=tk_dto.getArrival_time()%></td>
 									<td><%=tk_dto.getPrice()%></td>
 									<td><%=tk_dto.getDate()%></td>
-									<td><input type="button"
+									<td><input type="button" scope="col"
+										class="btn btn-secondary"
 										onclick="formSubmit(<%=tk_dto.getTicketID()%>)" value="修改">
 									</td>
-									<td><input type="button"
+									<td><input type="button" scope="col"
+										class="btn btn-secondary"
 										onclick="formSubmit(<%=tk_dto.getTicketID()%>)" value="刪除">
 									</td>
 									<%
@@ -124,60 +119,20 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 			</section>
 		</article>
-		<input type="hidden" name="action" value="" />
+		<input type="hidden" name="updateTarget" value="" id="updateTarget" />
 	</form>
 
 
 	<script type="text/javascript">
-	function search(){
-		let department_ST = document.querySelector("#Department_ST");
-		let department_ST = document.querySelector("#Department_ST");
-		let department_ST = document.querySelector("#Department_ST");
-		let department_ST = document.querySelector("#Department_ST");
-		let department_ST = document.querySelector("#Department_ST");
-		let destination_ST = document.querySelector("#Destination_ST");
-		let typesofticket = document.querySelector("#typesofticket");
-		let departdate03 = document.querySelector("#Departdate03");
-		let departTime03 = document.querySelector("#DepartTime03");
-		if(parseInt(department_ST.value) == parseInt(destination_ST.value)){
-			alert("起程站 與 到達站 相同")
-			return;
-		}
-		if(departdate03.value == ""){
-			alert("請選擇出發日期")
-			return;
-		}
-		if(departTime03.value == ""){
-			alert("請選擇出發時刻")
-			return;
-		}
-		
-		let queryResult = document.querySelector("#queryResult");
-		
-		 const xhttp = new XMLHttpRequest();
-         let data;
-         const paramsObject = {};
-         paramsObject.department_ST = department_ST.value;
-         paramsObject.destination_ST = destination_ST.value;
-         paramsObject.typesofticket = typesofticket.value;
-         paramsObject.departdate03 = departdate03.value;
-         paramsObject.departTime03 = departTime03.value;
-         
-         const params = JSON.stringify(paramsObject);
-
-         xhttp.onload = function () {
-             if (this.status === 200) {
-/*                  tranInfos = JSON.parse(this.response);
-                 console.log(tranInfos); */
-                 
-             }
-         }
-         xhttp.open("POST", "<%=basePath%>WebServices");
-         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-         xhttp.send("params=" + params);
-         
-         
-		queryResult.style.display="";
+	function show(){         
+	document.querySelector("#queryResult").style.display="";
+	}
+	
+	function formSubmit(id) {
+		let form = document.getElementById("myForm");
+		document.getElementById("updateTarget").value=id;
+		console.log(form);
+		form.submit();
 	}
 	
 </script>
