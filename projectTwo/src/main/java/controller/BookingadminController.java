@@ -26,18 +26,18 @@ import db.dao.impl.TicketDAOImpl;
 import model.Utils;
 import model.dto.TicketDTO;
 
-@WebServlet("/Bookingadmin")
-public class Bookingadmin extends HttpServlet {
+@WebServlet("/BookingadminController")
+public class BookingadminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public Bookingadmin() {
+	public BookingadminController() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		System.err.println("action = " + action);
+		System.out.println("action = " + action);
 		if (action == null) {
 			action = "";
 		}
@@ -76,11 +76,7 @@ public class Bookingadmin extends HttpServlet {
 			BookingDAO bookingDAO = new BookingDAOImpl();
 			request.setAttribute("stationList", bookingDAO.getAllStationInfo());
 			request.setAttribute("priceInfos", bookingDAO.getAllPriceInfo());
-			request.getRequestDispatcher("/html/Insert.jsp").forward(request, response); // 這裡就跳轉到新增畫面了
-//			TicketDAO tkaDao = new TicketDAOImpl();
-//			TicketDTO tkdto = new TicketDTO();
-//			tkaDao.insertTicketInfo(tkdto);
-//			doInsert(request, response);  // 你這裡沒有資料可以新增 不應該在這邊座新增動作
+			request.getRequestDispatcher("/html/BookingAdminDataPage.jsp").forward(request, response); // 這裡就跳轉到新增畫面了
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
@@ -90,7 +86,6 @@ public class Bookingadmin extends HttpServlet {
 		try {
 			TicketDAO tkaDao = new TicketDAOImpl();
 			TicketDTO tkdto = new TicketDTO();
-			//tkaDao.insertTicketInfo(tkdto); // 這邊 tkdto <-這個東西還是空的 甚麼都沒有 不能在這邊做 tkaDao.insertTicketInfo
 			String TicketID = request.getParameter("TicketID");
 			tkdto.setTicketID(Integer.parseInt(TicketID));
 			String TranNo = request.getParameter("TranNo");
@@ -111,7 +106,6 @@ public class Bookingadmin extends HttpServlet {
 			tkdto.setDate(date);
 			// 到這裡 tkdto 的資料才設定完成 所以這邊才可以做tkaDao.insertTicketInfo <3
 			tkaDao.insertTicketInfo(tkdto);
-			request.setAttribute("tkaDao", tkaDao);
 			request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
