@@ -18,6 +18,7 @@ import db.dao.impl.TicketDAOImpl;
 import model.dto.TicketDTO;
 import model.dto.TranInfoDTO;
 
+
 public class WebServices extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -57,7 +58,6 @@ public class WebServices extends HttpServlet {
 			String json = new Gson().toJson(tranInfos);
 			response.getWriter().append(json);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -71,7 +71,6 @@ public class WebServices extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().append(json);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -86,7 +85,6 @@ public class WebServices extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().append(json);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

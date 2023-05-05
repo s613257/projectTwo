@@ -46,16 +46,14 @@ public class TicketDTO {
 	}
 
 	public String getInsertValue() {
-		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return String.format("('%s','%s','%s','%s','%s','%s','%s','%d','%s')", TicketID, TranNo, Seat, Departure_ST,
-				Destination_ST, Departure_time, Arrival_time, price, sdf.format(Date));
+				Destination_ST, Departure_time, Arrival_time, price,Date);
 	}
 
 	public String getUpdataSql() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return String.format(
 				"update TicketInfo set " + "TranNo= '%s',Seat='%S',Departure_ST='%S',Destination_ST='%s',Departure_time='%s',Arrival_time='%s',price='%s',Date='%s' where TicketID = '%d'",
-				TranNo, Seat, Departure_ST, Destination_ST, Departure_time, Arrival_time, price, sdf.format(Date), TicketID);
+				TranNo, Seat, Departure_ST, Destination_ST, Departure_time, Arrival_time, price, Date, TicketID);
 	}
 
 	public int getTicketID() {
@@ -129,6 +127,9 @@ public class TicketDTO {
 	public void setDate(Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date = sdf.format(date);
+	}
+	public void setDate(String date) {
+		Date = date;
 	}
 
 }

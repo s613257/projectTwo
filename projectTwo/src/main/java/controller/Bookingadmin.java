@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.Context;
@@ -32,31 +33,28 @@ public class Bookingadmin extends HttpServlet {
 	public Bookingadmin() {
 		super();
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {	
+			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		if(action == null) {
+		System.err.println("action = " + action);
+		if (action == null) {
 			action = "";
 		}
 		switch (action) {
 		case Utils.ACTION_CREATE:
 			create(request, response);
 			break;
-		case Utils.ACTION_QUERY:
-			query(request, response);
+		case "doInsert":
+			doInsert(request, response);
 			break;
 		case Utils.ACTION_UPDATE:
 			update(request, response);
 			break;
-		case Utils.ACTION_DELETE:
-			delete(request, response);
-			break;
 		default:
 			index(request, response);
-			break;
-		}	
-			
+		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -64,31 +62,91 @@ public class Bookingadmin extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
+	public void index(HttpServletRequest request, HttpServletResponse response) {
+		try {
+
+			request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void create(HttpServletRequest request, HttpServletResponse response) {
-		TicketDAO tkaDao = new TicketDAOImpl();
-		
-	}
-	public void query(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			TicketDAO ticketDao = new TicketDAOImpl();
-			List<TicketDTO> tks = ticketDao.getAllTicketInfo();
-			request.setAttribute("tks", tks);
+			BookingDAO bookingDAO = new BookingDAOImpl();
+			request.setAttribute("stationList", bookingDAO.getAllStationInfo());
+			request.setAttribute("priceInfos", bookingDAO.getAllPriceInfo());
+			request.getRequestDispatcher("/html/Insert.jsp").forward(request, response); // 這裡就跳轉到新增畫面了
+//			TicketDAO tkaDao = new TicketDAOImpl();
+//			TicketDTO tkdto = new TicketDTO();
+//			tkaDao.insertTicketInfo(tkdto);
+//			doInsert(request, response);  // 你這裡沒有資料可以新增 不應該在這邊座新增動作
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void doInsert(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			TicketDAO tkaDao = new TicketDAOImpl();
+			TicketDTO tkdto = new TicketDTO();
+			//tkaDao.insertTicketInfo(tkdto); // 這邊 tkdto <-這個東西還是空的 甚麼都沒有 不能在這邊做 tkaDao.insertTicketInfo
+			String TicketID = request.getParameter("TicketID");
+			tkdto.setTicketID(Integer.parseInt(TicketID));
+			String TranNo = request.getParameter("TranNo");
+			tkdto.setTranNo(TranNo);
+			String Seat = request.getParameter("Seat");
+			tkdto.setSeat(Seat);
+			String Departure_ST = request.getParameter("Departure_ST");
+			tkdto.setDeparture_ST(Departure_ST);
+			String Destination_ST = request.getParameter("Destination_ST");
+			tkdto.setDestination_ST(Destination_ST);
+			String Departure_time = request.getParameter("Departure_time");
+			tkdto.setDeparture_time(Departure_time);
+			String Arrival_time = request.getParameter("Arrival_time");
+			tkdto.setArrival_time(Arrival_time);
+			String Price = request.getParameter("price"); // 噗噗
+			tkdto.setPrice(Integer.parseInt(Price));
+			String date = request.getParameter("Date");
+			tkdto.setDate(date);
+			// 到這裡 tkdto 的資料才設定完成 所以這邊才可以做tkaDao.insertTicketInfo <3
+			tkaDao.insertTicketInfo(tkdto);
+			request.setAttribute("tkaDao", tkaDao);
 			request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 	}
+
 	public void update(HttpServletRequest request, HttpServletResponse response) {
-		TicketDAO tkaDao = new TicketDAOImpl();
-		
+		try {
+			TicketDAO tkaDao = new TicketDAOImpl();
+			TicketDTO tkdto = new TicketDTO();
+			tkaDao.updateTicketInfo(tkdto);
+			String TicketID = request.getParameter("TicketID");
+			tkdto.setTicketID(Integer.parseInt(TicketID));
+			String TranNo = request.getParameter("TranNo");
+			tkdto.setTranNo(TranNo);
+			String Seat = request.getParameter("Seat");
+			tkdto.setSeat(Seat);
+			String Departure_ST = request.getParameter("Departure_ST");
+			tkdto.setDeparture_ST(Departure_ST);
+			String Destination_ST = request.getParameter("Destination_ST");
+			tkdto.setDestination_ST(Destination_ST);
+			String Departure_time = request.getParameter("Departure_time");
+			tkdto.setDeparture_time(Departure_time);
+			String Arrival_time = request.getParameter("Arrival_time");
+			tkdto.setArrival_time(Arrival_time);
+			String Price = request.getParameter("Price");
+			tkdto.setPrice(Integer.parseInt(Price));
+			String Date = request.getParameter("Date");
+			Date d = new Date();
+			tkdto.setDate(d);
+			request.setAttribute("tkdto", tkdto);
+			request.getRequestDispatcher("/html/Update.jsp").forward(request, response);
+		} catch (IOException | ServletException e) {
+			e.printStackTrace();
+		}
 	}
-	public void delete(HttpServletRequest request, HttpServletResponse response) {
-		TicketDAO tkaDao = new TicketDAOImpl();
-		
-	}
+
 }

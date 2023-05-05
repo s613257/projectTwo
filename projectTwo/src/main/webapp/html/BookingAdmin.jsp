@@ -2,6 +2,7 @@
 	<%@page import="java.util.ArrayList" %>
 		<%@page import="java.util.Map.*" %>
 			<%@page import="java.util.*" %>
+			<%@page import="model.Utils" %>
 				<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 					<!DOCTYPE html>
 					<html>
@@ -28,7 +29,8 @@
 						</style>
 					</head>
 					<% String basePath=request.getScheme() + "://" + request.getServerName() + ":" +
-						request.getServerPort() + request.getContextPath() + "/" ; %>
+						request.getServerPort() + request.getContextPath() + "/" ; 
+						%>
 
 						<body>
 
@@ -59,34 +61,37 @@
 													</div>
 													<div class="col-input col">
 														<button type="button" title="新增單筆資料"
-															class="btn btn-secondary  mt-3" id="insert">新增單筆資料</button>
+															class="btn btn-secondary  mt-3" id="insert"
+															onclick="createRecord()">新增單筆資料</button>
 													</div>
 												</div>
 											</div>
 										</div>
 										<div>
 											<hr>
-											<table id="queryResult" class="table table-bordered table-striped table-sm"
-												style="display: none">
-												<thead class="table-light">
-													<tr>
-														<th scope="col" class="align-middle">訂票編號</th>
-														<th scope="col" class="align-middle">班次</th>
-														<th scope="col" class="align-middle">座位</th>
-														<th scope="col" class="align-middle">出發站</th>
-														<th scope="col" class="align-middle">抵達站</th>
-														<th scope="col" class="align-middle">出發時間</th>
-														<th scope="col" class="align-middle">抵達時間</th>
-														<th scope="col" class="align-middle">票價</th>
-														<th scope="col" class="align-middle">訂票日期</th>
-														<th></th>
-														<th></th>
-													</tr>
-												</thead>
-												<tbody id="queryContent">
-
-												</tbody>
-											</table>
+											<form method="post" id="myForm" action="">
+												<table id="queryResult"
+													class="table table-bordered table-striped table-sm"
+													style="display: none">
+													<thead class="table-light">
+														<tr>
+															<th scope="col" class="align-middle">訂票編號</th>
+															<th scope="col" class="align-middle">班次</th>
+															<th scope="col" class="align-middle">座位</th>
+															<th scope="col" class="align-middle">出發站</th>
+															<th scope="col" class="align-middle">抵達站</th>
+															<th scope="col" class="align-middle">出發時間</th>
+															<th scope="col" class="align-middle">抵達時間</th>
+															<th scope="col" class="align-middle">票價</th>
+															<th scope="col" class="align-middle">訂票日期</th>
+															<th></th>
+															<th></th>
+														</tr>
+													</thead>
+													<tbody id="queryContent">
+													</tbody>
+												</table>
+											</form>
 										</div>
 									</div>
 								</section>
@@ -111,6 +116,10 @@
 									xhttp.send("service=GetAllTicketInfo");
 
 									queryResult.style.display = "";
+								}
+								
+								function createRecord() {
+									location.href = "<%=basePath%>Bookingadmin?action=<%=Utils.ACTION_CREATE%>";
 								}
 
 								function placeQueryContent(ticketInfos) {
@@ -137,9 +146,11 @@
 										price.innerHTML = ticketInfo.price;
 										let date = document.createElement("td");
 										date.innerHTML = ticketInfo.Date;
+
 										let updt = document.createElement("td");
 										let updt_btn = document.createElement("button");
 										let updt_icon = document.createElement("i");
+
 										updt_icon.className = "fa-solid fa-pen-to-square";
 										updt_btn.appendChild(updt_icon);
 										updt.appendChild(updt_btn);
@@ -191,12 +202,13 @@
 								}
 
 
-								function formSubmit(id, action) {
-									/* let form = document.getElementById("myForm");
-									document.getElementById("target").value = id;
-									document.getElementById("action").value = action;
-									form.submit(); */
-								}
+								// function formSubmit(id, action) {
+								// 	let form = document.getElementById("myForm");
+								// 	document.getElementById("updateTarget").value = id;
+								// 	document.getElementById("action").value = action;
+								// 	console.log("123");
+								// 	form.submit();
+								// } 
 							</script>
 						</body>
 

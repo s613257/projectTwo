@@ -2,12 +2,16 @@ package test;
 
 import java.util.Date;
 
+import db.dao.TicketDAO;
+import db.dao.impl.TicketDAOImpl;
+import model.dto.TicketDTO;
+
 public class MainTesting {
 
 	public static void main(String[] args) {
 //		-----Ticket-----
-		DAOTesting.testTicketInfoDAO();
-//		TicketDTO tkdto = new TicketDTO();
+//		DAOTesting.testTicketInfoDAO();
+		TicketDTO tkdto = new TicketDTO();
 //		-----Insert-----
 //		tkdto.setTicketID(200);
 //		tkdto.setTranNo("201");
@@ -31,8 +35,8 @@ public class MainTesting {
 //		Date d = new Date();
 //		tkdto.setDate(d);
 		
-//		TicketDAO tkaDao = new TicketDAOImpl();
-//		tkaDao.insertTicketInfo(tkdto);
+		TicketDAO tkaDao = new TicketDAOImpl();
+		tkaDao.insertTicketInfo(tkdto);
 //		tkaDao.updateTicketInfo(tkdto);
 //		tkaDao.deleteTicketInfo(200);
 //		-----Booking-----

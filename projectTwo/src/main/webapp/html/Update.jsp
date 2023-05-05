@@ -19,50 +19,31 @@
 	crossorigin="anonymous"></script>
 <title>SelectPage</title>
 <style>
-.Traveltime {
-	font-size: small;
+.container {
+	width: 500px;
+	height: 500px;
 }
 
-td {
-	font-size: large;
+.aside {
+	border: 2px solid rgb(215, 211, 211);
+	border-radius: 30px;
+	background-color: #FFF;
+	box-shadow: 3px 3px 3px gray;
+	margin: 10px 0px 0px 0px;
 }
-fieldset {
-	width: 500px;
-	border: 1px solid cornflowerblue;
-	border-radius: 15px;
-	margin: 10px;
-}
-legend {
-	color: rgb(11, 53, 240);
-	/* text-align: center; */
-	margin-left: 65px;
-}
-strong {
-	color: red;
-}
-.st1 {
-	width: 450px;
-	/* border-bottom: 3px dashed rgb(77, 77, 72); */
-	margin: 10px;
-	padding: 5px;
-}
-.sub {
-	width: 450px;
-	margin: 20px;
-	text-align: center;
-}
-.t1 {
-	width: 100px;
-	float: left;
-	text-align: right;
-}
-textarea {
-	resize: none;
+
+.section {
+	border-radius: 5px;
+	padding: 40px 40px 5px 40px;
+	line-height: 2em;
 }
 </style>
 </head>
 
 <body>
+	<%
+	TicketDTO tk = (TicketDTO) request.getAttribute("tk");
+	%>
 	<form>
 		<header
 			class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark">
@@ -73,62 +54,62 @@ textarea {
 					class="ms-auto link-light" hreflang="ar">RTL cheatsheet</a>
 			</div>
 		</header>
-		<article class="py-5 text-center container">
-			<div>
-				<h3>台灣高鐵時刻表與票價查詢</h3>
-			</div>
-			<hr>
-			<%
-			TicketDTO tk = (TicketDTO) request.getAttribute("tk");
-			%>
-			<form method="post" action="UpdateBooking">
-				<fieldset>
-					<legend>
-						<strong>(必填)</strong>
-					</legend>
-					<div class="st1">
-						<label for="" class="t1">訂票編號：</label>
-						<%=tk.getTicketID()%>
-						<input type="hidden" name="empno" value="<%=tk.getTicketID()%>">
+		<article class="container">
+			<div class="aside">
+				<div class="section">
+					<h2 style="text-align: center;">修改資料</h2>
+					<form>
+						<div style="margin: 5px;">
+							<label for="" class="t1">訂票編號：</label> <input type="text" id=""
+								name="" value="<%=tk.getTicketID()%>" disabled
+								class="form-control" autofocus>
+						</div>
+						<div style="margin: 5px;">
+							<label for="" class="t1">班次：</label> <input type="text" id=""
+								name="" value="<%=tk.getTranNo()%>" class="form-control"
+								autofocus>
+						</div>
+						<div style="margin: 5px;">
+							<label for="" class="t1">座位：</label> <input type="text" id=""
+								name="" value="<%=tk.getSeat()%>" class="form-control" autofocus>
+						</div>
+						<div style="margin: 5px;">
+							<label for="" class="t1">出發站：</label> <input type="text" id=""
+								name="" value="<%=tk.getDeparture_ST()%>" class="form-control"
+								autofocus>
+						</div>
+						<div style="margin: 5px;">
+							<label for="" class="t1">抵達站：</label> <input type="text" id=""
+								name="" value="<%=tk.getDestination_ST()%>" class="form-control"
+								autofocus>
+						</div>
+						<div style="margin: 5px;">
+							<label for="" class="t1">出發時間：</label> <input type="text" id=""
+								name="" value="<%=tk.getDeparture_time()%>" class="form-control"
+								autofocus>
+						</div>
+						<div style="margin: 5px;">
+							<label for="" class="t1">抵達時間：</label> <input type="text" id=""
+								name="" value="<%=tk.getArrival_time()%>" class="form-control"
+								autofocus>
+						</div>
+						<div style="margin: 5px;">
+							<label for="" class="t1">票價：</label> <input type="text" id=""
+								name="" value="<%=tk.getPrice()%>" class="form-control"
+								autofocus>
+						</div>
+						<div style="margin: 5px;">
+							<label for="" class="t1">訂票時間：</label> <input type="date" id=""
+								name="" value="<%=tk.getDate()%>" class="form-control" autofocus>
+						</div>
+					</form>
+					<div style="text-align: center; padding: 30px;">
+						<button type="submit" class="btn btn-dark" style="margin: 10px;">確定訂票</button>
+						<button type="reset" class="btn btn-dark" style="margin: 10px;">取消訂票</button>
 					</div>
-					<div class="st1">
-						<label for="" class="t1">班次：</label><input type="text" id=""
-							name="ename" size="10" value="<%=tk.getTranNo()%>" autofocus>
-					</div>
-					<div class="st1">
-						<label for="" class="t1">座位：</label> <input type="date"
-							name="hiredate" id="" value="<%=tk.getSeat()%>">
-					</div>
-					<div class="st1">
-						<label for="" class="t1">出發站：</label> <input type="text"
-							name="salary" id="" size="30" value="<%=tk.getDeparture_ST()%>">
-					</div>
-					<div class="st1">
-						<label for="" class="t1">抵達站：</label> <input type="text"
-							name="deptno" id="" size="30" value="<%=tk.getDestination_ST()%>">
-					</div>
-					<div class="st1">
-						<label for="" class="t1">出發時間：</label> <input type="text"
-							name="title" id="" size="30" value="<%=tk.getDeparture_time()%>">
-					</div>
-					<div class="st1">
-						<label for="" class="t1">抵達時間：</label> <input type="text"
-							name="title" id="" size="30" value="<%=tk.getArrival_time()%>">
-					</div>
-					<div class="st1">
-						<label for="" class="t1">票價：</label> <input type="text"
-							name="title" id="" size="30" value="<%=tk.getPrice()%>">
-					</div>
-					<div class="st1">
-						<label for="" class="t1">訂票日期：</label> <input type="text"
-							name="title" id="" size="30" value="<%=tk.getDate()%>">
-					</div>
-				</fieldset>
-				<div class="sub">
-					<input type="submit" value="修改"> <input type="reset"
-						value="取消">
 				</div>
-			</form>
+			</div>
+		</article>
 	</form>
 </body>
 

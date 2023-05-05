@@ -56,7 +56,7 @@ public class BookingController extends HttpServlet {
 		BookingDAO bookingDAO = new BookingDAOImpl();
 		request.setAttribute("stationList", bookingDAO.getAllStationInfo());
 		request.setAttribute("priceInfos", bookingDAO.getAllPriceInfo());
-		request.getRequestDispatcher("/html/SelectPage.jsp").forward(request, response);
+		request.getRequestDispatcher("/html/ChoosePage.jsp").forward(request, response);
 	}
 
 	public void create(HttpServletRequest request, HttpServletResponse response) {
