@@ -9,6 +9,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
 			crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 		<title>Insert title here</title>
 		<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css" rel="stylesheet">
 		<style>
@@ -28,6 +29,12 @@
 				padding: 40px 40px 40px 40px;
 				line-height: 2em;
 			}
+
+			body {
+				font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+					Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica,
+					Arial, sans-serif;
+			}
 		</style>
 
 	</head>
@@ -37,8 +44,7 @@
 		<header class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark">
 			<div class="container-fluid d-flex align-items-center">
 				<h1 class="d-flex align-items-center fs-4 text-white mb-0">
-					Teavel Master
-				</h1>
+					Teavel Master</h1>
 				<a href="/docs/5.0/examples/cheatsheet-rtl/" class="ms-auto link-light" hreflang="ar">RTL cheatsheet</a>
 			</div>
 		</header>
@@ -74,68 +80,53 @@
 										<h2 style="text-align: center;">訂票紀錄</h2>
 										<form>
 											<div class="row">
-												<label for="name">會員姓名：
-												</label>
-												<input type="email" class="form-control" id="name">
+												<label for="name">會員姓名： </label> <input type="email"
+													class="form-control" id="name">
 											</div>
 											<div class="row">
-												<label for="emailAddr">電子信箱：</label>
-												<input type="email" class="form-control" id="emailAddr"
-													aria-describedby="emailHelp" placeholder="Enter email">
+												<label for="emailAddr">電子信箱：</label> <input type="email"
+													class="form-control" id="emailAddr" aria-describedby="emailHelp"
+													placeholder="Enter email">
 												<small id="emailHelp"
 													class="form-text text-muted">我們會將訂票紀錄寄送至您的電子信箱。</small>
 											</div>
 											<div class="row">
 												<div class="form-floating mb-3 col-6">
 													<div class="form-control" id="DepartureTime"
-														style="text-align: center;">
-														2023/05/31
-													</div>
+														style="text-align: center;">2023/05/31</div>
 													<label for="DepartureTime">發車時間:</label>
 												</div>
 												<div class="form-floating mb-3 col-6">
 													<div class="form-control" id="ArrivalTime"
-														style="text-align: center;">
-														2023/05/31
-													</div>
+														style="text-align: center;">2023/05/31</div>
 													<label for="ArrivalTime">抵達時間:</label>
 												</div>
 											</div>
 											<div class="row">
 												<div class="form-floating mb-3 col-6">
 													<div class="form-control" id="DepartureStation"
-														style="text-align: center;">
-														桃園
-													</div>
+														style="text-align: center;">桃園</div>
 													<label for="DepartureStation">出發站：</label>
 												</div>
 												<div class="form-floating mb-3 col-6">
 													<div class="form-control" id="ArrivalStation"
-														style="text-align: center;">
-														板橋
-													</div>
+														style="text-align: center;">板橋</div>
 													<label for="ArrivalStation">抵達站：</label>
 												</div>
 											</div>
 											<div class="row mb-3">
-												<label for="selectedSeats">已選座位：
-												</label>
-												<div class="form-control" id="selectedSeats">
-													&nbsp;
-												</div>
+												<label for="selectedSeats">已選座位： </label>
+												<div class="form-control" id="selectedSeats">&nbsp;</div>
 											</div>
 											<div class="row">
 												<div class="form-floating mb-3 col-6">
-													<div class="form-control" id="price" style="text-align: center;">
-														xx元
+													<div class="form-control" id="price" style="text-align: center;">xx元
 													</div>
 													<label for="price">每張單價：</label>
 												</div>
 												<div class="form-floating mb-3 col-6">
 													<div class="form-control" id="priceTotal"
-														style="text-align: center;">
-														xx元
-													</div>
+														style="text-align: center;">xx元</div>
 													<label for="priceTotal">總共票價：</label>
 												</div>
 											</div>
@@ -155,6 +146,7 @@
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
+
 
 		<script>
 			function createBtn(content) {
@@ -200,7 +192,8 @@
 				for (let i = 2; i <= rowNum; i++) {
 					let trTmp = document.createElement("tr");
 					for (let j = 0; j < seatChar.length; j++) {
-						trTmp.appendChild(createBtn(i.toString().padStart(2, '0') + seatChar[j]));
+						trTmp.appendChild(createBtn(i.toString().padStart(2, '0')
+							+ seatChar[j]));
 					}
 					seats_container.appendChild(trTmp);
 				}
@@ -214,7 +207,8 @@
 				for (let i = 0; i < selectedSeats.length; i++) {
 					if (selectedSeats[i].checked == true) {
 						selectedCnt++;
-						p_innerHTML = p_innerHTML + " [ " + selectedSeats[i].id + " ] ";
+						p_innerHTML = p_innerHTML + " [ " + selectedSeats[i].id
+							+ " ] ";
 					}
 				}
 				if (selectedCnt > 0) {
@@ -222,22 +216,11 @@
 				}
 			}
 
-			// let submit = document.querySelector('#submit');
-			// submit.addEventListener('click', function () {
-			// 	Swal.fire(
-			// 		'Good job!',
-			// 		'You clicked the button!',
-			// 		'success'
-			// 	)
-			// })
-
-			// let submit = document.querySelector("#submit");
-			// smit.addEventListener("click", formvalidate());
-
-			// function formvalidate() {
-			// 	alert("QQ");
-			// 	console.log(" vua moi click submit");
-			// }
+			$(function () {
+				$('#submit').on("click", function () {
+					Swal.fire('您的訂票已完成!', '請至會員專區查閱電子票券','success');
+				})
+			})
 		</script>
 	</body>
 

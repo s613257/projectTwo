@@ -49,6 +49,18 @@
 Map<Set<String>, Integer> priceInfos = (Map<Set<String>, Integer>) request.getAttribute("priceInfos");
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 		+ request.getContextPath() + "/";
+
+TicketDTO tkdto = (TicketDTO) request.getAttribute("tkdto");
+String btn_title = tkdto == null ? "新增" : "修改";
+String TicketID = tkdto == null ? "" : Integer.toString(tkdto.getTicketID());
+String TranNo = tkdto == null ? "" : tkdto.getTranNo();
+String Seat = tkdto == null ? "" : tkdto.getSeat();
+String Departure_ST = tkdto == null ? "" : tkdto.getDeparture_ST();
+String Destination_ST = tkdto == null ? "" : tkdto.getDestination_ST();
+String Departure_time = tkdto == null ? "" : tkdto.getDeparture_time();
+String Arrival_time = tkdto == null ? "" : tkdto.getArrival_time();
+String price = tkdto == null ? "" : Integer.toString(tkdto.getPrice());
+String date = tkdto == null ? "" : tkdto.getDate();
 %>
 
 <body onload="showPrice()">
@@ -65,18 +77,19 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		<div class="aside">
 			<div class="section">
 				<form method="post" action="BookingadminController">
-					<h2 style="text-align: center;">新增資料</h2>
+					<h2 style="text-align: center;">增修資料</h2>
 					<div style="margin: 5px;">
 						<label for="" class="t1">訂票編號：</label> <input type="text" id=""
-							name="TicketID" value="" class="form-control" autofocus>
+							name="TicketID" value="<%=TicketID%>" class="form-control"
+							<%=TicketID.isEmpty() ? "autofocus" : "onclick='blur()'"%>>
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">班次：</label> <input type="text" id=""
-							name="TranNo" value="" class="form-control" autofocus>
+							name="TranNo" value="<%=TranNo%>" class="form-control" autofocus>
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">座位：</label> <input type="text" id=""
-							name="Seat" value="" class="form-control" autofocus>
+							name="Seat" value="<%=Seat%>" class="form-control" autofocus>
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">出發站：</label>
@@ -87,8 +100,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<%
 							List<StationInfoDTO> stationList = (ArrayList<StationInfoDTO>) request.getAttribute("stationList");
 							for (StationInfoDTO st : stationList) {
+								String selected = Departure_ST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
 							%>
-							<option value="<%=st.getStationID()%>">
+							<option value="<%=st.getStationID()%>" <%=selected%>>
 								<%=st.getStationName()%>
 							</option>
 							<%
@@ -104,8 +118,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							onchange="showPrice()">
 							<%
 							for (StationInfoDTO st : stationList) {
+								String selected = Destination_ST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
 							%>
-							<option value="<%=st.getStationID()%>">
+							<option value="<%=st.getStationID()%>" <%=selected%>>
 								<%=st.getStationName()%>
 							</option>
 							<%
@@ -115,25 +130,25 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">出發時間：</label> <input type="text" id=""
-							name="Departure_time" value="" class="form-control" autofocus>
+							name="Departure_time" value="<%=Departure_time%>" class="form-control" autofocus>
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1"> 抵達時間： </label> <input type="text" id=""
-							name="Arrival_time" value="" class="form-control" autofocus />
+							name="Arrival_time" value="<%=Arrival_time%>" class="form-control" autofocus />
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">票價：</label> <input type="text" id="price"
-							name="price" value="" class="form-control mt-0 select-type01">
+							name="price" value="<%=price%>" class="form-control mt-0 select-type01">
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">訂票日期：</label> <input type="date" id=""
-							name="Date" value="" class="form-control" autofocus>
+							name="Date" value="<%=date%>" class="form-control" autofocus>
 					</div>
 					<div style="text-align: center; padding: 30px;">
-						<button type="submit" class="btn btn-dark" style="margin: 10px;">新增</button>
-						<button type="reset" class="btn btn-dark" style="margin: 10px;">取消</button>
+						<button type="submit" class="btn btn-dark" style="margin: 10px;"><%=btn_title%></button>
+						<button type="reset"  onclick="history.back()" class="btn btn-dark" style="margin: 10px;">取消</button>
 					</div>
-					<input type="hidden" name="action" value="doInsert" />
+					<input type="hidden" name="action" value="<%=tkdto == null ? "doInsert" : "doUpdate" %>" />
 				</form>
 			</div>
 		</div>

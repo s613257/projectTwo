@@ -109,6 +109,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script src="https://kit.fontawesome.com/bda18b13c5.js"
 		crossorigin="anonymous"></script>
 	<script type="text/javascript">
+	var basePath = "<%=basePath%>";
+	var action_update = "<%=Utils.ACTION_UPDATE%>";
+	
 		function show() {
 			let queryResult = document.querySelector("#queryResult");
 
@@ -119,20 +122,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					placeQueryContent(ticketInfos);
 				}
 			}
-			xhttp.open("POST", "<%=basePath%>WebServices");
-			xhttp.setRequestHeader("Content-type",
-				"application/x-www-form-urlencoded");
+			xhttp.open("POST",  basePath + "WebServices");
+			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xhttp.send("service=GetAllTicketInfo");
 
 			queryResult.style.display = "";
 		}
 
 		function createRecord() {
-			location.href = "<%=basePath%>BookingadminController?action=<%=Utils.ACTION_CREATE%>";
+			location.href = basePath + "BookingadminController?action=<%=Utils.ACTION_CREATE%>";
 		}
-
+		
 		function placeQueryContent(ticketInfos) {
-			console.log(ticketInfos);
 			let queryContent = document.querySelector("#queryContent");
 			queryContent.innerHTML = '';
 			ticketInfos.forEach(function (ticketInfo) {
@@ -165,7 +166,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				updt.appendChild(updt_btn);
 				updt_btn.classList.add("btn");
 				updt_btn.classList.add("btn-light");
-				updt_btn.setAttribute("onclick", "formSubmit(ticketInfo.TicketID, 'update')");
+				updt_btn.onclick = function () { updateTarget(ticketInfo.TicketID); };
 
 
 				let del = document.createElement("td");
@@ -195,16 +196,21 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				queryContent.appendChild(infoRow);
 			});
 		}
+		
+		function updateTarget(id){
+			location.href = basePath + "BookingadminController?action=" + action_update + "&id="+id;
+		}
+
 		function deleteTarget(id) {
 			const xhttp = new XMLHttpRequest();
-			xhttp.onload = function () {
+			xhttp.onload = function() {
 				if (this.status === 200) {
 					deleteResult = JSON.parse(this.response);
 					alert(deleteResult.msg);
 					document.querySelector("#search").click();
 				}
 			}
-			xhttp.open("POST", "<%=basePath%>WebServices");
+			xhttp.open("POST", basePath + "WebServices");
 			xhttp.setRequestHeader("Content-type",
 					"application/x-www-form-urlencoded");
 			xhttp.send("service=DeleteTicketInfo&id=" + id);

@@ -51,6 +51,9 @@ public class BookingadminController extends HttpServlet {
 		case Utils.ACTION_UPDATE:
 			update(request, response);
 			break;
+		case "doUpdate":
+			doUpdate(request, response);
+			break;
 		default:
 			index(request, response);
 		}
@@ -85,26 +88,7 @@ public class BookingadminController extends HttpServlet {
 	public void doInsert(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			TicketDAO tkaDao = new TicketDAOImpl();
-			TicketDTO tkdto = new TicketDTO();
-			String TicketID = request.getParameter("TicketID");
-			tkdto.setTicketID(Integer.parseInt(TicketID));
-			String TranNo = request.getParameter("TranNo");
-			tkdto.setTranNo(TranNo);
-			String Seat = request.getParameter("Seat");
-			tkdto.setSeat(Seat);
-			String Departure_ST = request.getParameter("Departure_ST");
-			tkdto.setDeparture_ST(Departure_ST);
-			String Destination_ST = request.getParameter("Destination_ST");
-			tkdto.setDestination_ST(Destination_ST);
-			String Departure_time = request.getParameter("Departure_time");
-			tkdto.setDeparture_time(Departure_time);
-			String Arrival_time = request.getParameter("Arrival_time");
-			tkdto.setArrival_time(Arrival_time);
-			String Price = request.getParameter("price"); // 噗噗
-			tkdto.setPrice(Integer.parseInt(Price));
-			String date = request.getParameter("Date");
-			tkdto.setDate(date);
-			// 到這裡 tkdto 的資料才設定完成 所以這邊才可以做tkaDao.insertTicketInfo <3
+			TicketDTO tkdto = getTicketDTOByReq(request);
 			tkaDao.insertTicketInfo(tkdto);
 			request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
@@ -113,34 +97,58 @@ public class BookingadminController extends HttpServlet {
 	}
 
 	public void update(HttpServletRequest request, HttpServletResponse response) {
+		/*   1. 在BookingAdmin.jsp點擊事件。
+		 *   2. 跳轉BookingAdminDataPage.jsp，show 當前編輯資料。
+		 * 	 3. 在BookingAdminDataPage編輯完成，跳轉回BookingAdmin.jsp頁面。
+		 */
+		
+		try {
+			String id = request.getParameter("id");
+			TicketDAO tkaDao = new TicketDAOImpl();
+			BookingDAO bookingDAO = new BookingDAOImpl();
+			TicketDTO tkdto = tkaDao.GetTicketInfoById(id);
+		
+			request.setAttribute("stationList", bookingDAO.getAllStationInfo());
+			request.setAttribute("priceInfos", bookingDAO.getAllPriceInfo());
+			request.setAttribute("tkdto", tkdto);
+			request.getRequestDispatcher("/html/BookingAdminDataPage.jsp").forward(request, response);
+		} catch (IOException | ServletException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	public void doUpdate(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			TicketDAO tkaDao = new TicketDAOImpl();
-			TicketDTO tkdto = new TicketDTO();
+			TicketDTO tkdto = getTicketDTOByReq(request);
 			tkaDao.updateTicketInfo(tkdto);
-			String TicketID = request.getParameter("TicketID");
-			tkdto.setTicketID(Integer.parseInt(TicketID));
-			String TranNo = request.getParameter("TranNo");
-			tkdto.setTranNo(TranNo);
-			String Seat = request.getParameter("Seat");
-			tkdto.setSeat(Seat);
-			String Departure_ST = request.getParameter("Departure_ST");
-			tkdto.setDeparture_ST(Departure_ST);
-			String Destination_ST = request.getParameter("Destination_ST");
-			tkdto.setDestination_ST(Destination_ST);
-			String Departure_time = request.getParameter("Departure_time");
-			tkdto.setDeparture_time(Departure_time);
-			String Arrival_time = request.getParameter("Arrival_time");
-			tkdto.setArrival_time(Arrival_time);
-			String Price = request.getParameter("Price");
-			tkdto.setPrice(Integer.parseInt(Price));
-			String Date = request.getParameter("Date");
-			Date d = new Date();
-			tkdto.setDate(d);
-			request.setAttribute("tkdto", tkdto);
-			request.getRequestDispatcher("/html/Update.jsp").forward(request, response);
+			request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
 		} catch (IOException | ServletException e) {
 			e.printStackTrace();
 		}
 	}
 
+	private TicketDTO getTicketDTOByReq(HttpServletRequest request) {
+		TicketDTO tkdto = new TicketDTO();
+		String TicketID = request.getParameter("TicketID");
+		tkdto.setTicketID(Integer.parseInt(TicketID));
+		String TranNo = request.getParameter("TranNo");
+		tkdto.setTranNo(TranNo);
+		String Seat = request.getParameter("Seat");
+		tkdto.setSeat(Seat);
+		String Departure_ST = request.getParameter("Departure_ST");
+		tkdto.setDeparture_ST(Departure_ST);
+		String Destination_ST = request.getParameter("Destination_ST");
+		tkdto.setDestination_ST(Destination_ST);
+		String Departure_time = request.getParameter("Departure_time");
+		tkdto.setDeparture_time(Departure_time);
+		String Arrival_time = request.getParameter("Arrival_time");
+		tkdto.setArrival_time(Arrival_time);
+		String Price = request.getParameter("price"); // 噗噗
+		tkdto.setPrice(Integer.parseInt(Price));
+		String date = request.getParameter("Date");
+		tkdto.setDate(date);
+		return tkdto;
+	}
 }

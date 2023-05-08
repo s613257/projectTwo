@@ -16,6 +16,11 @@ import model.dto.TicketDTO;
 public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {
 	Connection conn = getConnection();
 
+	public TicketDTO GetTicketInfoById(String id) {
+		List<TicketDTO> resultList = getInfoBySql("SELECT * FROM TicketInfo WHERE TicketID = " + id);
+		return resultList.get(0);
+	}
+
 	@Override
 	public List<TicketDTO> getAllTicketInfo() {
 		// return getInfoBySql("select * from TicketInfo");
@@ -31,7 +36,8 @@ public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {
 				+ "			tic_info.Date 'Date'" 
 				+ "	from TicketInfo tic_info"
 				+ "	left join StationInfo sta_info_des on tic_info.Destination_ST = sta_info_des.StationID"
-				+ "	left join StationInfo sta_info_dep on tic_info.Departure_ST = sta_info_dep.StationID;");
+				+ "	left join StationInfo sta_info_dep on tic_info.Departure_ST = sta_info_dep.StationID"
+				+ " ORDER BY	TicketID ASC;");
 	}
 
 	@Override
