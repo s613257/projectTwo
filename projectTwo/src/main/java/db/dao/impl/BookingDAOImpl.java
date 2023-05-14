@@ -17,14 +17,25 @@ import db.dao.BaseDAO_MySql;
 import db.dao.BookingDAO;
 import model.dto.PriceInfoDTO;
 import model.dto.StationInfoDTO;
+import model.dto.TicketDTO;
 import model.dto.TranInfoDTO;
 
 public class BookingDAOImpl extends BaseDAO_MySql implements BookingDAO {
 	
 
 	@Override
-	public List<TranInfoDTO> getAllTranInfo() {
-		return getInfoByTran("select * from TranInfo");
+	public List<TicketDTO> getAllTranInfo() {
+		return getInfoByTran("select "
+				+ "TicketID = 0, Seat = 0, price = 0, Date = getdate(), "
+				+ "dep_st.TranNo TranNo, "
+				+ "dep_st.StationID Departure_ST,"
+				+ "dep_st.Time Departure_time, "
+				+ "des_st.StationID Destination_ST,"
+				+ "des_st.Time Arrival_time "
+				+ "from TranInfo dep_st " 
+				+ "left join TranInfo des_st on dep_st.TranNo = des_st.TranNo and dep_st.Time <> des_st.Time "
+				+ "and des_st.Time > dep_st.Time "
+				+ "where des_st.StationID is not null;");
 	}
 
 	@Override
@@ -45,9 +56,9 @@ public class BookingDAOImpl extends BaseDAO_MySql implements BookingDAO {
 		return result;
 	}
 
-	private List<TranInfoDTO> getInfoByTran(String sql) {
+	private List<TicketDTO> getInfoByTran(String sql) {
 		
-		List<TranInfoDTO> resultTranList = new ArrayList<TranInfoDTO>();
+		List<TicketDTO> resultTranList = new ArrayList<TicketDTO>();
 		Statement st = null;
 		ResultSet rs = null;
 		try {
@@ -55,7 +66,7 @@ public class BookingDAOImpl extends BaseDAO_MySql implements BookingDAO {
 			st = conn.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				resultTranList.add(new TranInfoDTO(rs));
+				resultTranList.add(new TicketDTO(rs));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

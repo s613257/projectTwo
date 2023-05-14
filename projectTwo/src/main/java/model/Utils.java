@@ -11,12 +11,12 @@ public class Utils {
 	public static final String ACTION_DELETE = "delete";
 	
 
-	public static File GetDB_PROPERTIES() {
-		String str = "../Servlet/db.properties";
-		File f = new File(str);
-		if(f.exists()) {
-			return f;
-		}
-		return null;
-	}
+//	public static File GetDB_PROPERTIES() {
+//		String str = "../Servlet/db.properties";
+//		File f = new File(str);
+//		if(f.exists()) {
+//			return f;
+//		}
+//		return null;
+//	}
 }

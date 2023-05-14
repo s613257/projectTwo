@@ -52,7 +52,7 @@ public class Test {
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}
-		Utils.GetDB_PROPERTIES();
+//		Utils.GetDB_PROPERTIES();
 		
 		
 		
