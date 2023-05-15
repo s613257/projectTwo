@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 
 
 public class Utils {
-	public static final String ACTION_CREATE = "create";
+	public static final String ACTION_INSERT = "insert";
 	public static final String ACTION_UPDATE = "update";
 	public static final String ACTION_QUERY = "query";
 	public static final String ACTION_DELETE = "delete";

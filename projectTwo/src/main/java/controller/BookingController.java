@@ -28,7 +28,7 @@ public class BookingController extends HttpServlet {
 			action = "";
 		}
 		switch (action) {
-		case Utils.ACTION_CREATE:
+		case Utils.ACTION_INSERT:
 			create(request, response);
 			break;
 		case Utils.ACTION_QUERY:

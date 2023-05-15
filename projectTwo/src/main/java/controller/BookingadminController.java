@@ -42,8 +42,8 @@ public class BookingadminController extends HttpServlet {
 			action = "";
 		}
 		switch (action) {
-		case Utils.ACTION_CREATE:
-			create(request, response);
+		case Utils.ACTION_INSERT:
+			insert(request, response);
 			break;
 		case "doInsert":
 			doInsert(request, response);
@@ -57,7 +57,6 @@ public class BookingadminController extends HttpServlet {
 		default:
 			index(request, response);
 		}
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -74,7 +73,7 @@ public class BookingadminController extends HttpServlet {
 		}
 	}
 
-	public void create(HttpServletRequest request, HttpServletResponse response) {
+	public void insert(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			BookingDAO bookingDAO = new BookingDAOImpl();
 			request.setAttribute("stationList", bookingDAO.getAllStationInfo());

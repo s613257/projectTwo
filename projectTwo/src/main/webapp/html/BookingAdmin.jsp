@@ -72,7 +72,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<div class="col-input col">
 								<button type="button" title="新增單筆資料"
 									class="btn btn-secondary  mt-3" id="insert"
-									onclick="createRecord()">新增單筆資料</button>
+									onclick="insertRecord()">新增單筆資料</button>
 							</div>
 						</div>
 					</div>
@@ -129,10 +129,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			queryResult.style.display = "";
 		}
 
-		function createRecord() {
-			location.href = basePath + "BookingadminController?action=<%=Utils.ACTION_CREATE%>";
-		}
-		
 		function placeQueryContent(ticketInfos) {
 			let queryContent = document.querySelector("#queryContent");
 			queryContent.innerHTML = '';
@@ -168,7 +164,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				updt_btn.classList.add("btn-light");
 				updt_btn.onclick = function () { updateTarget(ticketInfo.TicketID); };
 
-
 				let del = document.createElement("td");
 				let del_btn = document.createElement("button");
 				let del_icon = document.createElement("i");
@@ -178,8 +173,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				del_btn.classList.add("btn");
 				del_btn.classList.add("btn-light");
 				del_btn.onclick = function () { deleteTarget(ticketInfo.TicketID) };
-
-
 
 				infoRow.appendChild(id);
 				infoRow.appendChild(tranNo);
@@ -195,6 +188,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 				queryContent.appendChild(infoRow);
 			});
+		}
+		
+		function insertRecord() {
+			location.href = basePath + "BookingadminController?action=<%=Utils.ACTION_INSERT%>";
 		}
 		
 		function updateTarget(id){
