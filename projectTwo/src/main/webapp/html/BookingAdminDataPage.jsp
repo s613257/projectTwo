@@ -52,15 +52,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 TicketDTO tkdto = (TicketDTO) request.getAttribute("tkdto");
 String btn_title = tkdto == null ? "新增" : "修改";
-String TicketID = tkdto == null ? "" : Integer.toString(tkdto.getTicketID());
-String TranNo = tkdto == null ? "" : tkdto.getTranNo();
-String Seat = tkdto == null ? "" : tkdto.getSeat();
-String Departure_ST = tkdto == null ? "" : tkdto.getDeparture_ST();
-String Destination_ST = tkdto == null ? "" : tkdto.getDestination_ST();
-String Departure_time = tkdto == null ? "" : tkdto.getDeparture_time();
-String Arrival_time = tkdto == null ? "" : tkdto.getArrival_time();
+String ticketID = tkdto == null ? "" : Integer.toString(tkdto.getTicketID());
+String tranNo = tkdto == null ? "" : tkdto.getTranNo();
+String seat = tkdto == null ? "" : tkdto.getSeat();
+String departure_ST = tkdto == null ? "" : tkdto.getDeparture_ST();
+String destination_ST = tkdto == null ? "" : tkdto.getDestination_ST();
+String depture_date = tkdto == null ? "" : tkdto.getDeparture_date();
+String departure_time = tkdto == null ? "" : tkdto.getDeparture_time();
+String arrival_time = tkdto == null ? "" : tkdto.getArrival_time();
 String price = tkdto == null ? "" : Integer.toString(tkdto.getPrice());
-String date = tkdto == null ? "" : tkdto.getDate();
+String booking_date = tkdto == null ? "" : tkdto.getBooking_date();
 %>
 
 <body onload="showPrice()">
@@ -80,27 +81,27 @@ String date = tkdto == null ? "" : tkdto.getDate();
 					<h2 style="text-align: center;">增修資料</h2>
 					<div style="margin: 5px;">
 						<label for="" class="t1">訂票編號：</label> <input type="text" id=""
-							name="TicketID" value="<%=TicketID%>" class="form-control"
-							<%=TicketID.isEmpty() ? "autofocus" : "onclick='blur()'"%>>
+							name="ticketID" value="<%=ticketID%>" class="form-control"
+							<%=ticketID.isEmpty() ? "autofocus" : "onclick='blur()'"%>>
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">班次：</label> <input type="text" id=""
-							name="TranNo" value="<%=TranNo%>" class="form-control" autofocus>
+							name="tranNo" value="<%=tranNo%>" class="form-control" autofocus>
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">座位：</label> <input type="text" id=""
-							name="Seat" value="<%=Seat%>" class="form-control" autofocus>
+							name="seat" value="<%=seat%>" class="form-control" autofocus>
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">出發站：</label>
 						<!-- 改成用selection(下拉是選單) ↓ -->
-						<select id="Departure_ST" name="Departure_ST"
+						<select id="Departure_ST" name="departure_ST"
 							class="form-control mt-0 select-type01" title="出發站"
 							onchange="showPrice()">
 							<%
 							List<StationInfoDTO> stationList = (ArrayList<StationInfoDTO>) request.getAttribute("stationList");
 							for (StationInfoDTO st : stationList) {
-								String selected = Departure_ST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
+								String selected = departure_ST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
 							%>
 							<option value="<%=st.getStationID()%>" <%=selected%>>
 								<%=st.getStationName()%>
@@ -113,12 +114,12 @@ String date = tkdto == null ? "" : tkdto.getDate();
 					<div style="margin: 5px;">
 						<label for="" class="t1">抵達站：</label>
 						<!-- 改成用selection(下拉是選單) ↓ -->
-						<select id="Destination_ST" name="Destination_ST"
+						<select id="Destination_ST" name="destination_ST"
 							class="form-control mt-0 select-type01" title="到達站"
 							onchange="showPrice()">
 							<%
 							for (StationInfoDTO st : stationList) {
-								String selected = Destination_ST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
+								String selected = destination_ST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
 							%>
 							<option value="<%=st.getStationID()%>" <%=selected%>>
 								<%=st.getStationName()%>
@@ -129,12 +130,16 @@ String date = tkdto == null ? "" : tkdto.getDate();
 						</select>
 					</div>
 					<div style="margin: 5px;">
+						<label for="" class="t1">出發日期：</label> <input type="date" id=""
+							name="depture_date" value="<%=depture_date%>" class="form-control" autofocus>
+					</div>
+					<div style="margin: 5px;">
 						<label for="" class="t1">出發時間：</label> <input type="text" id=""
-							name="Departure_time" value="<%=Departure_time%>" class="form-control" autofocus>
+							name="departure_time" value="<%=departure_time%>" class="form-control" autofocus>
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1"> 抵達時間： </label> <input type="text" id=""
-							name="Arrival_time" value="<%=Arrival_time%>" class="form-control" autofocus />
+							name="arrival_time" value="<%=arrival_time%>" class="form-control" autofocus />
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">票價：</label> <input type="text" id="price"
@@ -142,7 +147,7 @@ String date = tkdto == null ? "" : tkdto.getDate();
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">訂票日期：</label> <input type="date" id=""
-							name="Date" value="<%=date%>" class="form-control" autofocus>
+							name="booking_date" value="<%=booking_date%>" class="form-control" autofocus>
 					</div>
 					<div style="text-align: center; padding: 30px;">
 						<button type="submit" class="btn btn-dark" style="margin: 10px;"><%=btn_title%></button>

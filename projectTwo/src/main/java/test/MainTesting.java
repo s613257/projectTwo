@@ -22,7 +22,7 @@ public class MainTesting {
 //		tkdto.setArrival_time("09:15");
 //		tkdto.setPrice(130);
 //		Date d = new Date();
-//		tkdto.setDate(d);
+//		tkdto.setbooking_date(d);
 //		-----Update-----
 //		tkdto.setTicketID(200);
 //		tkdto.setTranNo("200");
@@ -39,6 +39,7 @@ public class MainTesting {
 		tkaDao.insertTicketInfo(tkdto);
 //		tkaDao.updateTicketInfo(tkdto);
 //		tkaDao.deleteTicketInfo(200);
+		tkaDao.getAllTicketInfo();
 //		-----Booking-----
 		DAOTesting.testBookingDAOByTran();
 		DAOTesting.testBookingDAOByStation();

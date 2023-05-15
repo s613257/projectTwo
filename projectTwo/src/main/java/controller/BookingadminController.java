@@ -130,24 +130,26 @@ public class BookingadminController extends HttpServlet {
 
 	private TicketDTO getTicketDTOByReq(HttpServletRequest request) {
 		TicketDTO tkdto = new TicketDTO();
-		String TicketID = request.getParameter("TicketID");
-		tkdto.setTicketID(Integer.parseInt(TicketID));
-		String TranNo = request.getParameter("TranNo");
-		tkdto.setTranNo(TranNo);
-		String Seat = request.getParameter("Seat");
-		tkdto.setSeat(Seat);
-		String Departure_ST = request.getParameter("Departure_ST");
-		tkdto.setDeparture_ST(Departure_ST);
-		String Destination_ST = request.getParameter("Destination_ST");
-		tkdto.setDestination_ST(Destination_ST);
-		String Departure_time = request.getParameter("Departure_time");
-		tkdto.setDeparture_time(Departure_time);
-		String Arrival_time = request.getParameter("Arrival_time");
-		tkdto.setArrival_time(Arrival_time);
-		String Price = request.getParameter("price"); // 噗噗
-		tkdto.setPrice(Integer.parseInt(Price));
-		String date = request.getParameter("Date");
-		tkdto.setDate(date);
+		String ticketID = request.getParameter("ticketID");
+		tkdto.setTicketID(Integer.parseInt(ticketID));
+		String tranNo = request.getParameter("tranNo");
+		tkdto.setTranNo(tranNo);
+		String seat = request.getParameter("seat");
+		tkdto.setSeat(seat);
+		String departure_ST = request.getParameter("departure_ST");
+		tkdto.setDeparture_ST(departure_ST);
+		String destination_ST = request.getParameter("destination_ST");
+		tkdto.setDestination_ST(destination_ST);
+		String depture_date = request.getParameter("depture_date");
+		tkdto.setdeparture_date(depture_date);
+		String departure_time = request.getParameter("departure_time");
+		tkdto.setDeparture_time(departure_time);
+		String arrival_time = request.getParameter("arrival_time");
+		tkdto.setArrival_time(arrival_time);
+		String price = request.getParameter("price"); 
+		tkdto.setPrice(Integer.parseInt(price));
+		String booking_date = request.getParameter("booking_date");
+		tkdto.setbooking_date(booking_date);
 		return tkdto;
 	}
 }

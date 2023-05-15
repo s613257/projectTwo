@@ -119,6 +119,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			xhttp.onload = function () {
 				if (this.status === 200) {
 					ticketInfos = JSON.parse(this.response);
+					console.log(ticketInfos);
 					placeQueryContent(ticketInfos);
 				}
 			}
@@ -135,23 +136,23 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			ticketInfos.forEach(function (ticketInfo) {
 				let infoRow = document.createElement("tr");
 				let id = document.createElement("td");
-				id.innerHTML = ticketInfo.TicketID;
+				id.innerHTML = ticketInfo.ticketID;
 				let tranNo = document.createElement("td");
-				tranNo.innerHTML = ticketInfo.TranNo;
+				tranNo.innerHTML = ticketInfo.tranNo;
 				let seat = document.createElement("td");
-				seat.innerHTML = ticketInfo.Seat;
+				seat.innerHTML = ticketInfo.seat;
 				let dep_st = document.createElement("td");
-				dep_st.innerHTML = ticketInfo.Departure_ST;
+				dep_st.innerHTML = ticketInfo.departure_ST;
 				let des_st = document.createElement("td");
-				des_st.innerHTML = ticketInfo.Destination_ST;
+				des_st.innerHTML = ticketInfo.destination_ST;
 				let dep_time = document.createElement("td");
-				dep_time.innerHTML = ticketInfo.Departure_time;
+				dep_time.innerHTML = ticketInfo.departure_time;
 				let arr_time = document.createElement("td");
-				arr_time.innerHTML = ticketInfo.Arrival_time;
+				arr_time.innerHTML = ticketInfo.arrival_time;
 				let price = document.createElement("td");
 				price.innerHTML = ticketInfo.price;
 				let date = document.createElement("td");
-				date.innerHTML = ticketInfo.Date;
+				date.innerHTML = ticketInfo.booking_date;
 
 				let updt = document.createElement("td");
 				let updt_btn = document.createElement("button");

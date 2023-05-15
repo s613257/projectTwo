@@ -25,8 +25,8 @@ public class DAOTesting {
 
 	public static void testBookingDAOByTran() {
 		BookingDAO bk_dao = new BookingDAOImpl();
-		List<TranInfoDTO> TranList = bk_dao.getAllTranInfo();
-		for (TranInfoDTO bk : TranList) {
+		List<TicketDTO> TranList = bk_dao.getAllTranInfo();
+		for (TicketDTO bk : TranList) {
 			System.out.println(bk.toString());
 		}
 	}
