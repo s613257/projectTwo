@@ -6,7 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -88,12 +90,36 @@ public class WebServices extends HttpServlet {
 
 	private void GetAllTicketInfo(HttpServletRequest request, HttpServletResponse response) {
 		try {
+			System.out.println("123");
 			TicketDAO ticketDao = new TicketDAOImpl();
 			List<TicketDTO> tks = ticketDao.getAllTicketInfo();
-			String json = new Gson().toJson(tks);
+			Map<String, List<List<String>>> inputMap = new HashMap<String, List<List<String>>>();
+			List<List<String>> dataList = new ArrayList<List<String>>();
+			inputMap.put("data", dataList);
+			for(TicketDTO tk :tks) {
+				List<String> tkDataLst = new ArrayList<String>();
+				tkDataLst.add(Integer.toString(tk.getTicketID()));
+				tkDataLst.add(tk.getTranNo());
+				tkDataLst.add(tk.getSeat());
+				tkDataLst.add(tk.getDeparture_ST());
+				tkDataLst.add(tk.getDestination_ST());
+				tkDataLst.add(tk.getDeparture_date());
+				tkDataLst.add(tk.getDeparture_time());
+				tkDataLst.add(tk.getArrival_time());
+				tkDataLst.add(Integer.toString(tk.getPrice()));
+				tkDataLst.add(tk.getBooking_date());
+				tkDataLst.add("<button class=\"btn btn-light\" onclick=\"updateTarget(" + tk.getTicketID() + ")\"><i class=\"fa-solid fa-pen-to-square\"></i> </button>");
+				tkDataLst.add("<button class=\"btn btn-light\" onclick=\"deleteTarget(" + tk.getTicketID() + ")\"><i class=\"fa-solid fa-trash-can\"></i> </button>");
+				dataList.add(tkDataLst);
+			}
+			
 			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");
+			String json = new Gson().toJson(inputMap);
+			System.out.println(json);
+			//String json = new Gson().toJson(tks);
 			response.getWriter().append(json);
+			System.out.println("456");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
