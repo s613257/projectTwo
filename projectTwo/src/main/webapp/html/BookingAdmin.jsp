@@ -89,6 +89,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								<th scope="col" class="align-middle">座位</th>
 								<th scope="col" class="align-middle">出發站</th>
 								<th scope="col" class="align-middle">抵達站</th>
+								<th scope="col" class="align-middle">出發日期</th>
 								<th scope="col" class="align-middle">出發時間</th>
 								<th scope="col" class="align-middle">抵達時間</th>
 								<th scope="col" class="align-middle">票價</th>
@@ -145,6 +146,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				dep_st.innerHTML = ticketInfo.departure_ST;
 				let des_st = document.createElement("td");
 				des_st.innerHTML = ticketInfo.destination_ST;
+				let dep_date = document.createElement("td");
+				dep_date.innerHTML = ticketInfo.departure_date;
 				let dep_time = document.createElement("td");
 				dep_time.innerHTML = ticketInfo.departure_time;
 				let arr_time = document.createElement("td");
@@ -157,13 +160,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				let updt = document.createElement("td");
 				let updt_btn = document.createElement("button");
 				let updt_icon = document.createElement("i");
-
 				updt_icon.className = "fa-solid fa-pen-to-square";
 				updt_btn.appendChild(updt_icon);
 				updt.appendChild(updt_btn);
 				updt_btn.classList.add("btn");
 				updt_btn.classList.add("btn-light");
-				updt_btn.onclick = function () { updateTarget(ticketInfo.TicketID); };
+				updt_btn.onclick = function () { updateTarget(ticketInfo.ticketID); };
 
 				let del = document.createElement("td");
 				let del_btn = document.createElement("button");
@@ -173,13 +175,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				del.appendChild(del_btn);
 				del_btn.classList.add("btn");
 				del_btn.classList.add("btn-light");
-				del_btn.onclick = function () { deleteTarget(ticketInfo.TicketID) };
+				del_btn.onclick = function () { deleteTarget(ticketInfo.ticketID) };
 
 				infoRow.appendChild(id);
 				infoRow.appendChild(tranNo);
 				infoRow.appendChild(seat);
 				infoRow.appendChild(dep_st);
 				infoRow.appendChild(des_st);
+				infoRow.appendChild(dep_date);
 				infoRow.appendChild(dep_time);
 				infoRow.appendChild(arr_time);
 				infoRow.appendChild(price);

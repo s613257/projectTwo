@@ -18,6 +18,8 @@ public class MainTesting {
 //		tkdto.setSeat("02A");
 //		tkdto.setDeparture_ST("2");
 //		tkdto.setDestination_ST("1");
+//		Date dt = new Date();
+//		tkdto.setdeparture_date(dt);
 //		tkdto.setDeparture_time("08:15");
 //		tkdto.setArrival_time("09:15");
 //		tkdto.setPrice(130);
@@ -29,20 +31,23 @@ public class MainTesting {
 //		tkdto.setSeat("03A");
 //		tkdto.setDeparture_ST("2");
 //		tkdto.setDestination_ST("1");
+//		Date dt = new Date();
+//		tkdto.setdeparture_date(dt);
 //		tkdto.setDeparture_time("08:15");
 //		tkdto.setArrival_time("09:15");
 //		tkdto.setPrice(130);
 //		Date d = new Date();
-//		tkdto.setDate(d);
+//		tkdto.setbooking_date(d);
 		
 		TicketDAO tkaDao = new TicketDAOImpl();
-		tkaDao.insertTicketInfo(tkdto);
+//		tkaDao.insertTicketInfo(tkdto);
 //		tkaDao.updateTicketInfo(tkdto);
 //		tkaDao.deleteTicketInfo(200);
-		tkaDao.getAllTicketInfo();
+//		tkaDao.getAllTicketInfo();
+		tkaDao.GetTicketInfoById("666");
 //		-----Booking-----
-		DAOTesting.testBookingDAOByTran();
-		DAOTesting.testBookingDAOByStation();
-		DAOTesting.testBookingDAOByPrice();
+//		DAOTesting.testBookingDAOByTran();
+//		DAOTesting.testBookingDAOByStation();
+//		DAOTesting.testBookingDAOByPrice();
 	}
 }

@@ -17,7 +17,8 @@ public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {
 	Connection conn = getConnection();
 
 	public TicketDTO GetTicketInfoById(String id) {
-		List<TicketDTO> resultList = getInfoBySql("SELECT * FROM TicketInfo WHERE TicketID = " + id);
+		List<TicketDTO> resultList = getInfoBySql("SELECT * FROM TicketInfo WHERE ticketID = " + id);
+		System.out.println(resultList);
 		return resultList.get(0);
 	}
 
@@ -58,7 +59,7 @@ public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {
 
 	@Override
 	public int deleteTicketInfo(int TicketID) {
-		return executeUpdate(String.format("delete from TicketInfo where TicketID = %d;", TicketID));
+		return executeUpdate(String.format("delete from TicketInfo where ticketID = %d;", TicketID));
 	}
 
 	private List<TicketDTO> getInfoBySql(String sql) {

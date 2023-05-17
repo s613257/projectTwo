@@ -36,10 +36,10 @@ public class TicketDTO {
 
 	@Override
 	public String toString() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return "TicketDTO [ticketID=" + ticketID + ", tranNo=" + tranNo + ", seat=" + seat + ", Departure_ST="
-				+ departure_ST + ", Destination_ST=" + destination_ST + ",departure_date="+ sdf.format(departure_date) +", Departure_time=" + departure_time
-				+ ", Arrival_time=" + arrival_time + ", price=" + price + ", booking_date=" + sdf.format(booking_date) + "]";
+				+ departure_ST + ", Destination_ST=" + destination_ST + ",departure_date="+ departure_date +", Departure_time=" + departure_time
+				+ ", Arrival_time=" + arrival_time + ", price=" + price + ", booking_date=" + booking_date + "]";
 	}
 
 	public String getInsertSql() {
