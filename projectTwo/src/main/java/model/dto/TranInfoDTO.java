@@ -7,7 +7,7 @@ public class TranInfoDTO {
 	
 	private String tranNo;
 	private int stationID;
-	private String tran_arrvial_time;
+	private String trainArrvialTime;
 
 	public TranInfoDTO() {
 	}
@@ -15,12 +15,12 @@ public class TranInfoDTO {
 	public TranInfoDTO(ResultSet rs) throws SQLException {
 		this.tranNo = rs.getString("tranNo");
 		this.stationID = rs.getInt("StationID");
-		this.tran_arrvial_time = rs.getString("tran_arrvial_time");
+		this.trainArrvialTime = rs.getString("tranArrvialTime");
 	}
 
 	@Override
 	public String toString() {
-		return "TranInfoDTO [TranNo=" + tranNo + ", StationID=" + stationID + ", Train_Arrival_Time=" + tran_arrvial_time + "]";
+		return "TranInfoDTO [TranNo=" + tranNo + ", StationID=" + stationID + ", TrainArrivalTime=" + trainArrvialTime + "]";
 	}
 
 	public String getTranNo() {
@@ -39,11 +39,12 @@ public class TranInfoDTO {
 		this.stationID = stationID;
 	}
 
-	public String getTran_arrvial_time() {
-		return tran_arrvial_time;
+	public String getTrainArrvialTime() {
+		return trainArrvialTime;
 	}
 
-	public void setTran_arrvial_time(String tran_arrvial_time) {
-		this.tran_arrvial_time = tran_arrvial_time;
+	public void setTrainArrvialTime(String trainArrvialTime) {
+		this.trainArrvialTime = trainArrvialTime;
 	}
+
 }

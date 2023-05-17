@@ -33,12 +33,12 @@ public class BookingDAOImpl extends BaseDAO_MySql implements BookingDAO {
 				+ "Departure_Date =  getdate(), "
 				+ "dep_st.TranNo TranNo, "
 				+ "dep_st.StationID Departure_ST,"
-				+ "dep_st.Time Departure_time, "
+				+ "dep_st.TrainArrivalTime Departure_time, "
 				+ "des_st.StationID Destination_ST,"
-				+ "des_st.Time Arrival_time "
+				+ "des_st.TrainArrivalTime Arrival_time "
 				+ "from TranInfo dep_st " 
-				+ "left join TranInfo des_st on dep_st.TranNo = des_st.TranNo and dep_st.Time <> des_st.Time "
-				+ "and des_st.Time > dep_st.Time "
+				+ "left join TranInfo des_st on dep_st.TranNo = des_st.TranNo and dep_st.TrainArrivalTime <> des_st.TrainArrivalTime "
+				+ "and des_st.TrainArrivalTime > dep_st.TrainArrivalTime "
 				+ "where des_st.StationID is not null;");
 	}
 
