@@ -18,7 +18,7 @@
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="/ProjectTripMaster/TM.sean/dashboard/css/styles.css" rel="stylesheet" />
+    <link href="/projectTwo/dashboard/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -258,11 +258,11 @@ String booking_date = tkdto == null ? "" : tkdto.getBooking_date();
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-    <script src="/ProjectTripMaster/TM.sean/dashboard/js/scripts.js"></script>
+    <script src="/projectTwo/dashboard/js/scripts.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
-    <script src="/ProjectTripMaster/TM.sean/dashboard/js/datatables-simple-demo.js"></script>
+    <script src="/projectTwo/dashboard/js/datatables-simple-demo.js"></script>
     <script src="https://kit.fontawesome.com/0a9f356c66.js" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		var priceInfos = new Map();

@@ -19,7 +19,7 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
 	rel="stylesheet" />
-<link href="/ProjectTripMaster/TM.sean/dashboard/css/styles.css"
+<link href="/projectTwo/dashboard/css/styles.css"
 	rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
 	crossorigin="anonymous"></script>
@@ -144,15 +144,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<hr>
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-table me-1"></i> DataTable Example
+							<i class="fas fa-table me-1"></i> 
 						</div>
 						<div class="card-body">
+						<!--   右下角點下後網頁到最上層的button
 							<button type="button"
 								class="btn btn-secondary btn-floating btn-lg"
 								id="btn-back-to-top">
 								<i class="fas fa-arrow-up"></i>
-							</button>
-							<article class="py-5 text-center container"
+							</button> -->
+							<article class="text-center container"
 								style="height: 2000px">
 								<section class="timetable-search-frame bg-grey">
 									<div class="container">
@@ -219,13 +220,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
-	<script src="/ProjectTripMaster/TM.sean/dashboard/js/scripts.js"></script>
+	<script src="/projectTwo/dashboard/js/scripts.js"></script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
 		crossorigin="anonymous"></script>
 	<script
-		src="/ProjectTripMaster/TM.sean/dashboard/js/datatables-simple-demo.js"></script>
+		src="/projectTwo/dashboard/js/datatables-simple-demo.js"></script>
 	<script src="https://kit.fontawesome.com/0a9f356c66.js"
 		crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/bda18b13c5.js"
@@ -358,7 +359,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		}
 
 		// GO TO TOP
-		let mybutton = document.getElementById("btn-back-to-top");
+	/* 	let mybutton = document.getElementById("btn-back-to-top");
 
 		// When the user scrolls down 20px from the top of the document, show the button
 		window.onscroll = function() {
@@ -379,7 +380,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		function backToTop() {
 			document.body.scrollTop = 0;
 			document.documentElement.scrollTop = 0;
-		}
+		} */
 	</script>
 </body>
 
