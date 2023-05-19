@@ -9,13 +9,13 @@ public class TicketDTO {
 	private int ticketID;
 	private String tranNo;
 	private String seat;
-	private String departure_ST;
-	private String destination_ST;
-	private String departure_date;
-	private String departure_time;
-	private String arrival_time;
+	private String departureST;
+	private String destinationST;
+	private String departuredate;
+	private String departuretime;
+	private String arrivaltime;
 	private int price;
-	private String booking_date;
+	private String bookingdate;
 
 	public TicketDTO() {
 	}
@@ -24,38 +24,38 @@ public class TicketDTO {
 		this.ticketID = rs.getInt("ticketID");
 		this.tranNo = rs.getString("tranNo");
 		this.seat = rs.getString("seat");
-		this.departure_ST = rs.getString("departure_ST");
-		this.destination_ST = rs.getString("destination_ST");
-		setdeparture_date(rs.getDate("departure_date"));
-		this.departure_time = rs.getString("departure_time");
-		this.arrival_time = rs.getString("Arrival_time");
+		this.departureST = rs.getString("departureST");
+		this.destinationST = rs.getString("destinationST");
+		setdeparturedate(rs.getDate("departuredate"));
+		this.departuretime = rs.getString("departuretime");
+		this.arrivaltime = rs.getString("arrivaltime");
 		this.price = rs.getInt("price");
-		setbooking_date(rs.getDate("booking_date"));
+		setbookingdate(rs.getDate("bookingdate"));
 
 	}
 
 	@Override
 	public String toString() {
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return "TicketDTO [ticketID=" + ticketID + ", tranNo=" + tranNo + ", seat=" + seat + ", Departure_ST="
-				+ departure_ST + ", Destination_ST=" + destination_ST + ",departure_date="+ departure_date +", Departure_time=" + departure_time
-				+ ", Arrival_time=" + arrival_time + ", price=" + price + ", booking_date=" + booking_date + "]";
+		return "TicketDTO [ticketID=" + ticketID + ", tranNo=" + tranNo + ", seat=" + seat + ", DepartureST="
+				+ departureST + ", DestinationST=" + destinationST + ",departuredate="+ departuredate +", Departuretime=" + departuretime
+				+ ", Arrivaltime=" + arrivaltime + ", price=" + price + ", bookingdate=" + bookingdate + "]";
 	}
 
 	public String getInsertSql() {
-		return String.format("insert into TicketInfo(TicketID,TranNo,Seat,Departure_ST,"
-				+ "Destination_ST,departure_date,Departure_time,Arrival_time,price,booking_date) values" + "%s;", getInsertValue());
+		return String.format("insert into TicketInfo(TicketID,TranNo,Seat,DepartureST,"
+				+ "DestinationST,departuredate,Departuretime,Arrivaltime,price,bookingdate) values" + "%s;", getInsertValue());
 	}
 
 	public String getInsertValue() {
-		return String.format("('%s','%s','%s','%s','%s','%s','%s','%s','%d','%s')", ticketID, tranNo, seat, departure_ST,
-				destination_ST, departure_date, departure_time, arrival_time, price,booking_date);
+		return String.format("('%s','%s','%s','%s','%s','%s','%s','%s','%d','%s')", ticketID, tranNo, seat, departureST,
+				destinationST, departuredate, departuretime, arrivaltime, price,bookingdate);
 	}
 
 	public String getUpdataSql() {
 		return String.format(
-				"update TicketInfo set " + "TranNo= '%s',Seat='%S',Departure_ST='%S',Destination_ST='%s',departure_date = '%s',Departure_time='%s',Arrival_time='%s',price='%s',booking_date='%s' where TicketID = '%d'",
-				tranNo, seat, departure_ST, destination_ST, departure_date, departure_time, arrival_time, price, booking_date, ticketID);
+				"update TicketInfo set " + "TranNo= '%s',Seat='%S',DepartureST='%S',DestinationST='%s',departuredate = '%s',Departuretime='%s',Arrivaltime='%s',price='%s',bookingdate='%s' where TicketID = '%d'",
+				tranNo, seat, departureST, destinationST, departuredate, departuretime, arrivaltime, price, bookingdate, ticketID);
 	}
 
 	
@@ -84,36 +84,36 @@ public class TicketDTO {
 		this.seat = seat;
 	}
 
-	public String getDeparture_ST() {
-		return departure_ST;
+	public String getDepartureST() {
+		return departureST;
 	}
 
-	public void setDeparture_ST(String departure_ST) {
-		this.departure_ST = departure_ST;
+	public void setDepartureST(String departureST) {
+		this.departureST = departureST;
 	}
 
-	public String getDestination_ST() {
-		return destination_ST;
+	public String getDestinationST() {
+		return destinationST;
 	}
 
-	public void setDestination_ST(String destination_ST) {
-		this.destination_ST = destination_ST;
+	public void setDestinationST(String destinationST) {
+		this.destinationST = destinationST;
 	}
 
-	public String getDeparture_time() {
-		return departure_time;
+	public String getDeparturetime() {
+		return departuretime;
 	}
 
-	public void setDeparture_time(String departure_time) {
-		this.departure_time = departure_time;
+	public void setDeparturetime(String departuretime) {
+		this.departuretime = departuretime;
 	}
 
-	public String getArrival_time() {
-		return arrival_time;
+	public String getArrivaltime() {
+		return arrivaltime;
 	}
 
-	public void setArrival_time(String arrival_tine) {
-		arrival_time = arrival_tine;
+	public void setArrivaltime(String arrivaltine) {
+		arrivaltime = arrivaltine;
 	}
 
 	public int getPrice() {
@@ -124,27 +124,27 @@ public class TicketDTO {
 		this.price = price;
 	}
 
-	public String getBooking_date() {
-		return booking_date;
+	public String getBookingdate() {
+		return bookingdate;
 	}
 	
-	public String getDeparture_date() {
-		return booking_date;
+	public String getDeparturedate() {
+		return departuredate;
 	}
 
-	public void setbooking_date(Date date) {
+	public void setbookingdate(Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		booking_date = sdf.format(date);
+		bookingdate = sdf.format(date);
 	}
-	public void setbooking_date(String date) {
-		booking_date = date;
+	public void setbookingdate(String date) {
+		bookingdate = date;
 	}
-	public void setdeparture_date(Date dep_date) {
+	public void setdeparturedate(Date depdate) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		departure_date = sdf.format(dep_date);
+		departuredate = sdf.format(depdate);
 	}
-	public void setdeparture_date(String dep_date) {
-		departure_date = dep_date;
+	public void setdeparturedate(String depdate) {
+		departuredate = depdate;
 	}
 
 }

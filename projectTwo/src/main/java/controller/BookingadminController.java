@@ -136,20 +136,20 @@ public class BookingadminController extends HttpServlet {
 		tkdto.setTranNo(tranNo);
 		String seat = request.getParameter("seat");
 		tkdto.setSeat(seat);
-		String departure_ST = request.getParameter("departure_ST");
-		tkdto.setDeparture_ST(departure_ST);
-		String destination_ST = request.getParameter("destination_ST");
-		tkdto.setDestination_ST(destination_ST);
-		String depture_date = request.getParameter("depture_date");
-		tkdto.setdeparture_date(depture_date);
-		String departure_time = request.getParameter("departure_time");
-		tkdto.setDeparture_time(departure_time);
-		String arrival_time = request.getParameter("arrival_time");
-		tkdto.setArrival_time(arrival_time);
+		String departureST = request.getParameter("departureST");
+		tkdto.setDepartureST(departureST);
+		String destinationST = request.getParameter("destinationST");
+		tkdto.setDestinationST(destinationST);
+		String depturedate = request.getParameter("depturedate");
+		tkdto.setdeparturedate(depturedate);
+		String departuretime = request.getParameter("departuretime");
+		tkdto.setDeparturetime(departuretime);
+		String arrivaltime = request.getParameter("arrivaltime");
+		tkdto.setArrivaltime(arrivaltime);
 		String price = request.getParameter("price"); 
 		tkdto.setPrice(Integer.parseInt(price));
-		String booking_date = request.getParameter("booking_date");
-		tkdto.setbooking_date(booking_date);
+		String bookingdate = request.getParameter("bookingdate");
+		tkdto.setbookingdate(bookingdate);
 		return tkdto;
 	}
 }

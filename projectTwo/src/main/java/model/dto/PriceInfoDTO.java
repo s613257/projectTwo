@@ -5,39 +5,40 @@ import java.sql.SQLException;
 
 public class PriceInfoDTO {
 
-	private String departure_ST;
-	private String destination_ST;
+	private String departureST;
+	private String destinationST;
 	private int price;
 
 	public PriceInfoDTO() {
 	}
 
 	public PriceInfoDTO(ResultSet rs) throws SQLException {
-		this.departure_ST = rs.getString("Departure_ST");
-		this.destination_ST = rs.getString("Destination_ST");
+		this.departureST = rs.getString("departureST");
+		this.destinationST = rs.getString("destinationST");
 		this.price = rs.getInt("Price");
 	}
 
 	@Override
 	public String toString() {
-		return "PriceInfoDTO [Departure_ST=" + departure_ST + ", Destination_ST=" + destination_ST + ", Price=" + price
+		return "PriceInfoDTO [DepartureST=" + departureST + ", DestinationST=" + destinationST + ", Price=" + price
 				+ "]";
 	}
 
-	public String getDeparture_ST() {
-		return departure_ST;
+
+	public String getDepartureST() {
+		return departureST;
 	}
 
-	public void setDeparture_ST(String departure_ST) {
-		this.departure_ST = departure_ST;
+	public void setDepartureST(String departureST) {
+		this.departureST = departureST;
 	}
 
-	public String getDestination_ST() {
-		return destination_ST;
+	public String getDestinationST() {
+		return destinationST;
 	}
 
-	public void setDestination_ST(String destination_ST) {
-		this.destination_ST = destination_ST;
+	public void setDestinationST(String destinationST) {
+		this.destinationST = destinationST;
 	}
 
 	public int getPrice() {

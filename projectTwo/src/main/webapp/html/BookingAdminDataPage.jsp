@@ -63,13 +63,13 @@ String btn_title = tkdto == null ? "新增" : "修改";
 String ticketID = tkdto == null ? "" : Integer.toString(tkdto.getTicketID());
 String tranNo = tkdto == null ? "" : tkdto.getTranNo();
 String seat = tkdto == null ? "" : tkdto.getSeat();
-String departure_ST = tkdto == null ? "" : tkdto.getDeparture_ST();
-String destination_ST = tkdto == null ? "" : tkdto.getDestination_ST();
-String depture_date = tkdto == null ? "" : tkdto.getDeparture_date();
-String departure_time = tkdto == null ? "" : tkdto.getDeparture_time();
-String arrival_time = tkdto == null ? "" : tkdto.getArrival_time();
+String departureST = tkdto == null ? "" : tkdto.getDepartureST();
+String destinationST = tkdto == null ? "" : tkdto.getDestinationST();
+String depturedate = tkdto == null ? "" : tkdto.getDeparturedate();
+String departuretime = tkdto == null ? "" : tkdto.getDeparturetime();
+String arrivaltime = tkdto == null ? "" : tkdto.getArrivaltime();
 String price = tkdto == null ? "" : Integer.toString(tkdto.getPrice());
-String booking_date = tkdto == null ? "" : tkdto.getBooking_date();
+String bookingdate = tkdto == null ? "" : tkdto.getBookingdate();
 %>
 
 <body onload="showPrice()"  class="sb-nav-fixed">
@@ -180,13 +180,13 @@ String booking_date = tkdto == null ? "" : tkdto.getBooking_date();
 					<div style="margin: 5px;">
 						<label for="" class="t1">出發站：</label>
 						<!-- 改成用selection(下拉是選單) ↓ -->
-						<select id="Departure_ST" name="departure_ST"
+						<select id="DepartureST" name="departureST"
 							class="form-control mt-0 select-type01" title="出發站"
 							onchange="showPrice()">
 							<%
 							List<StationInfoDTO> stationList = (ArrayList<StationInfoDTO>) request.getAttribute("stationList");
 							for (StationInfoDTO st : stationList) {
-								String selected = departure_ST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
+								String selected = departureST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
 							%>
 							<option value="<%=st.getStationID()%>" <%=selected%>>
 								<%=st.getStationName()%>
@@ -199,12 +199,12 @@ String booking_date = tkdto == null ? "" : tkdto.getBooking_date();
 					<div style="margin: 5px;">
 						<label for="" class="t1">抵達站：</label>
 						<!-- 改成用selection(下拉是選單) ↓ -->
-						<select id="Destination_ST" name="destination_ST"
+						<select id="DestinationST" name="destinationST"
 							class="form-control mt-0 select-type01" title="到達站"
 							onchange="showPrice()">
 							<%
 							for (StationInfoDTO st : stationList) {
-								String selected = destination_ST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
+								String selected = destinationST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
 							%>
 							<option value="<%=st.getStationID()%>" <%=selected%>>
 								<%=st.getStationName()%>
@@ -216,15 +216,15 @@ String booking_date = tkdto == null ? "" : tkdto.getBooking_date();
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">出發日期：</label> <input type="date" id=""
-							name="depture_date" value="<%=depture_date%>" class="form-control" autofocus>
+							name="depturedate" value="<%=depturedate%>" class="form-control" autofocus>
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">出發時間：</label> <input type="text" id=""
-							name="departure_time" value="<%=departure_time%>" class="form-control" autofocus>
+							name="departuretime" value="<%=departuretime%>" class="form-control" autofocus>
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1"> 抵達時間： </label> <input type="text" id=""
-							name="arrival_time" value="<%=arrival_time%>" class="form-control" autofocus />
+							name="arrivaltime" value="<%=arrivaltime%>" class="form-control" autofocus />
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">票價：</label> <input type="text" id="price"
@@ -232,7 +232,7 @@ String booking_date = tkdto == null ? "" : tkdto.getBooking_date();
 					</div>
 					<div style="margin: 5px;">
 						<label for="" class="t1">訂票日期：</label> <input type="date" id=""
-							name="booking_date" value="<%=booking_date%>" class="form-control" autofocus>
+							name="bookingdate" value="<%=bookingdate%>" class="form-control" autofocus>
 					</div>
 					<div style="text-align: center; padding: 30px;">
 						<button type="submit" class="btn btn-dark" style="margin: 10px;"><%=btn_title%></button>
@@ -274,15 +274,15 @@ String booking_date = tkdto == null ? "" : tkdto.getBooking_date();
 		priceInfos.set(tmpS, <%=pk.getValue()%>)
 		<%}%>
 		function showPrice() {
-			let departure_ST = document.querySelector("#Departure_ST");
-			let destination_ST = document.querySelector("#Destination_ST");
+			let departureST = document.querySelector("#DepartureST");
+			let destinationST = document.querySelector("#DestinationST");
 			let price = document.querySelector("#price");
-			if (parseInt(departure_ST.value) == parseInt(destination_ST.value)) {
+			if (parseInt(departureST.value) == parseInt(destinationST.value)) {
 				price.value = 0;
 				return;
 			}
 			priceInfos.forEach((value, key, map) => {
-				if (key.has(parseInt(departure_ST.value)) && key.has(parseInt(destination_ST.value))) {
+				if (key.has(parseInt(departureST.value)) && key.has(parseInt(destinationST.value))) {
 					price.value = value;
 					return;
 				}

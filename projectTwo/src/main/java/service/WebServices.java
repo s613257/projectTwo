@@ -71,9 +71,9 @@ public class WebServices extends HttpServlet {
 
 			Date departureTime = sdf.parse(departure_time);
 			for (TicketDTO tranInfo : tranInfos) {
-				if (tranInfo.getDeparture_ST().equals(departure_ST) && 
-						tranInfo.getDestination_ST().equals(destination_ST)) {
-					Date departureStTime = sdf.parse(tranInfo.getDeparture_time());
+				if (tranInfo.getDepartureST().equals(departure_ST) && 
+						tranInfo.getDestinationST().equals(destination_ST)) {
+					Date departureStTime = sdf.parse(tranInfo.getDeparturetime());
 					if(departureTime.compareTo(departureStTime) < 0) {
 						tranTimeLst.add(tranInfo);
 					}
@@ -101,13 +101,13 @@ public class WebServices extends HttpServlet {
 				tkDataLst.add(Integer.toString(tk.getTicketID()));
 				tkDataLst.add(tk.getTranNo());
 				tkDataLst.add(tk.getSeat());
-				tkDataLst.add(tk.getDeparture_ST());
-				tkDataLst.add(tk.getDestination_ST());
-				tkDataLst.add(tk.getDeparture_date());
-				tkDataLst.add(tk.getDeparture_time());
-				tkDataLst.add(tk.getArrival_time());
+				tkDataLst.add(tk.getDepartureST());
+				tkDataLst.add(tk.getDestinationST());
+				tkDataLst.add(tk.getDeparturedate());
+				tkDataLst.add(tk.getDeparturetime());
+				tkDataLst.add(tk.getArrivaltime());
 				tkDataLst.add(Integer.toString(tk.getPrice()));
-				tkDataLst.add(tk.getBooking_date());
+				tkDataLst.add(tk.getBookingdate());
 				tkDataLst.add("<button class=\"btn btn-light\" onclick=\"updateTarget(" + tk.getTicketID() + ")\"><i class=\"fa-solid fa-pen-to-square\"></i> </button>");
 				tkDataLst.add("<button class=\"btn btn-light\" onclick=\"deleteTarget(" + tk.getTicketID() + ")\"><i class=\"fa-solid fa-trash-can\"></i> </button>");
 				dataList.add(tkDataLst);

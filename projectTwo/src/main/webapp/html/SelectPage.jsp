@@ -62,7 +62,7 @@
 															<div class="col">
 																<label class="input-smalllabel"
 																	for="select_location01">起程站</label>
-																<select id="Departure_ST" name="Departure_ST"
+																<select id="DepartureST" name="DepartureST"
 																	class="form-control mt-0 select-type01" title="出發站"
 																	onchange="showPrice()">
 																	<% List<StationInfoDTO> stationList = (ArrayList
@@ -79,7 +79,7 @@
 															<div class="col-input col">
 																<label class="input-smalllabel"
 																	for="select_location02">到達站</label>
-																<select id="Destination_ST" name="Destination_ST"
+																<select id="DestinationST" name="DestinationST"
 																	class="form-control mt-0 select-type01" title="到達站"
 																	onchange="showPrice()">
 																	<% for (StationInfoDTO st : stationList) { %>
@@ -101,14 +101,14 @@
 															</div>
 															<div class="col-input col-2">
 																<label class="input-smalllabel"
-																	for="departure_date">出發日期</label>
-																<input id="departure_date" type="Date"
+																	for="departuredate">出發日期</label>
+																<input id="departuredate" type="Date"
 																	class="form_date form-control">
 															</div>
 															<div class="col-input col-2">
 																<label class="input-smalllabel"
-																	for="Departure_time">出發時刻</label>
-																<input id="Departure_time" type="Time"
+																	for="Departuretime">出發時刻</label>
+																<input id="Departuretime" type="Time"
 																	class="form_date form-control">
 															</div>
 															<div class="col-input col">
@@ -174,15 +174,15 @@
 											priceInfos.set(tmpS, <%=pk.getValue() %>)
 												<%}%>
 													function showPrice() {
-														let departure_ST = document.querySelector("#Departure_ST");
-														let destination_ST = document.querySelector("#Destination_ST");
+														let departureST = document.querySelector("#DepartureST");
+														let destinationST = document.querySelector("#DestinationST");
 														let price = document.querySelector("#price");
-														if (parseInt(departure_ST.value) == parseInt(destination_ST.value)) {
+														if (parseInt(departureST.value) == parseInt(destinationST.value)) {
 															price.value = 0;
 															return;
 														}
 														priceInfos.forEach((value, key, map) => {
-															if (key.has(parseInt(departure_ST.value)) && key.has(parseInt(destination_ST.value))) {
+															if (key.has(parseInt(departureST.value)) && key.has(parseInt(destinationST.value))) {
 																price.value = value;
 																return;
 															}
@@ -191,11 +191,11 @@
 
 
 										function search() {
-											let departure_ST = document.querySelector("#Departure_ST");
-											let destination_ST = document.querySelector("#Destination_ST");
+											let departure_ST = document.querySelector("#DepartureST");
+											let destination_ST = document.querySelector("#DestinationST");
 											let typeOfTicket = document.querySelector("#typeOfTicket");
-											let departure_date = document.querySelector("#departure_date");
-											let departure_time = document.querySelector("#Departure_time");
+											let departure_date = document.querySelector("#departuredate");
+											let departure_time = document.querySelector("#Departuretime");
 											if (parseInt(departure_ST.value) == parseInt(destination_ST.value)) {
 												alert("起程站 與 到達站 相同")
 												return;
@@ -245,9 +245,9 @@
 												let tranNo = document.createElement("td");
 												tranNo.innerHTML = tranInfo.tranNo;
 												let dep_time = document.createElement("td");
-												dep_time.innerHTML = tranInfo.departure_time;
+												dep_time.innerHTML = tranInfo.departuretime;
 												let arr_time = document.createElement("td");
-												arr_time.innerHTML = tranInfo.arrival_time;
+												arr_time.innerHTML = tranInfo.arrivaltime;
 												let diff_time = document.createElement("td");
 												let arrTime = arr_time.innerHTML.split(":");
 												arrTime = parseInt(arrTime[0]) * 60 + parseInt(arrTime[1]);

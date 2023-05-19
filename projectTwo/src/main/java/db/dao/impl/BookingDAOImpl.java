@@ -27,15 +27,15 @@ public class BookingDAOImpl extends BaseDAO_MySql implements BookingDAO {
 	public List<TicketDTO> getAllTranInfo() {
 		return getInfoByTran("select "
 				+ "TicketID = 0, "
-				+ "Booking_Date = getdate(), "
+				+ "BookingDate = getdate(), "
 				+ "price = 0, "
 				+ "Seat = 0, "
-				+ "Departure_Date =  getdate(), "
+				+ "DepartureDate =  getdate(), "
 				+ "dep_st.TranNo TranNo, "
-				+ "dep_st.StationID Departure_ST,"
-				+ "dep_st.TrainArrivalTime Departure_time, "
-				+ "des_st.StationID Destination_ST,"
-				+ "des_st.TrainArrivalTime Arrival_time "
+				+ "dep_st.StationID DepartureST,"
+				+ "dep_st.TrainArrivalTime Departuretime, "
+				+ "des_st.StationID DestinationST,"
+				+ "des_st.TrainArrivalTime Arrivaltime "
 				+ "from TranInfo dep_st " 
 				+ "left join TranInfo des_st on dep_st.TranNo = des_st.TranNo and dep_st.TrainArrivalTime <> des_st.TrainArrivalTime "
 				+ "and des_st.TrainArrivalTime > dep_st.TrainArrivalTime "
@@ -53,8 +53,8 @@ public class BookingDAOImpl extends BaseDAO_MySql implements BookingDAO {
 		Map<Set<String> , Integer> result = new HashMap<Set<String> , Integer>();
 		for(PriceInfoDTO price: priceList) {
 			Set<String> tmpS = new HashSet<String>();
-			tmpS.add(price.getDeparture_ST());
-			tmpS.add(price.getDestination_ST());
+			tmpS.add(price.getDepartureST());
+			tmpS.add(price.getDestinationST());
 			result.put(tmpS, price.getPrice());
 		}		
 		return result;
