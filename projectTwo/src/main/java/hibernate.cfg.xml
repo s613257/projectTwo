@@ -14,20 +14,8 @@
 		<property name="hibernate.format_sql">true</property>
 
 		<property name="hibernate.current_session_context_class">thread</property>
-
-		<mapping resource="tw/Nano/model/HouseBean.hbm.xml" />
-		<mapping class="tw.Nano.model.Department" />
-
-		<mapping class="tw.Nano.model.Book" />
-		<mapping class="tw.Nano.model.BookDetail" />
 		
-		<mapping class="tw.Nano.model.Stock"/>
-		<mapping class="tw.Nano.model.StockTransaction"/>
-		
-		<mapping class="tw.Nano.model.Game"/>
-		<mapping class="tw.Nano.model.Role"/>
-		
-		<mapping class="tw.Nano.model.Information"/>
+		<mapping class="hibernate.bean.BookingTk"/>
 		
 	</session-factory>
 </hibernate-configuration>
