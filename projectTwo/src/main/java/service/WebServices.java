@@ -32,8 +32,6 @@ public class WebServices extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String service = request.getParameter("service");
-		// System.out.println(service);
-
 		switch (service) {
 		case "GetTranInfo":
 			GetTranInfo(request, response);
@@ -112,9 +110,7 @@ public class WebServices extends HttpServlet {
 			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");
 			String json = new Gson().toJson(inputMap);
-			//String json = new Gson().toJson(tks);
 			response.getWriter().append(json);
-			System.out.println("456");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

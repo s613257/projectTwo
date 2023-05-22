@@ -101,8 +101,9 @@ public class BookingadminController extends HttpServlet {
 		
 		try {
 			String id = request.getParameter("id");
-			BookingDAO bookingDAO = new BookingDAOImpl();
-			BookingTk bkdto = new BookingTk((new TicketDAOImpl()).GetTicketInfoById(id));//你這邊改用 TicketDTO 比較合理一點
+			
+			TicketDTO ticketDto = (new TicketDAOImpl()).GetTicketInfoById(id);
+			//你這邊改用 TicketDTO 比較合理一點
 			// BookingTk 這個是用來"看" 的 所以你要改東西 刪東西 對某筆資料進行"操作" 就要用 TicketDTO 會比較好
 			// 基本上 你也可以用 BookingTk 撈出來的東西 去個別處理其他張表 你這邊比較單純 一個view 對應一個Table
 			// 就不用搞那麼麻煩
@@ -135,9 +136,10 @@ public class BookingadminController extends HttpServlet {
 			// 你有空可以改一下 把BookingDAOImpl 通通砍掉 留BookingTkServiceImpl 就好
 			// 可是 老師說要有dao 跟一個 service 耶oao 說這樣比較"彈性" XD 好吧我在感受一下XDDDD
 			// 我畫個徒給妳看 你先弄其他東西 好~wee
+			BookingDAO bookingDAO = new BookingDAOImpl();
 			request.setAttribute("stationList", bookingDAO.getAllStationInfo());
 			request.setAttribute("priceInfos", bookingDAO.getAllPriceInfo());
-			request.setAttribute("bkdto", bkdto);
+			request.setAttribute("ticketDto", ticketDto);
 			request.getRequestDispatcher("/html/BookingAdminDataPage.jsp").forward(request, response);
 		} catch (IOException | ServletException e) {
 			e.printStackTrace();

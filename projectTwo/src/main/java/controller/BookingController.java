@@ -24,13 +24,10 @@ public class BookingController extends HttpServlet {
 			action = "";
 		}
 		switch (action) {
-
-
 		default:
 			index(request, response);
 			break;
-		}		
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

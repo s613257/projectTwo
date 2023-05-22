@@ -1,8 +1,8 @@
-<%@page import="model.dto.TicketDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Map.*"%>
 <%@page import="java.util.*"%>
 <%@page import="model.Utils"%>
+<%@page import="model.dto.TicketDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -89,16 +89,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading">後台管理者</div>
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-							data-bs-target="#collapseLayouts" aria-expanded="false"
-							aria-controls="collapseLayouts">
-							<div class="sb-nav-link-icon">
-								<i class="fa-regular fa-user"></i>
-							</div> 使用者
-							<div class="sb-sidenav-collapse-arrow">
-								<i class="fas fa-angle-down"></i>
-							</div>
-						</a>
+						<div class="sb-nav-link-icon">
+							<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+								data-bs-target="#collapseLayouts" aria-expanded="false"
+								aria-controls="collapseLayouts"> <i
+								class="fa-regular fa-user p-2"></i> 使用者 <span
+								class="sb-sidenav-collapse-arrow"> <i
+									class="fas fa-angle-down"></i>
+							</span>
+							</a>
+						</div>
 						<div class="collapse" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
@@ -109,27 +109,31 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									class="nav-link" href="password.jsp">Forgot Password</a>
 							</nav>
 						</div>
-						<a class="nav-link" href="index.jsp">
-							<div class="sb-nav-link-icon">
-								<i class="fa-solid fa-location-dot"></i>
-							</div> 行程
-						</a> <a class="nav-link" href="index.jsp">
-							<div class="sb-nav-link-icon">
-								<i class="fa-solid fa-ticket"></i>
-							</div> 訂票
-						</a> <a class="nav-link" href="index.jsp">
-							<div class="sb-nav-link-icon">
-								<i class="fa-regular fa-comment-dots"></i>
-							</div> 論壇
-						</a> <a class="nav-link" href="index.jsp">
-							<div class="sb-nav-link-icon">
-								<i class="fa-solid fa-users"></i>
-							</div> 陪玩
-						</a> <a class="nav-link" href="index.jsp">
-							<div class="sb-nav-link-icon">
-								<i class="fa-solid fa-cart-shopping"></i>
-							</div> 訂單管理
-						</a>
+						<div class="sb-nav-link-icon">
+							<a class="nav-link" href="index.jsp"> <i
+								class="fa-solid fa-location-dot p-2 "> </i> 行程
+							</a>
+						</div>
+						<div class="sb-nav-link-icon">
+							<a class="nav-link" href="index.jsp"> <i
+								class="fa-solid fa-ticket p-2"></i> 訂票
+							</a>
+						</div>
+						<div class="sb-nav-link-icon">
+							<a class="nav-link" href="index.jsp"> <i
+								class="fa-regular fa-comment-dots p-2"></i> 論壇
+							</a>
+						</div>
+						<div class="sb-nav-link-icon">
+							<a class="nav-link" href="index.jsp"> <i
+								class="fa-solid fa-users p-2"></i> 陪玩
+							</a>
+						</div>
+						<div class="sb-nav-link-icon">
+							<a class="nav-link" href="index.jsp"> <i
+								class="fa-solid fa-cart-shopping p-2"></i> 訂單管理
+							</a>
+						</div>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
