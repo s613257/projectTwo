@@ -45,7 +45,8 @@ public class BookingDAOImpl extends BaseDAO_MySql implements BookingDAO {
 	@Override
 	public List<StationInfoDTO> getAllStationInfo() {
 		return getInfoByStation("select * from StationInfo");
-	}
+	} //在這裡只有 select 所有資料而已 噗噗 你有空把它改成˙用hibernate吧 XDD
+	
 
 	@Override
 	public Map<Set<String> , Integer> getAllPriceInfo() {

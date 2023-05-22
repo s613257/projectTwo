@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import hibernate.bean.BookingTk;
+
 public class TicketDTO {
 	private int ticketID;
 	private String tranNo;
@@ -19,6 +21,20 @@ public class TicketDTO {
 
 	public TicketDTO() {
 	}
+	
+	public TicketDTO(BookingTk bkdto) {
+		setTicketID(bkdto.getTicketID());
+		setTranNo(bkdto.getTranNo());
+		setSeat(bkdto.getSeat());
+		setDepartureST(bkdto.getDepartureST());
+		setDestinationST(bkdto.getDestinationST());
+		setdeparturedate(bkdto.getDeparturedate());
+		setDeparturetime(bkdto.getDeparturetime());
+		setArrivaltime(bkdto.getArrivaltime());
+		setPrice(bkdto.getPrice());
+		setbookingdate(bkdto.getBookingdate());
+	}
+
 
 	public TicketDTO(ResultSet rs) throws SQLException {
 		this.ticketID = rs.getInt("ticketID");

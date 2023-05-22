@@ -24,22 +24,22 @@ public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {
 
 	@Override
 	public List<TicketDTO> getAllTicketInfo() {
-		// return getInfoBySql("select * from TicketInfo");
-		return getInfoBySql("select"
-				+ "	tic_info.TicketID 'TicketID', " 
-				+ "	tic_info.TranNo 'TranNo', "
-				+ "	tic_info.Seat 'Seat'," 
-				+ "	sta_info_dep.StationName 'DepartureST',"
-				+ "	sta_info_des.StationName 'DestinationST',"
-				+ " tic_info.departuredate 'DepartureDate',"
-				+ "	tic_info. Departuretime 'Departuretime',"
-				+ "	tic_info.Arrivaltime 'Arrivaltime'," 
-				+ "	tic_info.price 'price',"
-				+ "	tic_info.BookingDate 'BookingDate' " 
-				+ "	from TicketInfo tic_info"
-				+ "	left join StationInfo sta_info_des on tic_info.DestinationST = sta_info_des.StationID"
-				+ "	left join StationInfo sta_info_dep on tic_info.DepartureST = sta_info_dep.StationID"
-				+ " ORDER BY	TicketID ASC;");
+		 return getInfoBySql("select * from TicketInfo ORDER BY	TicketID ASC");
+//		return getInfoBySql("select"
+//				+ "	tic_info.TicketID 'TicketID', " 
+//				+ "	tic_info.TranNo 'TranNo', "
+//				+ "	tic_info.Seat 'Seat'," 
+//				+ "	sta_info_dep.StationName 'DepartureST',"
+//				+ "	sta_info_des.StationName 'DestinationST',"
+//				+ " tic_info.departuredate 'DepartureDate',"
+//				+ "	tic_info. Departuretime 'Departuretime',"
+//				+ "	tic_info.Arrivaltime 'Arrivaltime'," 
+//				+ "	tic_info.price 'price',"
+//				+ "	tic_info.BookingDate 'BookingDate' " 
+//				+ "	from TicketInfo tic_info"
+//				+ "	left join StationInfo sta_info_des on tic_info.DestinationST = sta_info_des.StationID"
+//				+ "	left join StationInfo sta_info_dep on tic_info.DepartureST = sta_info_dep.StationID"
+//				+ " ORDER BY	TicketID ASC;");
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import model.dto.TicketDTO;
 
 @Entity @Table(name = "booking_Tk")
 public class BookingTk {
@@ -42,6 +43,20 @@ public class BookingTk {
 	private String bookingdate;
 
 	public BookingTk() {
+		
+	}
+	
+	public BookingTk(TicketDTO tickDto) {
+		setTicketID(tickDto.getTicketID());
+		setTranNo(tickDto.getTranNo());
+		setSeat(tickDto.getSeat());
+		setDepartureST(tickDto.getDepartureST());
+		setDestinationST(tickDto.getDestinationST());
+		setdeparturedate(tickDto.getDeparturedate());
+		setDeparturetime(tickDto.getDeparturetime());
+		setArrivaltime(tickDto.getArrivaltime());
+		setPrice(tickDto.getPrice());
+		setbookingdate(tickDto.getBookingdate());
 	}
 	
 	public int getTicketID() {
@@ -129,5 +144,12 @@ public class BookingTk {
 	}
 	public void setdeparturedate(String depdate) {
 		departuredate = depdate;
+	}
+	
+	@Override
+	public String toString() {
+		return "BookingTk [ticketID=" + ticketID + ", tranNo=" + tranNo + ", seat=" + seat + ", DepartureST="
+				+ departureST + ", DestinationST=" + destinationST + ",departuredate="+ departuredate +", Departuretime=" + departuretime
+				+ ", Arrivaltime=" + arrivaltime + ", price=" + price + ", bookingdate=" + bookingdate + "]";
 	}
 }

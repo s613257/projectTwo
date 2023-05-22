@@ -1,6 +1,7 @@
 <%@page import="java.util.*"%>
 <%@page import="java.util.Map.*"%>
 <%@page import="model.dto.TicketDTO"%>
+<%@page import="hibernate.bean.BookingTk"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.dto.PriceInfoDTO"%>
 <%@page import="model.dto.StationInfoDTO"%>
@@ -58,18 +59,18 @@ Map<Set<String>, Integer> priceInfos = (Map<Set<String>, Integer>) request.getAt
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 		+ request.getContextPath() + "/";
 
-TicketDTO tkdto = (TicketDTO) request.getAttribute("tkdto");
-String btn_title = tkdto == null ? "新增" : "修改";
-String ticketID = tkdto == null ? "" : Integer.toString(tkdto.getTicketID());
-String tranNo = tkdto == null ? "" : tkdto.getTranNo();
-String seat = tkdto == null ? "" : tkdto.getSeat();
-String departureST = tkdto == null ? "" : tkdto.getDepartureST();
-String destinationST = tkdto == null ? "" : tkdto.getDestinationST();
-String depturedate = tkdto == null ? "" : tkdto.getDeparturedate();
-String departuretime = tkdto == null ? "" : tkdto.getDeparturetime();
-String arrivaltime = tkdto == null ? "" : tkdto.getArrivaltime();
-String price = tkdto == null ? "" : Integer.toString(tkdto.getPrice());
-String bookingdate = tkdto == null ? "" : tkdto.getBookingdate();
+BookingTk bkdto = (BookingTk) request.getAttribute("bkdto");
+String btn_title = bkdto == null ? "新增" : "修改";
+String ticketID = bkdto == null ? "" : Integer.toString(bkdto.getTicketID());
+String tranNo = bkdto == null ? "" : bkdto.getTranNo();
+String seat = bkdto == null ? "" : bkdto.getSeat();
+String departureST = bkdto == null ? "" : bkdto.getDepartureST();
+String destinationST = bkdto == null ? "" : bkdto.getDestinationST();
+String depturedate = bkdto == null ? "" : bkdto.getDeparturedate();
+String departuretime = bkdto == null ? "" : bkdto.getDeparturetime();
+String arrivaltime = bkdto == null ? "" : bkdto.getArrivaltime();
+String price = bkdto == null ? "" : Integer.toString(bkdto.getPrice());
+String bookingdate = bkdto == null ? "" : bkdto.getBookingdate();
 %>
 
 <body onload="showPrice()"  class="sb-nav-fixed">
@@ -238,7 +239,7 @@ String bookingdate = tkdto == null ? "" : tkdto.getBookingdate();
 						<button type="submit" class="btn btn-dark" style="margin: 10px;"><%=btn_title%></button>
 						<button type="reset"  onclick="history.back()" class="btn btn-dark" style="margin: 10px;">取消</button>
 					</div>
-					<input type="hidden" name="action" value="<%=tkdto == null ? "doInsert" : "doUpdate" %>" />
+					<input type="hidden" name="action" value="<%=bkdto == null ? "doInsert" : "doUpdate" %>" />
 				</form>
 			</div>
 		</div>

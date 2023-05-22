@@ -20,7 +20,7 @@ public class StationInfoDTO {
 	public String toString() {
 		return "StationInfoDTO [StationID=" + stationID + ", StationName=" + stationName + "]";
 	}
-
+	
 	public int getStationID() {
 		return stationID;
 	}

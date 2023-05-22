@@ -20,10 +20,11 @@ public class Action {
 		
 		try {
 			session.beginTransaction();
-			
-			BookingTkDAO hDao = new BookingTkDAOImpl(session);
-//			//新增單筆
+
+			BookingTkService service = new BookingTkServiceImpl(session);
+			//新增單筆
 //			BookingTk bookingTk = new BookingTk();
+//			
 //			bookingTk.setTicketID(200);
 //			bookingTk.setTranNo("102");
 //			bookingTk.setSeat("01A");
@@ -34,19 +35,16 @@ public class Action {
 //			bookingTk.setArrivaltime("06:15");
 //			bookingTk.setPrice(100);
 //			bookingTk.setbookingdate("2023-05-19");
-//			hDao.insert(bookingTk);
 //			
+//			service.insert(bookingTk);
 			
-			//查詢全部
-//			List<BookingTk> lists = hDao.selectAll();
-//			for(BookingTk list : lists) {
-//				System.out.println(list.getTicketID()+" "+ list.getTranNo()+" "+list.getSeat()+" "+list.getDepartureST()+
-//						" " +list.getDestinationST()+" "+list.getDeparturedate()+" " +list.getDeparturetime()+
-//						" " +list.getArrivaltime()+" "+list.getPrice()+" "+list.getBookingdate());
-//			}
+			//selectAll
+			List<BookingTk> lists = service.selectAll();
+			for(BookingTk list : lists) {
+				System.out.println(list);
+				}
 			
 			//selectById
-//			BookingTkService service = new BookingTkServiceImpl(session);
 //			TicketDTO result = (new TicketDAOImpl()).GetTicketInfoById("200");
 //			if(result != null) {
 //				System.out.println("oridata===============================");
@@ -55,8 +53,10 @@ public class Action {
 //			result.getDeparturetime()+" "+result.getArrivaltime()+" "+result.getPrice()+" "+result.getBookingdate());
 //			}
 //			
+//			//update
 //			result.setTranNo("200");
 //			
+//			BookingTk bookingTk = new BookingTk();
 //			bookingTk.setTicketID(result.getTicketID());
 //			bookingTk.setTranNo(result.getTranNo());
 //			bookingTk.setSeat(result.getSeat());
@@ -76,11 +76,12 @@ public class Action {
 //			result.getDepartureST()+" "+result.getDestinationST()+" "+result.getDeparturedate()+" "+
 //			result.getDeparturetime()+" "+result.getArrivaltime()+" "+result.getPrice()+" "+result.getBookingdate());
 //			}
+
 		
 			
 			//delete
-			int status = service.delete(200);
-			System.out.println("status:" + status);
+			//int status = service.delete(200);
+			//System.out.println("status:" + status);
 			
 			session.getTransaction().commit();
 		} catch (Exception e) {

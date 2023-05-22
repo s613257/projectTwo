@@ -1,6 +1,5 @@
 package service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,11 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
@@ -23,7 +21,6 @@ import db.dao.TicketDAO;
 import db.dao.impl.BookingDAOImpl;
 import db.dao.impl.TicketDAOImpl;
 import model.dto.TicketDTO;
-import model.dto.TranInfoDTO;
 
 public class WebServices extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -90,7 +87,6 @@ public class WebServices extends HttpServlet {
 
 	private void GetAllTicketInfo(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			System.out.println("123");
 			TicketDAO ticketDao = new TicketDAOImpl();
 			List<TicketDTO> tks = ticketDao.getAllTicketInfo();
 			Map<String, List<List<String>>> inputMap = new HashMap<String, List<List<String>>>();
@@ -116,7 +112,6 @@ public class WebServices extends HttpServlet {
 			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");
 			String json = new Gson().toJson(inputMap);
-			System.out.println(json);
 			//String json = new Gson().toJson(tks);
 			response.getWriter().append(json);
 			System.out.println("456");

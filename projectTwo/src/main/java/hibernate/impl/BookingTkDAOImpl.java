@@ -1,14 +1,19 @@
 package hibernate.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import db.dao.TicketDAO;
+import db.dao.impl.BookingDAOImpl;
 import db.dao.impl.TicketDAOImpl;
 import hibernate.BookingTkDAO;
 import hibernate.bean.BookingTk;
+import model.dto.StationInfoDTO;
 import model.dto.TicketDTO;
 
 public class BookingTkDAOImpl implements BookingTkDAO {
@@ -48,8 +53,42 @@ public class BookingTkDAOImpl implements BookingTkDAO {
 
 	@Override
 	public List<BookingTk> selectAll() {
-		Query<BookingTk> query = session.createQuery("from BookingTk", BookingTk.class);
-		return query.list();
+		// (new TicketDAOImpl()).getAllTicketInfo(); 這拿到的是 單純 TicketInfo 表的所有資料
+		List<TicketDTO> ticketInfoLst = (new TicketDAOImpl()).getAllTicketInfo();
+		
+		// (new BookingDAOImpl()).getAllStationInfo(); 這拿到的是 單純 StationInfo 表的所有資料
+		List<StationInfoDTO>  stationInfos = (new BookingDAOImpl()).getAllStationInfo();
+		
+		// 把兩個表的資料拼起來
+		Map<Integer, String> stationMap = new HashMap<Integer, String>();
+		for(StationInfoDTO stationInfo: stationInfos) {
+			stationMap.put(stationInfo.getStationID(), stationInfo.getStationName());
+		}
+		List<BookingTk> result = new ArrayList<>();
+		for(TicketDTO ticketInfo: ticketInfoLst) {
+			BookingTk bookingTk = new BookingTk(ticketInfo);
+			// 上面我有點偷懶  正常來說這樣不太好 應該要用
+//			setTicketID(tickDto.getTicketID());
+//			setTranNo(tickDto.getTranNo());
+//			setSeat(tickDto.getSeat());
+//			setDepartureST(tickDto.getDepartureST());
+//			setDestinationST(tickDto.getDestinationST());
+//			setdeparturedate(tickDto.getDeparturedate());
+//			setDeparturetime(tickDto.getDeparturetime());
+//			setArrivaltime(tickDto.getArrivaltime());
+//			setPrice(tickDto.getPrice());
+//			setbookingdate(tickDto.getBookingdate());
+			// 把他一個一個拼起來
+			
+			// 不過之前有設計過 TicketDTO和 BookingTk根本超像
+			// 所以我就偷懶這樣寫 最後再把ID的String換成站名
+			bookingTk.setDepartureST(stationMap.get(Integer.parseInt(ticketInfo.getDepartureST())));
+			bookingTk.setDestinationST(stationMap.get(Integer.parseInt(ticketInfo.getDestinationST())));
+		} 
+		// 拚完了
+		return result;
+//		Query<BookingTk> query = session.createQuery("from BookingTk", BookingTk.class);
+//		return query.list();
 	}
 
 	@Override

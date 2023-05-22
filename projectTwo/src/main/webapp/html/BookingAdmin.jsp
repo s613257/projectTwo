@@ -271,7 +271,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			//queryResult.style.display = "";
 		}
 
-		function placeQueryContent(ticketInfos) {
+		/* function placeQueryContent(ticketInfos) {
 			let queryContent = document.querySelector("#queryContent");
 			queryContent.innerHTML = '';
 			ticketInfos.forEach(function (ticketInfo) {
@@ -332,7 +332,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 				queryContent.appendChild(infoRow);
 			});
-		}
+		} */
 		
 		function insertRecord() {
 			location.href = basePath + "BookingadminController?action=<%=Utils.ACTION_INSERT%>";
