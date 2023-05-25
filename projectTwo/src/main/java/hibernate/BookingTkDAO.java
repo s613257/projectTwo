@@ -3,12 +3,13 @@ package hibernate;
 import java.util.List;
 
 import hibernate.bean.BookingTk;
+import model.dto.TicketDTO;
 
 public interface BookingTkDAO {
 
-	public int insert(BookingTk booking);
+	public TicketDTO insert(BookingTk booking);
 	public BookingTk selectById(int ticketID);
 	public List<BookingTk> selectAll();
-	public int update(BookingTk booking);
-	public int delete(int ticketID);
+	public TicketDTO update(BookingTk booking);
+	public boolean delete(int ticketID);
 }

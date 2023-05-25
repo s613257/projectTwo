@@ -28,7 +28,7 @@ public class BookingTkDAOImpl implements BookingTkDAO {
 	}
 
 	@Override
-	public int insert(BookingTk booking) { //參數太多用物件
+	public TicketDTO insert(BookingTk booking) { //參數太多用物件
 
 		TicketDTO ticket = new TicketDTO(); 
 		ticket.setTicketID(booking.getTicketID());
@@ -92,7 +92,7 @@ public class BookingTkDAOImpl implements BookingTkDAO {
 	}
 
 	@Override
-	public int update(BookingTk booking) {
+	public TicketDTO update(BookingTk booking) {
 //		BookingTk result = session.get(BookingTk.class , ticketID);
 		TicketDTO ticket = new TicketDTO();
 
@@ -111,7 +111,7 @@ public class BookingTkDAOImpl implements BookingTkDAO {
 	}
 
 	@Override
-	public int delete(int ticketID) {
+	public boolean delete(int ticketID) {
 //		BookingTk bean = session.get(BookingTk.class , ticketID);
 		return (new TicketDAOImpl()).deleteTicketInfo(ticketID);
 	}

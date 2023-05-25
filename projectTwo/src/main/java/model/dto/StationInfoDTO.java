@@ -3,9 +3,17 @@ package model.dto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity @Table(name = "sationInfo")
 public class StationInfoDTO {
 
+	@Column(name = "STATIONID")
 	private int stationID;
+	
+	@Column(name = "STATIONNAME")
 	private String stationName;
 
 	public StationInfoDTO() {

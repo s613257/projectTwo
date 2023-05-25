@@ -6,17 +6,42 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import hibernate.bean.BookingTk;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity @Table(name = "ticketInfo")
 public class TicketDTO {
+	
+	@Id @Column(name = "TICKETID")	
 	private int ticketID;
+	
+	@Column(name = "TRANNO")
 	private String tranNo;
+	
+	@Column(name = "SEAT")
 	private String seat;
+	
+	@Column(name = "DEPARYUREST")
 	private String departureST;
+	
+	@Column(name = "DESTINATIONST")
 	private String destinationST;
+	
+	@Column(name = "DEPARTUREDATE")
 	private String departuredate;
+	
+	@Column(name = "DEPARTURETIME")
 	private String departuretime;
+	
+	@Column(name = "ARRIVALTIME")
 	private String arrivaltime;
+	
+	@Column(name = "PRICE")
 	private int price;
+	
+	@Column(name = "BOOKINGDATE")
 	private String bookingdate;
 
 	public TicketDTO() {

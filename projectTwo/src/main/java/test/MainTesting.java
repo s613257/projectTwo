@@ -44,7 +44,7 @@ public class MainTesting {
 //		tkaDao.updateTicketInfo(tkdto);
 //		tkaDao.deleteTicketInfo(200);
 //		tkaDao.getAllTicketInfo();
-		tkaDao.GetTicketInfoById("666");
+		tkaDao.getTicketInfoById(666);
 //		-----Booking-----
 //		DAOTesting.testBookingDAOByTran();
 //		DAOTesting.testBookingDAOByStation();

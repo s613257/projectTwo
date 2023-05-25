@@ -102,7 +102,7 @@ public class BookingadminController extends HttpServlet {
 		try {
 			String id = request.getParameter("id");
 			
-			TicketDTO ticketDto = (new TicketDAOImpl()).GetTicketInfoById(id);
+			TicketDTO ticketDto = (new TicketDAOImpl()).getTicketInfoById(Integer.parseInt(id));
 			BookingDAO bookingDAO = new BookingDAOImpl();
 			request.setAttribute("stationList", bookingDAO.getAllStationInfo());
 			request.setAttribute("priceInfos", bookingDAO.getAllPriceInfo());

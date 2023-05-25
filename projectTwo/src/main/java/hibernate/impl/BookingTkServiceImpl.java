@@ -23,7 +23,7 @@ public class BookingTkServiceImpl  implements  BookingTkService{
 	}
 
 	@Override
-	public int insert(BookingTk booking) {
+	public TicketDTO insert(BookingTk booking) {
 		return bkDao.insert(booking);
 	}
 
@@ -52,12 +52,12 @@ public class BookingTkServiceImpl  implements  BookingTkService{
 	}
 
 	@Override
-	public int update(BookingTk booking) {
+	public TicketDTO update(BookingTk booking) {
 		return bkDao.update(booking);
 	}
 
 	@Override
-	public int delete(int ticketID) {
+	public boolean delete(int ticketID) {
 		return bkDao.delete(ticketID);
 	}
 }

@@ -16,6 +16,11 @@
 		<property name="hibernate.current_session_context_class">thread</property>
 		
 		<mapping class="hibernate.bean.BookingTk"/>
+		<mapping class="model.dto.PriceInfoDTO"/>
+		<mapping class="model.dto.StationInfoDTO"/>
+		<mapping class="model.dto.TicketDTO"/>
+		<mapping class="model.dto.TranInfoDTO"/>
+		
 		
 	</session-factory>
 </hibernate-configuration>

@@ -3,10 +3,20 @@ package model.dto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity @Table(name = "priceInfo")
 public class PriceInfoDTO {
 
+	@Column(name = "DEPARTUREST")
 	private String departureST;
+	
+	@Column(name = "DEATINATIONST")
 	private String destinationST;
+	
+	@Column(name = "PRICE")
 	private int price;
 
 	public PriceInfoDTO() {
