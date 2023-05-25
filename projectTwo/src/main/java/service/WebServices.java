@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Session;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +22,10 @@ import db.dao.BookingDAO;
 import db.dao.TicketDAO;
 import db.dao.impl.BookingDAOImpl;
 import db.dao.impl.TicketDAOImpl;
+import hibernate.BookingTkService;
+import hibernate.HibernateUtil;
+import hibernate.bean.BookingTk;
+import hibernate.impl.BookingTkServiceImpl;
 import model.dto.TicketDTO;
 
 
@@ -86,12 +92,12 @@ public class WebServices extends HttpServlet {
 
 	private void GetAllTicketInfo(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			TicketDAO ticketDao = new TicketDAOImpl();
-			List<TicketDTO> tks = ticketDao.getAllTicketInfo();
+			BookingTkService bookingService = new BookingTkServiceImpl();
+			List<BookingTk> tks = bookingService.getAllBookingTk();
 			Map<String, List<List<String>>> inputMap = new HashMap<String, List<List<String>>>();
 			List<List<String>> dataList = new ArrayList<List<String>>();
 			inputMap.put("data", dataList);
-			for(TicketDTO tk :tks) {
+			for(BookingTk tk :tks) {
 				List<String> tkDataLst = new ArrayList<String>();
 				tkDataLst.add(Integer.toString(tk.getTicketID()));
 				tkDataLst.add(tk.getTranNo());
@@ -119,13 +125,22 @@ public class WebServices extends HttpServlet {
 
 	private void DeleteTicketInfo(HttpServletRequest request, HttpServletResponse response) {
 		try {
+			Session session = HibernateUtil.getInstance();
+			session.beginTransaction();
 			String id = request.getParameter("id");
 			TicketDAO ticketDao = new TicketDAOImpl();
-			int rowCnt = ticketDao.deleteTicketInfo(Integer.parseInt(id));
-			String json = String.format("{\"msg\":\"%s(id=%s)\"}", rowCnt > 0 ? "刪除成功" : "刪除失敗", id);
+			boolean isSucceed = ticketDao.deleteTicketInfo(session,Integer.parseInt(id));
+			if(isSucceed) {
+				session.getTransaction().commit();
+			}else {
+				session.getTransaction().rollback();
+			}
+			HibernateUtil.closeSessionFactory();
+			String json = String.format("{\"msg\":\"%s(id=%s)\"}", isSucceed? "刪除成功" : "刪除失敗", id);
 			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().append(json);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

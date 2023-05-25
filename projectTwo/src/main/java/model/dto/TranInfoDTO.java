@@ -7,16 +7,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-@Entity @Table(name = "tranInfo")
 public class TranInfoDTO {
 	
-	@Column(name = "TRANNO")
 	private String tranNo;
-	
-	@Column(name = "STATIONID")
 	private int stationID;
-	
-	@Column(name = "TRAINARRVIALTIME")
 	private String trainArrvialTime;
 
 	public TranInfoDTO() {

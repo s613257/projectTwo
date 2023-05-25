@@ -1,10 +1,5 @@
 package db.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,25 +9,20 @@ import org.hibernate.query.Query;
 
 import db.dao.BaseDAO_MySql;
 import db.dao.TicketDAO;
-import hibernate.bean.BookingTk;
+import hibernate.HibernateUtil;
 import model.dto.TicketDTO;
 
 public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {
 //	Connection conn = getConnection();
-	
-	private Session session;
-	
+
+
 	public TicketDAOImpl() {
 	}
-	
-	public TicketDAOImpl(Session session) {
-		this.session = session;
-	}
-	
-	@Override
-	public TicketDTO insertTicketInfo(TicketDTO ticket) {
 
-		TicketDTO tkDto = new TicketDTO(); 
+	@Override
+	public boolean insertTicketInfo(Session session, TicketDTO ticket) {
+
+		TicketDTO tkDto = new TicketDTO();
 		tkDto.setTicketID(ticket.getTicketID());
 		tkDto.setTranNo(ticket.getTranNo());
 		tkDto.setSeat(ticket.getSeat());
@@ -43,29 +33,27 @@ public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {
 		tkDto.setArrivaltime(ticket.getArrivaltime());
 		tkDto.setPrice(ticket.getPrice());
 		tkDto.setbookingdate(ticket.getBookingdate());
-		return null;
-
+		try {
+			session.persist(ticket);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public TicketDTO getTicketInfoById(int ticketID) {
+	public TicketDTO getTicketInfoById(Session session, int ticketID) {
 		return session.get(TicketDTO.class, ticketID);
 	}
-	
-//	public TicketDTO GetTicketInfoById(String id) {
-//	List<TicketDTO> resultList = getInfoBySql("SELECT * FROM TicketInfo WHERE ticketID = " + id);
-//	System.out.println(resultList);
-//	return resultList.get(0);
-//}
-	
+
 	@Override
-	public List<TicketDTO> getAllTicketInfo() {
+	public List<TicketDTO> getAllTicketInfo(Session session) {
 		Query<TicketDTO> query = session.createQuery("from TicketDTO", TicketDTO.class);
 		return query.list();
 	}
-	
+
 	@Override
-	public TicketDTO updateTicketInfo(TicketDTO ticket) {
+	public boolean updateTicketInfo(Session session, TicketDTO ticket) {
 		TicketDTO tkDto = new TicketDTO();
 
 		tkDto.setTicketID(ticket.getTicketID());
@@ -78,20 +66,29 @@ public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {
 		tkDto.setArrivaltime(ticket.getArrivaltime());
 		tkDto.setPrice(ticket.getPrice());
 		tkDto.setbookingdate(ticket.getBookingdate());
-		return null;
+		try {
+			session.merge(ticket);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public boolean deleteTicketInfo(int ticketID) {
-		TicketDTO bean = session.get(TicketDTO.class , ticketID);
-		if(bean != null) {
-			session.delete(bean);
+	public boolean deleteTicketInfo(Session session, int ticketID) {
+		TicketDTO bean = session.get(TicketDTO.class, ticketID);
+		if (bean != null) {
+			session.remove(bean);
 			return true;
 		}
 		return false;
 	}
 	
-
+//	public TicketDTO GetTicketInfoById(String id) {
+//	List<TicketDTO> resultList = getInfoBySql("SELECT * FROM TicketInfo WHERE ticketID = " + id);
+//	System.out.println(resultList);
+//	return resultList.get(0);
+//}
 //	@Override
 //	public List<TicketDTO> getAllTicketInfo() {
 //		 return getInfoBySql("select * from TicketInfo ORDER BY	TicketID ASC");

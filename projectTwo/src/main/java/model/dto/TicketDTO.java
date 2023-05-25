@@ -23,7 +23,7 @@ public class TicketDTO {
 	@Column(name = "SEAT")
 	private String seat;
 	
-	@Column(name = "DEPARYUREST")
+	@Column(name = "DEPARTUREST")
 	private String departureST;
 	
 	@Column(name = "DESTINATIONST")

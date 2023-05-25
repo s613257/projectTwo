@@ -5,23 +5,18 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import db.dao.TicketDAO;
-import db.dao.impl.TicketDAOImpl;
 import hibernate.bean.BookingTk;
-import hibernate.impl.BookingTkDAOImpl;
 import hibernate.impl.BookingTkServiceImpl;
-import model.dto.TicketDTO;
 
 public class Action {
 
 	public static void main(String[] args) {
-		SessionFactory factory = HibernateUtil.getSessionFactory();
-		Session session = factory.getCurrentSession();
+		Session session = HibernateUtil.getInstance();
 		
 		try {
 			session.beginTransaction();
 
-			BookingTkService service = new BookingTkServiceImpl(session);
+			BookingTkService service = new BookingTkServiceImpl();
 			//新增單筆
 //			BookingTk bookingTk = new BookingTk();
 //			
@@ -39,7 +34,7 @@ public class Action {
 //			service.insert(bookingTk);
 			
 			//selectAll
-			List<BookingTk> lists = service.selectAll();
+			List<BookingTk> lists = service.getAllBookingTk();
 			for(BookingTk list : lists) {
 				System.out.println(list);
 				}

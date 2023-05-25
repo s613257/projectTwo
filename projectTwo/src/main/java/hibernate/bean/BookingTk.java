@@ -9,43 +9,32 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import model.dto.TicketDTO;
 
-@Entity @Table(name = "booking_Tk")
 public class BookingTk {
-	
-	@Id @Column(name = "ticketID")
+	// View Object, Just for viewing
 	private int ticketID;
-	
-	@Column(name = "tranNo")
+
 	private String tranNo;
-	
-	@Column(name = "seat")
+
 	private String seat;
-	
-	@Column(name = "departureST")
+
 	private String departureST;
-	
-	@Column(name = "destinationST")
+
 	private String destinationST;
-	
-	@Column(name = "departuredate")
+
 	private String departuredate;
-	
-	@Column(name = "departuretime")
+
 	private String departuretime;
-	
-	@Column(name = "arrivaltime")
+
 	private String arrivaltime;
-	
-	@Column(name = "price")
+
 	private int price;
-	
-	@Column(name = "bookingdate")
+
 	private String bookingdate;
 
 	public BookingTk() {
-		
+
 	}
-	
+
 	public BookingTk(TicketDTO tickDto) {
 		setTicketID(tickDto.getTicketID());
 		setTranNo(tickDto.getTranNo());
@@ -58,7 +47,7 @@ public class BookingTk {
 		setPrice(tickDto.getPrice());
 		setbookingdate(tickDto.getBookingdate());
 	}
-	
+
 	public int getTicketID() {
 		return ticketID;
 	}
@@ -126,7 +115,7 @@ public class BookingTk {
 	public String getBookingdate() {
 		return bookingdate;
 	}
-	
+
 	public String getDeparturedate() {
 		return departuredate;
 	}
@@ -135,21 +124,25 @@ public class BookingTk {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		bookingdate = sdf.format(date);
 	}
+
 	public void setbookingdate(String date) {
 		bookingdate = date;
 	}
+
 	public void setdeparturedate(Date depdate) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		departuredate = sdf.format(depdate);
 	}
+
 	public void setdeparturedate(String depdate) {
 		departuredate = depdate;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "BookingTk [ticketID=" + ticketID + ", tranNo=" + tranNo + ", seat=" + seat + ", DepartureST="
-				+ departureST + ", DestinationST=" + destinationST + ",departuredate="+ departuredate +", Departuretime=" + departuretime
-				+ ", Arrivaltime=" + arrivaltime + ", price=" + price + ", bookingdate=" + bookingdate + "]";
+				+ departureST + ", DestinationST=" + destinationST + ",departuredate=" + departuredate
+				+ ", Departuretime=" + departuretime + ", Arrivaltime=" + arrivaltime + ", price=" + price
+				+ ", bookingdate=" + bookingdate + "]";
 	}
 }

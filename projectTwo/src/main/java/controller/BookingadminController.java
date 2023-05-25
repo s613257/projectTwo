@@ -81,11 +81,9 @@ public class BookingadminController extends HttpServlet {
 
 	public void doInsert(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			SessionFactory factory = HibernateUtil.getSessionFactory();
-			Session session = factory.getCurrentSession();
-			BookingTkService service = new BookingTkServiceImpl(session);
-			BookingTk bkdto = getTicketDTOByReq(request);
-			service.insert(bkdto);
+			TicketDTO tketDto = getTicketDTOByReq(request);
+			BookingTkService bts = new BookingTkServiceImpl();
+			bts.insertTicketInfo(tketDto);
 			request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
@@ -93,42 +91,46 @@ public class BookingadminController extends HttpServlet {
 	}
 
 	public void update(HttpServletRequest request, HttpServletResponse response) {
-		/*   1. 在BookingAdmin.jsp點擊事件。
-		 *   2. 跳轉BookingAdminDataPage.jsp，show 當前編輯資料。
-		 * 	 3. 在BookingAdminDataPage編輯完成，跳轉回BookingAdmin.jsp頁面。
-		 *   4. !!!注意參數名稱!!!
+		/*
+		 * 1. 在BookingAdmin.jsp點擊事件。 2. 跳轉BookingAdminDataPage.jsp，show 當前編輯資料。 3.
+		 * 在BookingAdminDataPage編輯完成，跳轉回BookingAdmin.jsp頁面。 4. !!!注意參數名稱!!!
 		 */
-		
+
+		Session session = HibernateUtil.getInstance();
 		try {
+			session.beginTransaction();
 			String id = request.getParameter("id");
-			
-			TicketDTO ticketDto = (new TicketDAOImpl()).getTicketInfoById(Integer.parseInt(id));
+
+			TicketDTO ticketDto = (new TicketDAOImpl()).getTicketInfoById(session, Integer.parseInt(id));
 			BookingDAO bookingDAO = new BookingDAOImpl();
 			request.setAttribute("stationList", bookingDAO.getAllStationInfo());
 			request.setAttribute("priceInfos", bookingDAO.getAllPriceInfo());
 			request.setAttribute("ticketDto", ticketDto);
 			request.getRequestDispatcher("/html/BookingAdminDataPage.jsp").forward(request, response);
+			session.getTransaction().commit();
 		} catch (IOException | ServletException e) {
 			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.closeSessionFactory();
 		}
-		
-		
+
 	}
+
 	public void doUpdate(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			SessionFactory factory = HibernateUtil.getSessionFactory();
-			Session session = factory.getCurrentSession();
-			BookingTkService service = new BookingTkServiceImpl(session);
-			BookingTk bkdto = getTicketDTOByReq(request);
-			service.update(bkdto);
+			TicketDTO tketDto = getTicketDTOByReq(request);
+			BookingTkService bts = new BookingTkServiceImpl();
+			bts.updateTicketInfo(tketDto);
 			request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
 		} catch (IOException | ServletException e) {
 			e.printStackTrace();
+
 		}
 	}
 
-	private BookingTk getTicketDTOByReq(HttpServletRequest request) {
-		BookingTk bookingTk = new BookingTk();
+	private TicketDTO getTicketDTOByReq(HttpServletRequest request) {
+		TicketDTO bookingTk = new TicketDTO();
 		String ticketID = request.getParameter("ticketID");
 		bookingTk.setTicketID(Integer.parseInt(ticketID));
 		String tranNo = request.getParameter("tranNo");
@@ -145,7 +147,7 @@ public class BookingadminController extends HttpServlet {
 		bookingTk.setDeparturetime(departuretime);
 		String arrivaltime = request.getParameter("arrivaltime");
 		bookingTk.setArrivaltime(arrivaltime);
-		String price = request.getParameter("price"); 
+		String price = request.getParameter("price");
 		bookingTk.setPrice(Integer.parseInt(price));
 		String bookingdate = request.getParameter("bookingdate");
 		bookingTk.setbookingdate(bookingdate);

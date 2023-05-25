@@ -6,9 +6,8 @@ import hibernate.bean.BookingTk;
 import model.dto.TicketDTO;
 
 public interface BookingTkService {
-	public TicketDTO insert(BookingTk booking);
-	public BookingTk selectById(int ticketID);
-	public List<BookingTk> selectAll();
-	public TicketDTO update(BookingTk booking);
-	public boolean delete(int ticketID);
+	public BookingTk getBookingTkById(int ticketID);
+	public List<BookingTk> getAllBookingTk();
+	public boolean updateTicketInfo(TicketDTO ticketDto);
+	public boolean insertTicketInfo(TicketDTO ticketDto);
 }
