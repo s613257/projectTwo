@@ -21,10 +21,10 @@ public class HighSpeedRailServiceImpl implements HighSpeedRailService {
 	}
 	
 	@Override
-	public HighSpeedRailTicket getBookingTkById( int ticketID) {
+	public HighSpeedRailTicket getBookingTkById(int ticketID) {
 		Session session = HibernateUtil.getInstance();
 		session.beginTransaction();
-		List<StationInfoDTO> stationInfos = (new BookingDAOImpl()).getAllStationInfo(); // 命名不太好 XD 太接近了
+		List<StationInfoDTO> stationInfos = (new BookingDAOImpl()).getAllStationInfo(); 
 		Map<Integer, String> stationMap = new HashMap<Integer, String>();
 		for (StationInfoDTO stationInfo : stationInfos) {
 			stationMap.put(stationInfo.getStationID(), stationInfo.getStationName());
@@ -43,9 +43,9 @@ public class HighSpeedRailServiceImpl implements HighSpeedRailService {
 		Session session = HibernateUtil.getInstance();
 		session.beginTransaction();
 		List<TicketDTO> ticketInfoLst = (new TicketDAOImpl()).getAllTicketInfo(session);
-		List<StationInfoDTO> stationInfos = (new BookingDAOImpl()).getAllStationInfo(); // 命名不太好 XD 太接近了
-		Map<Integer, String> stationMap = new HashMap<Integer, String>();
 		
+		List<StationInfoDTO> stationInfos = (new BookingDAOImpl()).getAllStationInfo(); 
+		Map<Integer, String> stationMap = new HashMap<Integer, String>();
 		for (StationInfoDTO stationInfo : stationInfos) {
 			stationMap.put(stationInfo.getStationID(), stationInfo.getStationName());
 		}
@@ -62,8 +62,6 @@ public class HighSpeedRailServiceImpl implements HighSpeedRailService {
 		return result;
 	}
 	
-	
-	
 	@Override
 	public boolean insertTicketInfo(TicketDTO ticketDto) {
 		Session session = HibernateUtil.getInstance();
@@ -78,6 +76,7 @@ public class HighSpeedRailServiceImpl implements HighSpeedRailService {
 		HibernateUtil.closeSessionFactory();
 		return true;
 	}
+	
 	@Override
 	public boolean updateTicketInfo(TicketDTO ticketDto) {
 		Session session = HibernateUtil.getInstance();
