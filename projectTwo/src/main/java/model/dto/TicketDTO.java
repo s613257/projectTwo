@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import hibernate.bean.BookingTk;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -47,7 +46,7 @@ public class TicketDTO {
 	public TicketDTO() {
 	}
 	
-	public TicketDTO(BookingTk bkdto) {
+	public TicketDTO(HighSpeedRailTicket bkdto) {
 		setTicketID(bkdto.getTicketID());
 		setTranNo(bkdto.getTranNo());
 		setSeat(bkdto.getSeat());

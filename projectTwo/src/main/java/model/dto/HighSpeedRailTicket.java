@@ -1,4 +1,4 @@
-package hibernate.bean;
+package model.dto;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,35 +7,25 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import model.dto.TicketDTO;
 
-public class BookingTk {
+public class HighSpeedRailTicket {
 	// View Object, Just for viewing
 	private int ticketID;
-
 	private String tranNo;
-
 	private String seat;
-
 	private String departureST;
-
 	private String destinationST;
-
 	private String departuredate;
-
 	private String departuretime;
-
 	private String arrivaltime;
-
 	private int price;
-
 	private String bookingdate;
 
-	public BookingTk() {
+	public HighSpeedRailTicket() {
 
 	}
 
-	public BookingTk(TicketDTO tickDto) {
+	public HighSpeedRailTicket(TicketDTO tickDto) {
 		setTicketID(tickDto.getTicketID());
 		setTranNo(tickDto.getTranNo());
 		setSeat(tickDto.getSeat());

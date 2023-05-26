@@ -9,7 +9,7 @@ import org.hibernate.query.Query;
 
 import db.dao.BaseDAO_MySql;
 import db.dao.TicketDAO;
-import hibernate.HibernateUtil;
+import model.HibernateUtil;
 import model.dto.TicketDTO;
 
 public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {

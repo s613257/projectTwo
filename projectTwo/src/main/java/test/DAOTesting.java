@@ -12,7 +12,7 @@ import db.dao.BookingDAO;
 import db.dao.TicketDAO;
 import db.dao.impl.BookingDAOImpl;
 import db.dao.impl.TicketDAOImpl;
-import hibernate.HibernateUtil;
+import model.HibernateUtil;
 import model.dto.PriceInfoDTO;
 import model.dto.StationInfoDTO;
 import model.dto.TicketDTO;

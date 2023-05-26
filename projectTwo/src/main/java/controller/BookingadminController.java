@@ -11,14 +11,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import db.dao.BookingDAO;
+import db.dao.HighSpeedRailService;
 import db.dao.TicketDAO;
 import db.dao.impl.BookingDAOImpl;
+import db.dao.impl.HighSpeedRailServiceImpl;
 import db.dao.impl.TicketDAOImpl;
-import hibernate.BookingTkService;
-import hibernate.HibernateUtil;
-import hibernate.bean.BookingTk;
-import hibernate.impl.BookingTkServiceImpl;
+import model.HibernateUtil;
 import model.Utils;
+import model.dto.HighSpeedRailTicket;
 import model.dto.TicketDTO;
 
 @WebServlet("/BookingadminController")
@@ -82,7 +82,7 @@ public class BookingadminController extends HttpServlet {
 	public void doInsert(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			TicketDTO tketDto = getTicketDTOByReq(request);
-			BookingTkService bts = new BookingTkServiceImpl();
+			HighSpeedRailService bts = new HighSpeedRailServiceImpl();
 			bts.insertTicketInfo(tketDto);
 			request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
@@ -120,7 +120,7 @@ public class BookingadminController extends HttpServlet {
 	public void doUpdate(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			TicketDTO tketDto = getTicketDTOByReq(request);
-			BookingTkService bts = new BookingTkServiceImpl();
+			HighSpeedRailService bts = new HighSpeedRailServiceImpl();
 			bts.updateTicketInfo(tketDto);
 			request.getRequestDispatcher("/html/BookingAdmin.jsp").forward(request, response);
 		} catch (IOException | ServletException e) {

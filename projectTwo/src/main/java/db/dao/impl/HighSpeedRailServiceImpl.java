@@ -1,4 +1,4 @@
-package hibernate.impl;
+package db.dao.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,23 +7,21 @@ import java.util.Map;
 
 import org.hibernate.Session;
 
+import db.dao.HighSpeedRailService;
 import db.dao.TicketDAO;
-import db.dao.impl.BookingDAOImpl;
-import db.dao.impl.TicketDAOImpl;
-import hibernate.BookingTkService;
-import hibernate.HibernateUtil;
-import hibernate.bean.BookingTk;
+import model.HibernateUtil;
+import model.dto.HighSpeedRailTicket;
 import model.dto.StationInfoDTO;
 import model.dto.TicketDTO;
 
-public class BookingTkServiceImpl implements BookingTkService {
+public class HighSpeedRailServiceImpl implements HighSpeedRailService {
 
-	public BookingTkServiceImpl() {
+	public HighSpeedRailServiceImpl() {
 		
 	}
 	
 	@Override
-	public BookingTk getBookingTkById( int ticketID) {
+	public HighSpeedRailTicket getBookingTkById( int ticketID) {
 		Session session = HibernateUtil.getInstance();
 		session.beginTransaction();
 		List<StationInfoDTO> stationInfos = (new BookingDAOImpl()).getAllStationInfo(); // 命名不太好 XD 太接近了
@@ -32,7 +30,7 @@ public class BookingTkServiceImpl implements BookingTkService {
 			stationMap.put(stationInfo.getStationID(), stationInfo.getStationName());
 		}
 		TicketDTO ticketInfo = (new TicketDAOImpl()).getTicketInfoById(session,ticketID);
-		BookingTk result = new BookingTk(ticketInfo);
+		HighSpeedRailTicket result = new HighSpeedRailTicket(ticketInfo);
 		result.setDepartureST(stationMap.get(Integer.parseInt(ticketInfo.getDepartureST())));
 		result.setDestinationST(stationMap.get(Integer.parseInt(ticketInfo.getDestinationST())));
 		session.getTransaction().commit();
@@ -41,7 +39,7 @@ public class BookingTkServiceImpl implements BookingTkService {
 	}
 
 	@Override
-	public List<BookingTk> getAllBookingTk() {
+	public List<HighSpeedRailTicket> getAllBookingTk() {
 		Session session = HibernateUtil.getInstance();
 		session.beginTransaction();
 		List<TicketDTO> ticketInfoLst = (new TicketDAOImpl()).getAllTicketInfo(session);
@@ -52,9 +50,9 @@ public class BookingTkServiceImpl implements BookingTkService {
 			stationMap.put(stationInfo.getStationID(), stationInfo.getStationName());
 		}
 		
-		List<BookingTk> result = new ArrayList<>();
+		List<HighSpeedRailTicket> result = new ArrayList<>();
 		for (TicketDTO ticketInfo : ticketInfoLst) {
-			BookingTk bookingTk = new BookingTk(ticketInfo);
+			HighSpeedRailTicket bookingTk = new HighSpeedRailTicket(ticketInfo);
 			bookingTk.setDepartureST(stationMap.get(Integer.parseInt(ticketInfo.getDepartureST())));
 			bookingTk.setDestinationST(stationMap.get(Integer.parseInt(ticketInfo.getDestinationST())));
 			result.add(bookingTk);

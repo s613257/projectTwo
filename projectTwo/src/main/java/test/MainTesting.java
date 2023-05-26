@@ -6,12 +6,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import db.dao.HighSpeedRailService;
 import db.dao.TicketDAO;
+import db.dao.impl.HighSpeedRailServiceImpl;
 import db.dao.impl.TicketDAOImpl;
-import hibernate.BookingTkService;
-import hibernate.HibernateUtil;
-import hibernate.bean.BookingTk;
-import hibernate.impl.BookingTkServiceImpl;
+import model.HibernateUtil;
+import model.dto.HighSpeedRailTicket;
 import model.dto.TicketDTO;
 
 public class MainTesting {

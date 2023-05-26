@@ -1,12 +1,14 @@
-package hibernate;
+package test;
 
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import hibernate.bean.BookingTk;
-import hibernate.impl.BookingTkServiceImpl;
+import db.dao.HighSpeedRailService;
+import db.dao.impl.HighSpeedRailServiceImpl;
+import model.HibernateUtil;
+import model.dto.HighSpeedRailTicket;
 
 public class Action {
 
@@ -16,7 +18,7 @@ public class Action {
 		try {
 			session.beginTransaction();
 
-			BookingTkService service = new BookingTkServiceImpl();
+			HighSpeedRailService service = new HighSpeedRailServiceImpl();
 			//新增單筆
 //			BookingTk bookingTk = new BookingTk();
 //			
@@ -34,8 +36,8 @@ public class Action {
 //			service.insert(bookingTk);
 			
 			//selectAll
-			List<BookingTk> lists = service.getAllBookingTk();
-			for(BookingTk list : lists) {
+			List<HighSpeedRailTicket> lists = service.getAllBookingTk();
+			for(HighSpeedRailTicket list : lists) {
 				System.out.println(list);
 				}
 			

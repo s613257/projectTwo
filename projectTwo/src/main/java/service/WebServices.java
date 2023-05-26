@@ -19,13 +19,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import db.dao.BookingDAO;
+import db.dao.HighSpeedRailService;
 import db.dao.TicketDAO;
 import db.dao.impl.BookingDAOImpl;
+import db.dao.impl.HighSpeedRailServiceImpl;
 import db.dao.impl.TicketDAOImpl;
-import hibernate.BookingTkService;
-import hibernate.HibernateUtil;
-import hibernate.bean.BookingTk;
-import hibernate.impl.BookingTkServiceImpl;
+import model.HibernateUtil;
+import model.dto.HighSpeedRailTicket;
 import model.dto.TicketDTO;
 
 
@@ -92,12 +92,12 @@ public class WebServices extends HttpServlet {
 
 	private void GetAllTicketInfo(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			BookingTkService bookingService = new BookingTkServiceImpl();
-			List<BookingTk> tks = bookingService.getAllBookingTk();
+			HighSpeedRailService bookingService = new HighSpeedRailServiceImpl();
+			List<HighSpeedRailTicket> tks = bookingService.getAllBookingTk();
 			Map<String, List<List<String>>> inputMap = new HashMap<String, List<List<String>>>();
 			List<List<String>> dataList = new ArrayList<List<String>>();
 			inputMap.put("data", dataList);
-			for(BookingTk tk :tks) {
+			for(HighSpeedRailTicket tk :tks) {
 				List<String> tkDataLst = new ArrayList<String>();
 				tkDataLst.add(Integer.toString(tk.getTicketID()));
 				tkDataLst.add(tk.getTranNo());
