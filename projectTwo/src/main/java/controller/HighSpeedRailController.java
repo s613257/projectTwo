@@ -32,7 +32,7 @@ public class HighSpeedRailController {
 
 	@GetMapping("")
 	public String index(Model model) {
-		return "bookingAdmin";
+		return "BookingAdmin";
 	}
 
 	@GetMapping("/insert")
@@ -40,13 +40,13 @@ public class HighSpeedRailController {
 		model.addAttribute("stationList", bookingDAO.getAllStationInfo());
 		model.addAttribute("priceInfos", bookingDAO.getAllPriceInfo());
 		model.addAttribute("ticketDto", new TicketDTO());
-		return "bookingAdminDataPage";
+		return "BookingAdminDataPage";
 	}
 
 	@PostMapping("/insert")
     public String insert(@ModelAttribute("ticketDto") TicketDTO ticketDto) {
         highSpeedRailService.insertTicketInfo(ticketDto);
-        return "redirect:/bookingadmin";
+        return "redirect:/BookingAdmin";
     }
 
     @GetMapping("/update")
@@ -55,12 +55,12 @@ public class HighSpeedRailController {
         model.addAttribute("stationList", bookingDAO.getAllStationInfo());
         model.addAttribute("priceInfos", bookingDAO.getAllPriceInfo());
         model.addAttribute("ticketDto", ticketDto);
-        return "bookingAdminDataPage";
+        return "BookingAdminDataPage";
     }
 
     @PostMapping("/update")
     public String update(@ModelAttribute("ticketDto") TicketDTO ticketDto) {
         highSpeedRailService.updateTicketInfo(ticketDto);
-        return "redirect:/bookingadmin";
+        return "redirect:/BookingAdmin";
     }
 }

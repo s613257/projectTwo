@@ -13,13 +13,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.stereotype.Repository;
+
 import db.dao.BaseDAO_MySql;
 import db.dao.BookingDAO;
+import jakarta.transaction.Transactional;
 import model.dto.PriceInfoDTO;
 import model.dto.StationInfoDTO;
 import model.dto.TicketDTO;
 import model.dto.TranInfoDTO;
 
+@Repository
+@Transactional
 public class BookingDAOImpl extends BaseDAO_MySql implements BookingDAO {
 	
 

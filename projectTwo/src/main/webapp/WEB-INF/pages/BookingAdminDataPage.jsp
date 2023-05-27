@@ -181,7 +181,7 @@ String bookingdate = ticketDto == null ? "" : ticketDto.getBookingdate();
 							<article class="container">
 								<div class="aside">
 									<div class="section">
-										<form method="post" action="BookingadminController">
+										<form method="post" action="BookingadminController" modelAttribute="TicketDTO">
 											<h2 style="text-align: center;">增修資料</h2>
 											<div style="margin: 5px;">
 												<label for="ticketID" class="t1">訂票編號：</label> <input
