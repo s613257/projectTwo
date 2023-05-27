@@ -6,16 +6,24 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import db.dao.HighSpeedRailService;
 import db.dao.TicketDAO;
+import jakarta.transaction.Transactional;
 import model.HibernateUtil;
 import model.dto.HighSpeedRailTicket;
 import model.dto.StationInfoDTO;
 import model.dto.TicketDTO;
 
+@Service
+@Transactional
 public class HighSpeedRailServiceImpl implements HighSpeedRailService {
 
+	@Autowired
+	private TicketDAOImpl tkDao;
+	
 	public HighSpeedRailServiceImpl() {
 		
 	}

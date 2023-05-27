@@ -5,16 +5,24 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import db.dao.BaseDAO_MySql;
 import db.dao.TicketDAO;
+import jakarta.transaction.Transactional;
 import model.HibernateUtil;
 import model.dto.TicketDTO;
 
+@Repository
+@Transactional
 public class TicketDAOImpl extends BaseDAO_MySql implements TicketDAO {
 //	Connection conn = getConnection();
 
+	@Autowired
+	private SessionFactory factory;
 
 	public TicketDAOImpl() {
 	}

@@ -5,12 +5,15 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "ticketInfo")
+@Component
 public class TicketDTO {
 	
 	@Id @Column(name = "TICKETID")	
