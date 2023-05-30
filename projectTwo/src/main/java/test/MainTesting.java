@@ -6,17 +6,15 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import db.dao.HighSpeedRailService;
+import db.dao.BaseDAO_Hibernate;
 import db.dao.TicketDAO;
-import db.dao.impl.HighSpeedRailServiceImpl;
 import db.dao.impl.TicketDAOImpl;
-import model.HibernateUtil;
 import model.dto.HighSpeedRailTicket;
-import model.dto.TicketDTO;
+import model.dto.Ticket;
 
-public class MainTesting {
-
-	public static void main(String[] args) {
+//public class MainTesting {
+//
+//	public static void main(String[] args) {
 //		-----Ticket-----
 //		DAOTesting.testTicketInfoDAO();
 //		TicketDTO tkdto = new TicketDTO();
@@ -59,50 +57,50 @@ public class MainTesting {
 //		DAOTesting.testBookingDAOByStation();
 //		DAOTesting.testBookingDAOByPrice();
 		
-		Session session = HibernateUtil.getInstance();
+//		Session session = BaseDAO_Hibernate.getInstance();
+//
+//		try {
+//			session.beginTransaction();
+//
+//			TicketDAO tkaDao = new TicketDAOImpl();
+////			tkaDao.getAllTicketInfo();
+////			System.out.println(tkaDao.getAllTicketInfo());
+////			tkaDao.getTicketInfoById(1);
+////			System.out.println(tkaDao.getTicketInfoById(1));
+//			TicketDTO tkDto = new TicketDTO(); 
+////			tkDto.setTicketID(1000);
+////			tkDto.setTranNo("103");
+////			tkDto.setSeat("01A");
+////			tkDto.setDepartureST("1");
+////			tkDto.setDestinationST("2");
+////			tkDto.setdeparturedate("2023-04-18");
+////			tkDto.setDeparturetime("06:15");
+////			tkDto.setArrivaltime("06:20");
+////			tkDto.setPrice(500);
+////			tkDto.setbookingdate("2023-04-18");
+////			tkaDao.insertTicketInfo(tkDto);
+////			System.out.println(tkaDao.insertTicketInfo(tkDto));
+////			tkDto.setTicketID(1001);
+////			tkDto.setTranNo("155");
+////			tkDto.setSeat("05A");
+////			tkDto.setDepartureST("1");
+////			tkDto.setDestinationST("2");
+////			tkDto.setdeparturedate("2023-04-18");
+////			tkDto.setDeparturetime("06:15");
+////			tkDto.setArrivaltime("06:20");
+////			tkDto.setPrice(500);
+////			tkDto.setbookingdate("2023-04-18");
+////			tkaDao.updateTicketInfo(tkDto);
+////			System.out.println(tkaDao.updateTicketInfo(tkDto));
+////			tkaDao.deleteTicketInfo(1001);
+//
+//			session.getTransaction().commit();
+//		} catch (Exception e) {
+//			session.getTransaction().rollback();
+//			e.printStackTrace();
+//		} finally {
+//			BaseDAO_Hibernate.closeSessionFactory();
+//		}
+//	}
 
-		try {
-			session.beginTransaction();
-
-			TicketDAO tkaDao = new TicketDAOImpl();
-//			tkaDao.getAllTicketInfo();
-//			System.out.println(tkaDao.getAllTicketInfo());
-//			tkaDao.getTicketInfoById(1);
-//			System.out.println(tkaDao.getTicketInfoById(1));
-			TicketDTO tkDto = new TicketDTO(); 
-//			tkDto.setTicketID(1000);
-//			tkDto.setTranNo("103");
-//			tkDto.setSeat("01A");
-//			tkDto.setDepartureST("1");
-//			tkDto.setDestinationST("2");
-//			tkDto.setdeparturedate("2023-04-18");
-//			tkDto.setDeparturetime("06:15");
-//			tkDto.setArrivaltime("06:20");
-//			tkDto.setPrice(500);
-//			tkDto.setbookingdate("2023-04-18");
-//			tkaDao.insertTicketInfo(tkDto);
-//			System.out.println(tkaDao.insertTicketInfo(tkDto));
-//			tkDto.setTicketID(1001);
-//			tkDto.setTranNo("155");
-//			tkDto.setSeat("05A");
-//			tkDto.setDepartureST("1");
-//			tkDto.setDestinationST("2");
-//			tkDto.setdeparturedate("2023-04-18");
-//			tkDto.setDeparturetime("06:15");
-//			tkDto.setArrivaltime("06:20");
-//			tkDto.setPrice(500);
-//			tkDto.setbookingdate("2023-04-18");
-//			tkaDao.updateTicketInfo(tkDto);
-//			System.out.println(tkaDao.updateTicketInfo(tkDto));
-//			tkaDao.deleteTicketInfo(1001);
-
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
-			e.printStackTrace();
-		} finally {
-			HibernateUtil.closeSessionFactory();
-		}
-	}
-
-}
+//}

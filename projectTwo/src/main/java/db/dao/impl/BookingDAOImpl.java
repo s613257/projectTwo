@@ -13,24 +13,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import db.dao.BaseDAO_Hibernate;
 import db.dao.BaseDAO_MySql;
 import db.dao.BookingDAO;
 import jakarta.transaction.Transactional;
-import model.dto.PriceInfoDTO;
-import model.dto.StationInfoDTO;
-import model.dto.TicketDTO;
-import model.dto.TranInfoDTO;
+import model.dto.PriceInfo;
+import model.dto.StationInfo;
+import model.dto.Ticket;
+import model.dto.TranInfo;
 
 @Repository
 @Transactional
-public class BookingDAOImpl extends BaseDAO_MySql implements BookingDAO {
+public class BookingDAOImpl extends BaseDAO_Hibernate implements BookingDAO {
 	
 
 	@Override
-	public List<TicketDTO> getAllTranInfo() {
-		return getInfoByTran("select "
+	public List<Ticket> getAllTranInfo() {
+		return getAllTranInfoBySql("select "
 				+ "TicketID = 0, "
 				+ "BookingDate = getdate(), "
 				+ "price = 0, "
@@ -46,18 +49,22 @@ public class BookingDAOImpl extends BaseDAO_MySql implements BookingDAO {
 				+ "and des_st.TrainArrivalTime > dep_st.TrainArrivalTime "
 				+ "where des_st.StationID is not null;");
 	}
-
 	@Override
-	public List<StationInfoDTO> getAllStationInfo() {
-		return getInfoByStation("select * from StationInfo");
-	} //在這裡只有 select 所有資料而已 噗噗 你有空把它改成用hibernate吧 XDD
+	public List<StationInfo> getAllStationInfo() {
+		return getAllStationInfo(getSession());
+	}
+	@Override
+	public List<StationInfo> getAllStationInfo(Session session) {
+		Query<StationInfo> query = session.createQuery("from StationInfo", StationInfo.class);
+		return query.list();
+	} 
 	
 
 	@Override
 	public Map<Set<String> , Integer> getAllPriceInfo() {
-		List<PriceInfoDTO> priceList = getInfoByPrice("select * from PriceInfo");
+		List<PriceInfo> priceList = getInfoByPrice();
 		Map<Set<String> , Integer> result = new HashMap<Set<String> , Integer>();
-		for(PriceInfoDTO price: priceList) {
+		for(PriceInfo price: priceList) {
 			Set<String> tmpS = new HashSet<String>();
 			tmpS.add(price.getDepartureST());
 			tmpS.add(price.getDestinationST());
@@ -66,62 +73,22 @@ public class BookingDAOImpl extends BaseDAO_MySql implements BookingDAO {
 		return result;
 	}
 
-	private List<TicketDTO> getInfoByTran(String sql) {
-		
-		List<TicketDTO> resultTranList = new ArrayList<TicketDTO>();
-		Statement st = null;
-		ResultSet rs = null;
-		try {
-			Connection conn = getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery(sql);
-			while (rs.next()) {
-				resultTranList.add(new TicketDTO(rs));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeAll(st, rs);
-		}
+	private List<Ticket> getAllTranInfoBySql(String sql) {
+		List<Ticket> resultTranList = new ArrayList<Ticket>();
+		Query<Ticket> query = getSession().createQuery(sql,Ticket.class);
+		resultTranList= query.list();
 		return resultTranList;
 	}
 
-	private List<StationInfoDTO> getInfoByStation(String sql) {
-		List<StationInfoDTO> resultStatuinList = new ArrayList<StationInfoDTO>();
-		Statement st = null;
-		ResultSet rs = null;
-		try {
-			Connection conn = getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery(sql);
-			while (rs.next()) {
-				resultStatuinList.add(new StationInfoDTO(rs));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeAll(st, rs);
-		}
-		return resultStatuinList;
-
+	private List<StationInfo> getInfoByStation() {
+		Query<StationInfo> query = getSession().createQuery("from StationInfo",StationInfo.class);
+		return query.list();
+	}
+	
+	@Override
+	public List<PriceInfo> getInfoByPrice() {
+		Query<PriceInfo> query = getSession().createQuery("from PriceInfo",PriceInfo.class);
+		return query.list();
 	}
 
-	private List<PriceInfoDTO> getInfoByPrice(String sql) {
-		List<PriceInfoDTO> resultPriceList = new ArrayList<PriceInfoDTO>();
-		Statement st = null;
-		ResultSet rs = null;
-		try {
-			Connection conn = getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery(sql);
-			while (rs.next()) {
-				resultPriceList.add(new PriceInfoDTO(rs));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeAll(st, rs);
-		}
-		return resultPriceList;
-	}
 }

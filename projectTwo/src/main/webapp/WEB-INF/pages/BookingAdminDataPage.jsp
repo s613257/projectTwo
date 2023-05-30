@@ -1,11 +1,13 @@
-<%@page import="java.util.*"%>
-<%@page import="java.util.Map.*"%>
-<%@page import="model.dto.TicketDTO"%>
+<%@page import="model.dto.PriceInfo"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.dto.PriceInfoDTO"%>
-<%@page import="model.dto.StationInfoDTO"%>
+<%@page import="java.util.Map.*"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +64,7 @@ Map<Set<String>, Integer> priceInfos = (Map<Set<String>, Integer>) request.getAt
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 		+ request.getContextPath() + "/";
 
-TicketDTO ticketDto = (TicketDTO) request.getAttribute("ticketDto");
+/* TicketDTO ticketDto = (TicketDTO) request.getAttribute("ticketDto");
 String btn_title = ticketDto == null ? "新增" : "修改";
 String ticketID = ticketDto == null ? "" : Integer.toString(ticketDto.getTicketID());
 String tranNo = ticketDto == null ? "" : ticketDto.getTranNo();
@@ -73,7 +75,8 @@ String depturedate = ticketDto == null ? "" : ticketDto.getDeparturedate();
 String departuretime = ticketDto == null ? "" : ticketDto.getDeparturetime();
 String arrivaltime = ticketDto == null ? "" : ticketDto.getArrivaltime();
 String price = ticketDto == null ? "" : Integer.toString(ticketDto.getPrice());
-String bookingdate = ticketDto == null ? "" : ticketDto.getBookingdate();
+String bookingdate = ticketDto == null ? "" : ticketDto.getBookingdate(); */
+
 %>
 
 <body onload="showPrice()" class="sb-nav-fixed">
@@ -181,22 +184,23 @@ String bookingdate = ticketDto == null ? "" : ticketDto.getBookingdate();
 							<article class="container">
 								<div class="aside">
 									<div class="section">
-										<form method="post" action="BookingadminController" modelAttribute="TicketDTO">
+										<form method="post" action="/highSpeedRail/doupdate">
 											<h2 style="text-align: center;">增修資料</h2>
 											<div style="margin: 5px;">
 												<label for="ticketID" class="t1">訂票編號：</label> <input
 													type="text" id="ticketID" name="ticketID"
-													value="<%=ticketID%>" class="form-control"
-													<%=ticketID.isEmpty() ? "autofocus" : "onclick='blur()'"%>>
+													value="${ticketDto.ticketID}" class="form-control"
+													${ticketDto==null ? "autofocus" : "onclick='blur()'"}
+													>
 											</div>
 											<div style="margin: 5px;">
 												<label for="tranNo" class="t1">班次：</label> <input
-													type="text" id="tranNo" name="tranNo" value="<%=tranNo%>"
+													type="text" id="tranNo" name="tranNo" value="${ticketDto.tranNo}"
 													class="form-control" autofocus>
 											</div>
 											<div style="margin: 5px;">
 												<label for="seat" class="t1">座位：</label> <input type="text"
-													id="seat" name="seat" value="<%=seat%>"
+													id="seat" name="seat" value="${ticketDto.seat}"
 													class="form-control" autofocus>
 											</div>
 											<div style="margin: 5px;">
@@ -205,17 +209,19 @@ String bookingdate = ticketDto == null ? "" : ticketDto.getBookingdate();
 												<select id="DepartureST" name="departureST"
 													class="form-control mt-0 select-type01" title="出發站"
 													onchange="showPrice()">
-													<%
+													<%-- <%
 													List<StationInfoDTO> stationList = (ArrayList<StationInfoDTO>) request.getAttribute("stationList");
 													for (StationInfoDTO st : stationList) {
 														String selected = departureST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
-													%>
-													<option value="<%=st.getStationID()%>" <%=selected%>>
-														<%=st.getStationName()%>
+													%> --%>
+													 <c:forEach var="station" items="${stationList}">
+													<option value="${station.stationID}" ${ticketDto.departureST.equals(Integer.toString(st.getStationID())) ? "selected" : ""}>
+														${station.stationName}
 													</option>
-													<%
+													</c:forEach>
+													<%-- <%
 													}
-													%>
+													%> --%>
 												</select>
 											</div>
 											<div style="margin: 5px;">
@@ -224,51 +230,53 @@ String bookingdate = ticketDto == null ? "" : ticketDto.getBookingdate();
 												<select id="DestinationST" name="destinationST"
 													class="form-control mt-0 select-type01" title="到達站"
 													onchange="showPrice()">
-													<%
+													<%-- <%
 													for (StationInfoDTO st : stationList) {
 														String selected = destinationST.equals(Integer.toString(st.getStationID())) ? "selected" : "";
-													%>
-													<option value="<%=st.getStationID()%>" <%=selected%>>
-														<%=st.getStationName()%>
+													%> --%>
+													 <c:forEach var="station" items="${stationList}">
+													<option value="${station.stationID}" ${ticketDto.destinationST.equals(Integer.toString(st.getStationID())) ? "selected" : ""}>
+														${station.stationName}
 													</option>
-													<%
+													</c:forEach>
+													<%-- <%
 													}
-													%>
+													%> --%>
 												</select>
 											</div>
 											<div style="margin: 5px;">
 												<label for="depturedate" class="t1">出發日期：</label> <input
 													type="date" id="depturedate" name="depturedate"
-													value="<%=depturedate%>" class="form-control" autofocus>
+													value="${ticketDto.departuredate}" class="form-control" autofocus>
 											</div>
 											<div style="margin: 5px;">
 												<label for="departuretime" class="t1">出發時間：</label> <input
 													type="text" id="departuretime" name="departuretime"
-													value="<%=departuretime%>" class="form-control" autofocus>
+													value="${ticketDto.departuretime}" class="form-control" autofocus>
 											</div>
 											<div style="margin: 5px;">
 												<label for="arrivaltime" class="t1"> 抵達時間： </label> <input
 													type="text" id="arrivaltime" name="arrivaltime"
-													value="<%=arrivaltime%>" class="form-control" autofocus />
+													value="${ticketDto.arrivaltime}" class="form-control" autofocus />
 											</div>
 											<div style="margin: 5px;">
 												<label for="price" class="t1">票價：</label> <input type="text"
-													id="price" name="price" value="<%=price%>"
+													id="price" name="price" value="${ticketDto.price}"
 													class="form-control mt-0 select-type01">
 											</div>
 											<div style="margin: 5px;">
 												<label for="bookingdate" class="t1">訂票日期：</label> <input
 													type="date" id="bookingdate" name="bookingdate"
-													value="<%=bookingdate%>" class="form-control" autofocus>
+													value="${ticketDto.bookingdate}" class="form-control" autofocus>
 											</div>
 											<div style="text-align: center; padding: 30px;">
 												<button type="submit" class="btn btn-dark"
-													style="margin: 10px;"><%=btn_title%></button>
+													style="margin: 10px;">${ticketDto== null ? "新增" : "修改"}</button>
 												<button type="reset" onclick="history.back()"
 													class="btn btn-dark" style="margin: 10px;">取消</button>
 											</div>
 											<input type="hidden" name="action"
-												value="<%=ticketDto == null ? "doInsert" : "doUpdate"%>" />
+												value='${ticketDto== null ? "doInsert" : "doUpdate"}' />
 										</form>
 									</div>
 								</div>
@@ -304,12 +312,12 @@ String bookingdate = ticketDto == null ? "" : ticketDto.getBookingdate();
 	<script type="text/javascript">
 		var priceInfos = new Map();
 		let tmpS;
-		<%for (Entry<Set<String>, Integer> pk : priceInfos.entrySet()) {%>
+		<c:forEach var="pk" items="${priceInfos.entrySet()}">
 		tmpS = new Set();
-		tmpS.add(<%=pk.getKey().toArray()[0]%>);
-		tmpS.add(<%=pk.getKey().toArray()[1]%>);
-		priceInfos.set(tmpS, <%=pk.getValue()%>)
-		<%}%>
+		tmpS.add(${pk.getKey().toArray()[0]});
+		tmpS.add(${pk.getKey().toArray()[1]});
+		priceInfos.set(tmpS, ${pk.getValue()})
+		</c:forEach>
 		function showPrice() {
 			let departureST = document.querySelector("#DepartureST");
 			let destinationST = document.querySelector("#DestinationST");

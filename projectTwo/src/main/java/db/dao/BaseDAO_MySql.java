@@ -44,7 +44,6 @@ public class BaseDAO_MySql {
 				
 				instance = GetDataSource().getConnection();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

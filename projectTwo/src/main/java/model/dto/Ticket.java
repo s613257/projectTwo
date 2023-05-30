@@ -12,44 +12,44 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity @Table(name = "ticketInfo")
-@Component
-public class TicketDTO {
+@Entity @Table(name = "TicketInfo")
+@Component  
+public class Ticket {
 	
-	@Id @Column(name = "TICKETID")	
+	@Id @Column(name = "TicketID")	
 	private int ticketID;
 	
-	@Column(name = "TRANNO")
+	@Column(name = "TranNo")
 	private String tranNo;
 	
-	@Column(name = "SEAT")
+	@Column(name = "Seat")
 	private String seat;
 	
-	@Column(name = "DEPARTUREST")
+	@Column(name = "DepartureST")
 	private String departureST;
 	
-	@Column(name = "DESTINATIONST")
+	@Column(name = "DestinationST")
 	private String destinationST;
 	
-	@Column(name = "DEPARTUREDATE")
+	@Column(name = "DepartureDate")
 	private String departuredate;
 	
-	@Column(name = "DEPARTURETIME")
+	@Column(name = "DepartureTime")
 	private String departuretime;
 	
-	@Column(name = "ARRIVALTIME")
+	@Column(name = "ArrivalTime")
 	private String arrivaltime;
 	
-	@Column(name = "PRICE")
+	@Column(name = "Price")
 	private int price;
 	
-	@Column(name = "BOOKINGDATE")
+	@Column(name = "BookingDate")
 	private String bookingdate;
 
-	public TicketDTO() {
+	public Ticket() {
 	}
 	
-	public TicketDTO(HighSpeedRailTicket bkdto) {
+	public Ticket(HighSpeedRailTicket bkdto) {
 		setTicketID(bkdto.getTicketID());
 		setTranNo(bkdto.getTranNo());
 		setSeat(bkdto.getSeat());
@@ -63,7 +63,7 @@ public class TicketDTO {
 	}
 
 
-	public TicketDTO(ResultSet rs) throws SQLException {
+	public Ticket(ResultSet rs) throws SQLException {
 		this.ticketID = rs.getInt("ticketID");
 		this.tranNo = rs.getString("tranNo");
 		this.seat = rs.getString("seat");

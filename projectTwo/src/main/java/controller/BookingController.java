@@ -1,7 +1,11 @@
 package controller;
 
 import java.io.IOException;
+
+import org.hibernate.Session;
+
 import db.dao.BookingDAO;
+import db.dao.BaseDAO_Hibernate;
 import db.dao.impl.BookingDAOImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,9 +28,9 @@ public class BookingController extends HttpServlet {
 			action = "";
 		}
 		switch (action) {
-		default:
-			index(request, response);
-			break;
+//		default:
+//			index(request, response);
+//			break;
 		}
 	}
 
@@ -34,11 +38,20 @@ public class BookingController extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-	public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BookingDAO bookingDAO = new BookingDAOImpl();
-		request.setAttribute("stationList", bookingDAO.getAllStationInfo());
-		request.setAttribute("priceInfos", bookingDAO.getAllPriceInfo());
-		request.getRequestDispatcher("/html/SelectPage.jsp").forward(request, response);
-	}
+//	public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		Session session = BaseDAO_Hibernate.getInstance();
+//		try {
+//			session.beginTransaction();
+//		BookingDAO bookingDAO = new BookingDAOImpl();
+//		request.setAttribute("stationList", bookingDAO.getAllStationInfo(session));
+//		request.setAttribute("priceInfos", bookingDAO.getAllPriceInfo());
+//		request.getRequestDispatcher("/WEB-INF/pages/SelectPage.jsp").forward(request, response);
+//		} catch (IOException | ServletException e) {
+//			e.printStackTrace();
+//			session.getTransaction().rollback();
+//		} finally {
+//			BaseDAO_Hibernate.closeSessionFactory();
+//		}
+//	}
 
 }

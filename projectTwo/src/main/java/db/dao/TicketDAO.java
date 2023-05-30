@@ -3,8 +3,11 @@ package db.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
-import model.dto.TicketDTO;
+import jakarta.transaction.Transactional;
+import model.dto.Ticket;
+
 
 public interface TicketDAO {
 
@@ -13,9 +16,18 @@ public interface TicketDAO {
 //	public int insertTicketInfo(TicketDTO data);
 //	public int updateTicketInfo(TicketDTO dataSource);
 //	public int deleteTicketInfo(int TicketID);
-	public TicketDTO getTicketInfoById(Session session, int ticketID);
-	public List<TicketDTO> getAllTicketInfo(Session session);
-	public boolean insertTicketInfo(Session session, TicketDTO ticket);
-	public boolean updateTicketInfo(Session session, TicketDTO ticket);
+	public Ticket getTicketInfoById(int ticketID);
+	public Ticket getTicketInfoById(Session session, int ticketID);
+	
+	public List<Ticket> getAllTicketInfo();
+	public List<Ticket> getAllTicketInfo(Session session);
+	
+	public boolean insertTicketInfo(Ticket ticket);
+	public boolean insertTicketInfo(Session session, Ticket ticket);
+	
+	public boolean updateTicketInfo(Ticket ticket);
+	public boolean updateTicketInfo(Session session, Ticket ticket);
+	
+	public boolean deleteTicketInfo(int ticketID);
 	public boolean deleteTicketInfo(Session session, int ticketID);
 }

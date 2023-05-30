@@ -7,11 +7,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -24,7 +26,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 //相當於mvc-servlet.xml的java程式組態
 @Configuration 
 @EnableWebMvc //預設會處理請求、參數和回傳值的類別
-@ComponentScan(basePackages = {"config","controller","db.dao","model","service"}) //讓MVC架構自動註冊元件
+@ComponentScan(basePackages = {"config","controller","db","model","service"}) //讓MVC架構自動註冊元件
 public class WebAppConfig implements WebMvcConfigurer {
 	
 	@Bean
@@ -33,7 +35,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 		jView.setPrettyPrint(true);
 		return jView;
 	}
-	
+
 	@Bean
 	public ContentNegotiatingViewResolver contentViewResolver() {
 		ContentNegotiatingViewResolver cnViewresoler = new ContentNegotiatingViewResolver();

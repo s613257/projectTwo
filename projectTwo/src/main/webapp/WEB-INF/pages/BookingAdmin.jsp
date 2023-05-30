@@ -2,7 +2,7 @@
 <%@page import="java.util.Map.*"%>
 <%@page import="java.util.*"%>
 <%@page import="model.Utils"%>
-<%@page import="model.dto.TicketDTO"%>
+<%@page import="model.dto.Ticket"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -244,24 +244,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	});
 	
 		function show() {
-			  
-			/* let queryResult = document.querySelector("#queryResult");
-
-			const xhttp = new XMLHttpRequest();
-			xhttp.onload = function () {
-				if (this.status === 200) {
-					ticketInfos = JSON.parse(this.response);
-					console.log(ticketInfos);
-				 placeQueryContent(ticketInfos); 
-
-					
-				}
-			}
-			xhttp.open("POST",  basePath + "WebServices");
-			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
-			xhttp.send("service=GetAllTicketInfo"); */
 			let table;
-			let allTicketInfoDataSource = basePath + "WebServices?service=GetAllTicketInfo";
+			let allTicketInfoDataSource = basePath + "services/GetAllTicketInfo";
 			if ( $.fn.dataTable.isDataTable( '#queryResult' ) ) {
 			    table = $('#queryResult').DataTable();
 			}
@@ -272,79 +256,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			}
 			table.ajax.reload();
 			document.querySelector("#queryResult").hidden = false;
-			//queryResult.style.display = "";
-		}
+			}
 
-		/* function placeQueryContent(ticketInfos) {
-			let queryContent = document.querySelector("#queryContent");
-			queryContent.innerHTML = '';
-			ticketInfos.forEach(function (ticketInfo) {
-				let infoRow = document.createElement("tr");
-				let id = document.createElement("td");
-				id.innerHTML = ticketInfo.ticketID;
-				let tranNo = document.createElement("td");
-				tranNo.innerHTML = ticketInfo.tranNo;
-				let seat = document.createElement("td");
-				seat.innerHTML = ticketInfo.seat;
-				let dep_st = document.createElement("td");
-				dep_st.innerHTML = ticketInfo.departureST;
-				let des_st = document.createElement("td");
-				des_st.innerHTML = ticketInfo.destinationST;
-				let dep_date = document.createElement("td");
-				dep_date.innerHTML = ticketInfo.departuredate;
-				let dep_time = document.createElement("td");
-				dep_time.innerHTML = ticketInfo.departuretime;
-				let arr_time = document.createElement("td");
-				arr_time.innerHTML = ticketInfo.arrivaltime;
-				let price = document.createElement("td");
-				price.innerHTML = ticketInfo.price;
-				let date = document.createElement("td");
-				date.innerHTML = ticketInfo.bookingdate;
-
-				let updt = document.createElement("td");
-				let updt_btn = document.createElement("button");
-				let updt_icon = document.createElement("i");
-				updt_icon.className = "fa-solid fa-pen-to-square";
-				updt_btn.appendChild(updt_icon);
-				updt.appendChild(updt_btn);
-				updt_btn.classList.add("btn");
-				updt_btn.classList.add("btn-light");
-				updt_btn.onclick = function () { updateTarget(ticketInfo.ticketID); };
-
-				let del = document.createElement("td");
-				let del_btn = document.createElement("button");
-				let del_icon = document.createElement("i");
-				del_icon.className = "fa-solid fa-trash-can";
-				del_btn.appendChild(del_icon);
-				del.appendChild(del_btn);
-				del_btn.classList.add("btn");
-				del_btn.classList.add("btn-light");
-				del_btn.onclick = function () { deleteTarget(ticketInfo.ticketID) };
-
-				infoRow.appendChild(id);
-				infoRow.appendChild(tranNo);
-				infoRow.appendChild(seat);
-				infoRow.appendChild(dep_st);
-				infoRow.appendChild(des_st);
-				infoRow.appendChild(dep_date);
-				infoRow.appendChild(dep_time);
-				infoRow.appendChild(arr_time);
-				infoRow.appendChild(price);
-				infoRow.appendChild(date);
-				infoRow.appendChild(updt);
-				infoRow.appendChild(del);
-
-				queryContent.appendChild(infoRow);
-			});
-		} */
 		
 		function insertRecord() {
-			location.href = basePath + "BookingadminController?action=<%=Utils.ACTION_INSERT%>";
+			location.href = basePath + "highSpeedRail/insert";
 		}
 
 		function updateTarget(id) {
-			location.href = basePath + "BookingadminController?action="
-					+ action_update + "&id=" + id;
+			location.href = basePath + "highSpeedRail/update?id=" + id; 
 		}
 
 		function deleteTarget(id) {
@@ -356,35 +276,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					document.querySelector("#search").click();
 				}
 			}
-			xhttp.open("POST", basePath + "WebServices");
+			xhttp.open("POST", basePath + "services/DeleteTicketInfo");
 			xhttp.setRequestHeader("Content-type",
 					"application/x-www-form-urlencoded");
-			xhttp.send("service=DeleteTicketInfo&id=" + id);
+			xhttp.send("services=DeleteTicketInfo&id=" + id);
 		}
 
-		// GO TO TOP
-	/* 	let mybutton = document.getElementById("btn-back-to-top");
-
-		// When the user scrolls down 20px from the top of the document, show the button
-		window.onscroll = function() {
-			scrollFunction();
-		};
-
-		function scrollFunction() {
-			if (document.body.scrollTop > 20
-					|| document.documentElement.scrollTop > 20) {
-				mybutton.style.display = "block";
-			} else {
-				mybutton.style.display = "none";
-			}
-		}
-		// When the user clicks on the button, scroll to the top of the document
-		mybutton.addEventListener("click", backToTop);
-
-		function backToTop() {
-			document.body.scrollTop = 0;
-			document.documentElement.scrollTop = 0;
-		} */
+	
 	</script>
 </body>
 

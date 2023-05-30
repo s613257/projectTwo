@@ -5,41 +5,42 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import db.dao.HighSpeedRailService;
-import db.dao.impl.HighSpeedRailServiceImpl;
-import model.HibernateUtil;
+import db.dao.BaseDAO_Hibernate;
+import db.service.HighSpeedRailService;
+import db.service.impl.HighSpeedRailServiceImpl;
 import model.dto.HighSpeedRailTicket;
+import model.dto.Ticket;
 
-public class Action {
-
-	public static void main(String[] args) {
-		Session session = HibernateUtil.getInstance();
-		
-		try {
-			session.beginTransaction();
-
-			HighSpeedRailService service = new HighSpeedRailServiceImpl();
-			//新增單筆
-//			BookingTk bookingTk = new BookingTk();
+//public class Action {
+//
+//	public static void main(String[] args) {
+//		Session session = BaseDAO_Hibernate.getInstance();
+//		
+//		try {
+//			session.beginTransaction();
+//
+//			HighSpeedRailService service = new HighSpeedRailServiceImpl();
+//			//新增單筆
+//			TicketDTO ticket = new TicketDTO();
 //			
-//			bookingTk.setTicketID(200);
-//			bookingTk.setTranNo("102");
-//			bookingTk.setSeat("01A");
-//			bookingTk.setDepartureST("1");
-//			bookingTk.setDestinationST("2");
-//			bookingTk.setdeparturedate("2023-05-19");
-//			bookingTk.setDeparturetime("06:00");
-//			bookingTk.setArrivaltime("06:15");
-//			bookingTk.setPrice(100);
-//			bookingTk.setbookingdate("2023-05-19");
+//			ticket.setTicketID(200);
+//			ticket.setTranNo("102");
+//			ticket.setSeat("01A");
+//			ticket.setDepartureST("1");
+//			ticket.setDestinationST("2");
+//			ticket.setdeparturedate("2023-05-19");
+//			ticket.setDeparturetime("06:00");
+//			ticket.setArrivaltime("06:15");
+//			ticket.setPrice(100);
+//			ticket.setbookingdate("2023-05-19");
 //			
-//			service.insert(bookingTk);
-			
+//			service.insertTicketInfo(ticket);
+//			
 			//selectAll
-			List<HighSpeedRailTicket> lists = service.getAllBookingTk();
-			for(HighSpeedRailTicket list : lists) {
-				System.out.println(list);
-				}
+//			List<HighSpeedRailTicket> lists = service.getAllBookingTk();
+//			for(HighSpeedRailTicket list : lists) {
+//				System.out.println(list);
+//				}
 			
 			//selectById
 //			TicketDTO result = (new TicketDAOImpl()).GetTicketInfoById("200");
@@ -80,14 +81,14 @@ public class Action {
 			//int status = service.delete(200);
 			//System.out.println("status:" + status);
 			
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
-			e.printStackTrace();
-		}finally {
-			HibernateUtil.closeSessionFactory();
-		}
-	}
+//			session.getTransaction().commit();
+//		} catch (Exception e) {
+//			session.getTransaction().rollback();
+//			e.printStackTrace();
+//		}finally {
+//			BaseDAO_Hibernate.closeSessionFactory();
+//		}
+//	}
 
-}
+//}
 	

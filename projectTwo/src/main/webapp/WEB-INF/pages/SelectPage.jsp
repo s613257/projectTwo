@@ -1,8 +1,8 @@
-<%@page import="model.dto.PriceInfoDTO"%>
+<%@page import="model.dto.PriceInfo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Map.*"%>
 <%@page import="java.util.*"%>
-<%@page import="model.dto.StationInfoDTO"%>
+<%@page import="model.dto.StationInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -135,8 +135,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										class="form-control mt-0 select-type01" title="出發站"
 										onchange="showPrice()">
 										<%
-										List<StationInfoDTO> stationList = (ArrayList<StationInfoDTO>) request.getAttribute("stationList");
-										for (StationInfoDTO st : stationList) {
+										List<StationInfo> stationList = (ArrayList<StationInfo>) request.getAttribute("stationList");
+																		for (StationInfo st : stationList) {
 										%>
 										<option value="<%=st.getStationID()%>">
 											<%=st.getStationName()%>
@@ -152,7 +152,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										class="form-control mt-0 select-type01" title="到達站"
 										onchange="showPrice()">
 										<%
-										for (StationInfoDTO st : stationList) {
+										for (StationInfo st : stationList) {
 										%>
 										<option value="<%=st.getStationID()%>">
 											<%=st.getStationName()%>
@@ -382,7 +382,36 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												  });
 											});
 										  
-									
+
+											// GO TO TOP
+											<!--   右下角點下後網頁到最上層的button -->
+											/* <button type="button"
+												class="btn btn-secondary btn-floating btn-lg"
+												id="btn-back-to-top">
+												<i class="fas fa-arrow-up"></i>
+											</button> 
+											let mybutton = document.getElementById("btn-back-to-top");
+
+											// When the user scrolls down 20px from the top of the document, show the button
+											window.onscroll = function() {
+												scrollFunction();
+											};
+
+											function scrollFunction() {
+												if (document.body.scrollTop > 20
+														|| document.documentElement.scrollTop > 20) {
+													mybutton.style.display = "block";
+												} else {
+													mybutton.style.display = "none";
+												}
+											}
+											// When the user clicks on the button, scroll to the top of the document
+											mybutton.addEventListener("click", backToTop);
+
+											function backToTop() {
+												document.body.scrollTop = 0;
+												document.documentElement.scrollTop = 0;
+											}  */
 
 									</script>
 </body>

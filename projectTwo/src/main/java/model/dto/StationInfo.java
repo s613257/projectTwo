@@ -3,19 +3,27 @@ package model.dto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-public class StationInfoDTO {
+@Entity @Table(name = "StationInfo")
+@Component
+public class StationInfo {
 
+	@Id @Column(name = "StationID")
 	private int stationID;
+	
+	@Column(name = "StationName")
 	private String stationName;
 
-	public StationInfoDTO() {
+	public StationInfo() {
 	}
 
-	public StationInfoDTO(ResultSet rs) throws SQLException {
+	public StationInfo(ResultSet rs) throws SQLException {
 		this.stationID = rs.getInt("StationID");
 		this.stationName = rs.getString("StationName");
 	}
