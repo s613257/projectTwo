@@ -26,7 +26,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 //相當於mvc-servlet.xml的java程式組態
 @Configuration 
 @EnableWebMvc //預設會處理請求、參數和回傳值的類別
-@ComponentScan(basePackages = {"config","controller","db","model","service"}) //讓MVC架構自動註冊元件
+@ComponentScan(basePackages = {"config","controller","db","model","service","test"}) //讓MVC架構自動註冊元件
 public class WebAppConfig implements WebMvcConfigurer {
 	
 	@Bean

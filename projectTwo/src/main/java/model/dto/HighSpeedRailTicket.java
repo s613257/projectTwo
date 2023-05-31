@@ -25,7 +25,7 @@ public class HighSpeedRailTicket {
 
 	}
 	
-	public HighSpeedRailTicket(Ticket tickDto) {
+	public HighSpeedRailTicket(TicketInfo tickDto) {
 		setTicketID(tickDto.getTicketID());
 		setTranNo(tickDto.getTranNo());
 		setSeat(tickDto.getSeat());

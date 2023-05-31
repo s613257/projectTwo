@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,13 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import db.dao.BookingDAO;
-import db.dao.BaseDAO_Hibernate;
 import db.dao.TicketDAO;
-import db.dao.impl.BookingDAOImpl;
-import db.dao.impl.TicketDAOImpl;
 import db.service.HighSpeedRailService;
 import model.dto.HighSpeedRailTicket;
-import model.dto.Ticket;
+import model.dto.TicketInfo;
 
 @Controller
 @RequestMapping("/services")
@@ -43,7 +39,7 @@ public class HighSpeedRailWebService {
 	
 	@Autowired
 	@Qualifier("highSpeedRailServiceImpl")
-	private HighSpeedRailService highSpeedRailService;
+	private HighSpeedRailService ticketService;
 	
     @GetMapping("/GetTranInfo")
     @ResponseBody
@@ -52,13 +48,13 @@ public class HighSpeedRailWebService {
             @RequestParam("destination_ST") String destinationST,
             @RequestParam("departure_time") String departureTime) {
         try {
-            List<Ticket> tranInfos = bookingDAO.getAllTranInfo();
-            List<Ticket> tranTimeLst = new ArrayList<Ticket>();
+            List<TicketInfo> tranInfos = bookingDAO.getAllTranInfo();
+            List<TicketInfo> tranTimeLst = new ArrayList<TicketInfo>();
             
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
             
             Date departureTimeObj = sdf.parse(departureTime);
-            for (Ticket tranInfo : tranInfos) {
+            for (TicketInfo tranInfo : tranInfos) {
                 if (tranInfo.getDepartureST().equals(departureST) && 
                         tranInfo.getDestinationST().equals(destinationST)) {
                     Date departureStTime = sdf.parse(tranInfo.getDeparturetime());
@@ -79,8 +75,7 @@ public class HighSpeedRailWebService {
     @GetMapping("/GetAllTicketInfo")
     @ResponseBody
     public String GetAllTicketInfo() {
-    	
-        List<HighSpeedRailTicket> tks = highSpeedRailService.getAllBookingTk();
+        List<HighSpeedRailTicket> tks = ticketService.getAllBookingTk();
         Map<String, List<List<String>>> inputMap = new HashMap<String, List<List<String>>>();
         List<List<String>> dataList = new ArrayList<List<String>>();
         inputMap.put("data", dataList);
@@ -108,11 +103,12 @@ public class HighSpeedRailWebService {
 
     @PostMapping("/DeleteTicketInfo")
     @ResponseBody
-    public String DeleteTicketInfo(@RequestParam("id") int id) {
-        boolean isSucceed = ticketDAO.deleteTicketInfo(id);
+    public String DeleteTicketInfo(@RequestParam("id") String id) {
+        boolean isSucceed = ticketDAO.deleteTicketInfo(Integer.parseInt(id));
         String msg = isSucceed ? "刪除成功" : "刪除失敗";
         String json = String.format("{\"msg\":\"%s(id=%s)\"}", msg, id);
         return json;
     }
+    
 
 }

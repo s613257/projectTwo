@@ -15,7 +15,7 @@ import db.dao.impl.BookingDAOImpl;
 import db.dao.impl.TicketDAOImpl;
 import model.dto.PriceInfo;
 import model.dto.StationInfo;
-import model.dto.Ticket;
+import model.dto.TicketInfo;
 import model.dto.TranInfo;
 
 public class DAOTesting {
@@ -33,8 +33,8 @@ public class DAOTesting {
 
 	public static void testBookingDAOByTran() {
 		BookingDAO bk_dao = new BookingDAOImpl();
-		List<Ticket> TranList = bk_dao.getAllTranInfo();
-		for (Ticket bk : TranList) {
+		List<TicketInfo> TranList = bk_dao.getAllTranInfo();
+		for (TicketInfo bk : TranList) {
 			System.out.println(bk.toString());
 		}
 	}

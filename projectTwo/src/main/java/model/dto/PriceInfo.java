@@ -3,23 +3,22 @@ package model.dto;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import java.util.Objects;
+
+import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "PriceInfo")
-public class PriceInfo implements Serializable{
-	private static final long serialVersionUID = 1L;
-
-	@Id @Column(name = "DepartureST")
-	private String departureST;   
-	
-	@Id @Column(name ="DestinationST")
-	private String destinationST;
+@Component
+public class PriceInfo {
+	@EmbeddedId
+	private PriceInfo_PK pk;
 	
 	@Column(name = "Price")
 	private int price;
@@ -27,19 +26,65 @@ public class PriceInfo implements Serializable{
 	public PriceInfo() {
 	}
 
-	public PriceInfo(ResultSet rs) throws SQLException {
-		this.departureST = rs.getString("departureST");
-		this.destinationST = rs.getString("destinationST");
-		this.price = rs.getInt("Price");
-	}
 
 	@Override
 	public String toString() {
-		return "PriceInfoDTO [DepartureST=" + departureST + ", DestinationST=" + destinationST + ", Price=" + price
+		return "PriceInfoDTO [DepartureST=" + pk.getDepartureST() + ", DestinationST=" + pk.getDestinationST() + ", Price=" + price
 				+ "]";
 	}
 
+	public int getPrice() {
+		return price;
+	}
 
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
+	public String getDepartureST() {
+		return pk.getDepartureST();
+	}
+
+	public void setDepartureST(String departureST) {
+		pk.setDepartureST(departureST);
+	}
+
+	public String getDestinationST() {
+		return pk.getDestinationST();
+	}
+
+	public void setDestinationST(String destinationST) {
+		pk.setDestinationST(destinationST);
+	}
+}
+
+
+@Embeddable
+class PriceInfo_PK implements Serializable {
+	private static final long serialVersionUID = 8764734968205185910L;
+	@Column(name = "DepartureST")
+	private String departureST;
+
+	@Column(name = "DestinationST")
+	private String destinationST;
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		PriceInfo_PK pk = (PriceInfo_PK) o;
+		return Objects.equals(departureST, pk.departureST) && Objects.equals(destinationST, pk.destinationST);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(departureST, departureST);
+	}
+	
 	public String getDepartureST() {
 		return departureST;
 	}
@@ -55,50 +100,4 @@ public class PriceInfo implements Serializable{
 	public void setDestinationST(String destinationST) {
 		this.destinationST = destinationST;
 	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	
-	 // 必須重新定義equals()與hashCode()
-	public boolean equals(Object obj) {
-        if(obj == this) {
-            return true;
-        }
- 
-        if(!(obj instanceof PriceInfo)) {
-            return false;
-        }
- 
-        PriceInfo user = (PriceInfo) obj;
-        return new EqualsBuilder()
-                    .append(this.departureST, user.getDepartureST())
-                    .append(this.destinationST, user.getDestinationST())
-                    .isEquals();
-    }
- 
-    public int hashCode() {
-        return new HashCodeBuilder()
-                    .append(this.departureST)
-                    .append(this.destinationST)
-                    .toHashCode();
-    }
-    
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        PriceInfoDTO that = (PriceInfoDTO) o;
-//        return Objects.equals(departureST, that.departureST) &&
-//                Objects.equals(destinationST, that.destinationST);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(departureST, destinationST);
-//    }
 }

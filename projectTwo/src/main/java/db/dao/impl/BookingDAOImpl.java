@@ -1,11 +1,5 @@
 package db.dao.impl;
 
-import java.nio.channels.SelectableChannel;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,25 +8,27 @@ import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import db.dao.BaseDAO_Hibernate;
-import db.dao.BaseDAO_MySql;
 import db.dao.BookingDAO;
 import jakarta.transaction.Transactional;
 import model.dto.PriceInfo;
 import model.dto.StationInfo;
-import model.dto.Ticket;
-import model.dto.TranInfo;
+import model.dto.TicketInfo;
 
 @Repository
 @Transactional
-public class BookingDAOImpl extends BaseDAO_Hibernate implements BookingDAO {
+public class BookingDAOImpl  implements BookingDAO {
 	
 
+	@Autowired
+	private SessionFactory factory;
+
 	@Override
-	public List<Ticket> getAllTranInfo() {
+	public List<TicketInfo> getAllTranInfo() {
 		return getAllTranInfoBySql("select "
 				+ "TicketID = 0, "
 				+ "BookingDate = getdate(), "
@@ -51,15 +47,12 @@ public class BookingDAOImpl extends BaseDAO_Hibernate implements BookingDAO {
 	}
 	@Override
 	public List<StationInfo> getAllStationInfo() {
-		return getAllStationInfo(getSession());
-	}
-	@Override
-	public List<StationInfo> getAllStationInfo(Session session) {
+		Session session = factory.openSession();
 		Query<StationInfo> query = session.createQuery("from StationInfo", StationInfo.class);
 		return query.list();
-	} 
+	}
 	
-
+	
 	@Override
 	public Map<Set<String> , Integer> getAllPriceInfo() {
 		List<PriceInfo> priceList = getInfoByPrice();
@@ -73,21 +66,24 @@ public class BookingDAOImpl extends BaseDAO_Hibernate implements BookingDAO {
 		return result;
 	}
 
-	private List<Ticket> getAllTranInfoBySql(String sql) {
-		List<Ticket> resultTranList = new ArrayList<Ticket>();
-		Query<Ticket> query = getSession().createQuery(sql,Ticket.class);
+	private List<TicketInfo> getAllTranInfoBySql(String sql) {
+		Session session = factory.openSession();
+		List<TicketInfo> resultTranList = new ArrayList<TicketInfo>();
+		Query<TicketInfo> query = session.createQuery(sql,TicketInfo.class);
 		resultTranList= query.list();
 		return resultTranList;
 	}
 
 	private List<StationInfo> getInfoByStation() {
-		Query<StationInfo> query = getSession().createQuery("from StationInfo",StationInfo.class);
+		Session session = factory.openSession();
+		Query<StationInfo> query = session.createQuery("from StationInfo",StationInfo.class);
 		return query.list();
 	}
 	
 	@Override
 	public List<PriceInfo> getInfoByPrice() {
-		Query<PriceInfo> query = getSession().createQuery("from PriceInfo",PriceInfo.class);
+		Session session = factory.openSession();
+		Query<PriceInfo> query = session.createQuery("from PriceInfo",PriceInfo.class);
 		return query.list();
 	}
 

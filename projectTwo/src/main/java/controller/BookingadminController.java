@@ -19,7 +19,7 @@ import db.service.HighSpeedRailService;
 import db.service.impl.HighSpeedRailServiceImpl;
 import model.Utils;
 import model.dto.HighSpeedRailTicket;
-import model.dto.Ticket;
+import model.dto.TicketInfo;
 
 @WebServlet("/BookingadminController")
 public class BookingadminController extends HttpServlet {
@@ -85,7 +85,7 @@ public class BookingadminController extends HttpServlet {
 
 	public void doInsert(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			Ticket tketDto = getTicketDTOByReq(request);
+			TicketInfo tketDto = getTicketDTOByReq(request);
 			HighSpeedRailService bts = new HighSpeedRailServiceImpl();
 			bts.insertTicketInfo(tketDto);
 			request.getRequestDispatcher("/WEB-INF/pages/BookingAdmin.jsp").forward(request, response);
@@ -102,7 +102,6 @@ public class BookingadminController extends HttpServlet {
 
 //		Session session = BaseDAO_Hibernate.getInstance();
 //		try {
-//			session.beginTransaction();
 //			String id = request.getParameter("id");
 //
 //			TicketDTO ticketDto = (new TicketDAOImpl()).getTicketInfoById(session,Integer.parseInt(id));
@@ -123,7 +122,7 @@ public class BookingadminController extends HttpServlet {
 
 	public void doUpdate(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			Ticket tketDto = getTicketDTOByReq(request);
+			TicketInfo tketDto = getTicketDTOByReq(request);
 			HighSpeedRailService bts = new HighSpeedRailServiceImpl();
 			bts.updateTicketInfo(tketDto);
 			request.getRequestDispatcher("/WEB-INF/pages/BookingAdmin.jsp").forward(request, response);
@@ -133,8 +132,8 @@ public class BookingadminController extends HttpServlet {
 		}
 	}
 
-	private Ticket getTicketDTOByReq(HttpServletRequest request) {
-		Ticket bookingTk = new Ticket();
+	private TicketInfo getTicketDTOByReq(HttpServletRequest request) {
+		TicketInfo bookingTk = new TicketInfo();
 		String ticketID = request.getParameter("ticketID");
 		bookingTk.setTicketID(Integer.parseInt(ticketID));
 		String tranNo = request.getParameter("tranNo");
@@ -146,7 +145,7 @@ public class BookingadminController extends HttpServlet {
 		String destinationST = request.getParameter("destinationST");
 		bookingTk.setDestinationST(destinationST);
 		String depturedate = request.getParameter("depturedate");
-		bookingTk.setdeparturedate(depturedate);
+		bookingTk.setDeparturedate(depturedate);
 		String departuretime = request.getParameter("departuretime");
 		bookingTk.setDeparturetime(departuretime);
 		String arrivaltime = request.getParameter("arrivaltime");
@@ -154,7 +153,7 @@ public class BookingadminController extends HttpServlet {
 		String price = request.getParameter("price");
 		bookingTk.setPrice(Integer.parseInt(price));
 		String bookingdate = request.getParameter("bookingdate");
-		bookingTk.setbookingdate(bookingdate);
+		bookingTk.setBookingdate(bookingdate);
 		return bookingTk;
 	}
 }

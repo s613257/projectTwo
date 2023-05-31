@@ -1,27 +1,19 @@
 package controller;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import db.dao.BookingDAO;
-import db.dao.BaseDAO_Hibernate;
 import db.dao.TicketDAO;
-import db.dao.impl.BookingDAOImpl;
-import db.dao.impl.TicketDAOImpl;
 import db.service.HighSpeedRailService;
-import db.service.impl.HighSpeedRailServiceImpl;
-import model.dto.HighSpeedRailTicket;
-import model.dto.Ticket;
+import model.dto.TicketInfo;
 
 @Controller
 @RequestMapping("/highSpeedRail")
@@ -37,7 +29,7 @@ public class HighSpeedRailController {
 
 	@Autowired
 	@Qualifier("highSpeedRailServiceImpl")
-	private HighSpeedRailService highSpeedRailService;
+	private HighSpeedRailService ticketService;
 
 	@GetMapping("")
 	public String index(Model model) {
@@ -46,31 +38,29 @@ public class HighSpeedRailController {
 
 	@GetMapping("/insert")
 	public String insert(Model model) {
-
 		model.addAttribute("stationList", bookingDAO.getAllStationInfo());
 		model.addAttribute("priceInfos", bookingDAO.getAllPriceInfo());
-		//model.addAttribute("ticketDto", new TicketDTO());
+//		model.addAttribute("ticketDto", new TicketInfo());
 		return "BookingAdminDataPage";
 	}
 
-	@PostMapping("/doinsert")
-    public String doinsert(@ModelAttribute("ticketDto") Ticket ticketDto) {
-        highSpeedRailService.insertTicketInfo(ticketDto);
-        return "redirect:/BookingAdmin";
-    }
-
     @GetMapping("/update")
-    public String update(Model model, @RequestParam("id") int id) {
-        Ticket ticketDto = ticketDAO.getTicketInfoById(id);
+    public String update(Model model, @RequestParam("id") String id) {
+        TicketInfo ticketDto = ticketDAO.getTicketInfoById(Integer.parseInt(id));
         model.addAttribute("stationList", bookingDAO.getAllStationInfo());
         model.addAttribute("priceInfos", bookingDAO.getAllPriceInfo());
         model.addAttribute("ticketDto", ticketDto);
         return "BookingAdminDataPage";
     }
 
-    @PostMapping("/doupdate")
-    public String doupdate(@ModelAttribute("ticketDto") Ticket ticketDto) {
-        highSpeedRailService.updateTicketInfo(ticketDto);
-        return "redirect:/BookingAdmin";
+    @PostMapping("/doAction")
+    public String doinsert(@ModelAttribute("ticketDto") TicketInfo ticketDto, @RequestParam("action")String action) {
+    	if(action.equals("doInsert")) {
+    		ticketService.insertTicketInfo(ticketDto);
+    	}else if(action.equals("doUpdate")) {
+    		ticketService.updateTicketInfo(ticketDto);
+    	}
+        return "redirect:/highSpeedRail";
     }
+
 }

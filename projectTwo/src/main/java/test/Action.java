@@ -4,16 +4,20 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import db.dao.BaseDAO_Hibernate;
 import db.service.HighSpeedRailService;
 import db.service.impl.HighSpeedRailServiceImpl;
 import model.dto.HighSpeedRailTicket;
-import model.dto.Ticket;
+import model.dto.TicketInfo;
 
-//public class Action {
+public class Action {
 //
-//	public static void main(String[] args) {
+
+	public static void main(String[] args) {
+		
+	}
 //		Session session = BaseDAO_Hibernate.getInstance();
 //		
 //		try {
@@ -90,5 +94,5 @@ import model.dto.Ticket;
 //		}
 //	}
 
-//}
+}
 	

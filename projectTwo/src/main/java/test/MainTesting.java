@@ -10,7 +10,7 @@ import db.dao.BaseDAO_Hibernate;
 import db.dao.TicketDAO;
 import db.dao.impl.TicketDAOImpl;
 import model.dto.HighSpeedRailTicket;
-import model.dto.Ticket;
+import model.dto.TicketInfo;
 
 //public class MainTesting {
 //

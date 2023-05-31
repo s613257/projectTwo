@@ -26,7 +26,7 @@ import db.dao.impl.TicketDAOImpl;
 import db.service.HighSpeedRailService;
 import db.service.impl.HighSpeedRailServiceImpl;
 import model.dto.HighSpeedRailTicket;
-import model.dto.Ticket;
+import model.dto.TicketInfo;
 
 
 public class WebServices extends HttpServlet {
@@ -66,13 +66,13 @@ public class WebServices extends HttpServlet {
 			String departure_time = request.getParameter("departure_time");
 
 			BookingDAO bookingDAO = new BookingDAOImpl();
-			List<Ticket> tranInfos = bookingDAO.getAllTranInfo();
-			List<Ticket> tranTimeLst = new ArrayList<Ticket>();
+			List<TicketInfo> tranInfos = bookingDAO.getAllTranInfo();
+			List<TicketInfo> tranTimeLst = new ArrayList<TicketInfo>();
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
 
 			Date departureTime = sdf.parse(departure_time);
-			for (Ticket tranInfo : tranInfos) {
+			for (TicketInfo tranInfo : tranInfos) {
 				if (tranInfo.getDepartureST().equals(departure_ST) && 
 						tranInfo.getDestinationST().equals(destination_ST)) {
 					Date departureStTime = sdf.parse(tranInfo.getDeparturetime());
@@ -123,27 +123,19 @@ public class WebServices extends HttpServlet {
 		}
 	}
 
-//	private void DeleteTicketInfo(HttpServletRequest request, HttpServletResponse response) {
-//		try {
-//			Session session = BaseDAO_Hibernate.getInstance();
-//			session.beginTransaction();
-//			String id = request.getParameter("id");
-//			TicketDAO ticketDao = new TicketDAOImpl();
-//			boolean isSucceed = ticketDao.deleteTicketInfo(session,Integer.parseInt(id));
-//			if(isSucceed) {
-//				session.getTransaction().commit();
-//			}else {
-//				session.getTransaction().rollback();
-//			}
-//			BaseDAO_Hibernate.closeSessionFactory();
-//			String json = String.format("{\"msg\":\"%s(id=%s)\"}", isSucceed? "刪除成功" : "刪除失敗", id);
-//			response.setContentType("text/html; charset=UTF-8");
-//			response.setCharacterEncoding("UTF-8");
-//			response.getWriter().append(json);
-//			
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	private void DeleteTicketInfo(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			String id = request.getParameter("id");
+			TicketDAO ticketDao = new TicketDAOImpl();
+			boolean isSucceed = ticketDao.deleteTicketInfo(Integer.parseInt(id));
+			String json = String.format("{\"msg\":\"%s(id=%s)\"}", isSucceed? "刪除成功" : "刪除失敗", id);
+			response.setContentType("text/html; charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().append(json);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

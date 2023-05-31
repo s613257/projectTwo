@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import model.dto.HighSpeedRailTicket;
-import model.dto.Ticket;
+import model.dto.TicketInfo;
 
 
 public interface HighSpeedRailService {
 	public HighSpeedRailTicket getBookingTkById(int ticketID);
 	public List<HighSpeedRailTicket> getAllBookingTk();
-	public boolean updateTicketInfo(Ticket ticketDto);
-	public boolean insertTicketInfo(Ticket ticketDto);
+	public boolean updateTicketInfo(TicketInfo ticketDto);
+	public boolean insertTicketInfo(TicketInfo ticketDto);
 }
