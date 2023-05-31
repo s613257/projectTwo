@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import db.dao.TicketDAO;
+
 import jakarta.transaction.Transactional;
 import model.dto.TicketInfo;
 
@@ -25,26 +27,29 @@ public class TicketDAOImpl  implements TicketDAO {
 	@Override
 	public boolean insertTicketInfo(TicketInfo ticket) {
 		Session session = factory.openSession();
-		TicketInfo tkDto = new TicketInfo();
-		tkDto.setTicketID(ticket.getTicketID());
-		tkDto.setTranNo(ticket.getTranNo());
-		tkDto.setSeat(ticket.getSeat());
-		tkDto.setDepartureST(ticket.getDepartureST());
-		tkDto.setDestinationST(ticket.getDestinationST());
-		tkDto.setDeparturedate(ticket.getDeparturedate());
-		tkDto.setDeparturetime(ticket.getDeparturetime());
-		tkDto.setArrivaltime(ticket.getArrivaltime());
-		tkDto.setPrice(ticket.getPrice());
-		tkDto.setBookingdate(ticket.getBookingdate());
+		Transaction tx = session.beginTransaction();
 		try {
 			session.persist(ticket);
-			session.flush();
+			tx.commit();
+		} catch (Exception e) {
+			tx.rollback();
+			return false;
+		}finally {
 			session.close();
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean insertTicketInfo(Session session, TicketInfo ticket) {
+		try {
+			session.persist(ticket);
 		} catch (Exception e) {
 			return false;
 		}
 		return true;
 	}
+
 
 	@Override
 	public TicketInfo getTicketInfoById(int ticketID) {
@@ -59,27 +64,18 @@ public class TicketDAOImpl  implements TicketDAO {
 		return query.list();
 	}
 
-	
-
 	@Override
 	public boolean updateTicketInfo(TicketInfo ticket) {
 		Session session = factory.openSession();
-		TicketInfo tkDto = new TicketInfo();
-		tkDto.setTicketID(ticket.getTicketID());
-		tkDto.setTranNo(ticket.getTranNo());
-		tkDto.setSeat(ticket.getSeat());
-		tkDto.setDepartureST(ticket.getDepartureST());
-		tkDto.setDestinationST(ticket.getDestinationST());
-		tkDto.setDeparturedate(ticket.getDeparturedate());
-		tkDto.setDeparturetime(ticket.getDeparturetime());
-		tkDto.setArrivaltime(ticket.getArrivaltime());
-		tkDto.setPrice(ticket.getPrice());
-		tkDto.setBookingdate(ticket.getBookingdate());
+		Transaction tx = session.beginTransaction();
 		try {
 			session.merge(ticket);
-			session.close();
+			tx.commit();
 		} catch (Exception e) {
+			tx.rollback();
 			return false;
+		}finally {
+			session.close();
 		}
 		return true;
 	}
@@ -87,12 +83,16 @@ public class TicketDAOImpl  implements TicketDAO {
 	@Override
 	public boolean deleteTicketInfo(int ticketID) {
 		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
 		TicketInfo bean = session.get(TicketInfo.class, ticketID);
 		if (bean != null) {
 			session.remove(bean);
+			tx.commit();
 			session.close();
 			return true;
 		}
+		tx.rollback();
+		session.close();
 		return false;
 	}
 

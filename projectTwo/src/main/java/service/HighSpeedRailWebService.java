@@ -101,7 +101,7 @@ public class HighSpeedRailWebService {
         return json;
     }
 
-    @PostMapping("/DeleteTicketInfo")
+    @PostMapping(value="/DeleteTicketInfo", produces = "application/json; charset=utf-8")
     @ResponseBody
     public String DeleteTicketInfo(@RequestParam("id") String id) {
         boolean isSucceed = ticketDAO.deleteTicketInfo(Integer.parseInt(id));
