@@ -115,7 +115,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 													%> --%>
 											<c:forEach var="station" items="${stationList}">
 												<option value="${station.stationID}"
-													${ticketDto.departureST.equals(Integer.toString(st.getStationID())) ? "selected" : ""}>
+													${ticketDto.getDepartureST().equals(Integer.toString(station.getStationID())) ? "selected" : ""}>
 													${station.stationName}</option>
 											</c:forEach>
 											<%-- <%
@@ -135,7 +135,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 													%> --%>
 											<c:forEach var="station" items="${stationList}">
 												<option value="${station.stationID}"
-													${ticketDto.destinationST.equals(Integer.toString(st.getStationID())) ? "selected" : ""}>
+													${ticketDto.getDestinationST().equals(Integer.toString(station.getStationID())) ? "selected" : ""}>
 													${station.stationName}</option>
 											</c:forEach>
 											<%-- <%
