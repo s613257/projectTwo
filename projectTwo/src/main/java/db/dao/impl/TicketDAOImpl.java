@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,12 +26,12 @@ public class TicketDAOImpl  implements TicketDAO {
 	@Override
 	public boolean insertTicketInfo(TicketInfo ticket) {
 		Session session = factory.openSession();
-		Transaction tx = session.beginTransaction();
+		session.beginTransaction();
 		try {
 			session.persist(ticket);
-			tx.commit();
+			session.getTransaction().commit();
 		} catch (Exception e) {
-			tx.rollback();
+			session.getTransaction().rollback();
 			return false;
 		}finally {
 			session.close();
@@ -67,12 +66,12 @@ public class TicketDAOImpl  implements TicketDAO {
 	@Override
 	public boolean updateTicketInfo(TicketInfo ticket) {
 		Session session = factory.openSession();
-		Transaction tx = session.beginTransaction();
+		session.beginTransaction();
 		try {
 			session.merge(ticket);
-			tx.commit();
+			session.getTransaction().commit();
 		} catch (Exception e) {
-			tx.rollback();
+			session.getTransaction().rollback();
 			return false;
 		}finally {
 			session.close();
@@ -83,15 +82,15 @@ public class TicketDAOImpl  implements TicketDAO {
 	@Override
 	public boolean deleteTicketInfo(int ticketID) {
 		Session session = factory.openSession();
-		Transaction tx = session.beginTransaction();
+		session.beginTransaction();
 		TicketInfo bean = session.get(TicketInfo.class, ticketID);
 		if (bean != null) {
 			session.remove(bean);
-			tx.commit();
+			session.getTransaction().commit();
 			session.close();
 			return true;
 		}
-		tx.rollback();
+		session.getTransaction().rollback();
 		session.close();
 		return false;
 	}
