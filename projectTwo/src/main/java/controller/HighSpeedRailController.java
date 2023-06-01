@@ -54,7 +54,7 @@ public class HighSpeedRailController {
     }
 
     @PostMapping("/doAction")
-    public String doinsert(@ModelAttribute("ticketDto") TicketInfo ticketDto, @RequestParam("action")String action) {
+    public String doAction(@ModelAttribute("ticketDto") TicketInfo ticketDto, @RequestParam("action")String action) {
     	if(action.equals("doInsert")) {
     		ticketService.insertTicketInfo(ticketDto);
     	}else if(action.equals("doUpdate")) {

@@ -128,7 +128,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		crossorigin="anonymous"></script>
 	<script type="text/javascript">
 	var basePath = "<%=basePath%>";
-	var action_update = "<%=Utils.ACTION_UPDATE%>";
 
 		$(document).ready(function() {
 			document.querySelector("#queryResult").hidden = true;
