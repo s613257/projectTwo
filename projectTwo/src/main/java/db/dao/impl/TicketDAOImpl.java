@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import db.dao.TicketDAO;
-
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import model.dto.TicketInfo;
 
@@ -19,13 +19,16 @@ public class TicketDAOImpl  implements TicketDAO {
 
 	@Autowired
 	private SessionFactory factory;
+	
+	@PersistenceContext
+	private Session session;
 
 	public TicketDAOImpl() {
 	}
 
 	@Override
 	public boolean insertTicketInfo(TicketInfo ticket) {
-		Session session = factory.openSession();
+		session = factory.openSession();
 		session.beginTransaction();
 		try {
 			session.persist(ticket);
@@ -52,20 +55,20 @@ public class TicketDAOImpl  implements TicketDAO {
 
 	@Override
 	public TicketInfo getTicketInfoById(int ticketID) {
-		Session session = factory.openSession();
+		session = factory.openSession();
 		return session.get(TicketInfo.class, ticketID);
 	}
 	
 	@Override
 	public List<TicketInfo> getAllTicketInfo() {
-		Session session = factory.openSession();
+		session = factory.openSession();
 		Query<TicketInfo> query = session.createQuery("from TicketInfo", TicketInfo.class);
 		return query.list();
 	}
 
 	@Override
 	public boolean updateTicketInfo(TicketInfo ticket) {
-		Session session = factory.openSession();
+		session = factory.openSession();
 		session.beginTransaction();
 		try {
 			session.merge(ticket);
@@ -81,7 +84,7 @@ public class TicketDAOImpl  implements TicketDAO {
 
 	@Override
 	public boolean deleteTicketInfo(int ticketID) {
-		Session session = factory.openSession();
+		session = factory.openSession();
 		session.beginTransaction();
 		TicketInfo bean = session.get(TicketInfo.class, ticketID);
 		if (bean != null) {
