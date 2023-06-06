@@ -59,7 +59,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<i class="fas fa-table me-1"></i>
 				</div>
 				<div class="card-body">
-					<article class="text-center container" style="height: 2000px">
+					<article class="text-center container">
 						<section class="timetable-search-frame bg-grey">
 							<div class="container">
 								<div class="download-ttable"></div>
