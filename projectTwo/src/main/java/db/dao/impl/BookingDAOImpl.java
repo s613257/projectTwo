@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import db.dao.BookingDAO;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import model.dto.PriceInfo;
 import model.dto.StationInfo;
@@ -27,9 +26,6 @@ public class BookingDAOImpl  implements BookingDAO {
 
 	@Autowired
 	private SessionFactory factory;
-	
-	@PersistenceContext
-	private Session session;
 
 	@Override
 	public List<TicketInfo> getAllTranInfo() {
@@ -51,7 +47,7 @@ public class BookingDAOImpl  implements BookingDAO {
 	}
 	@Override
 	public List<StationInfo> getAllStationInfo() {
-		session = factory.openSession();
+		Session session = factory.openSession();
 		Query<StationInfo> query = session.createQuery("from StationInfo", StationInfo.class);
 		return query.list();
 	}
@@ -71,7 +67,7 @@ public class BookingDAOImpl  implements BookingDAO {
 	}
 
 	private List<TicketInfo> getAllTranInfoBySql(String sql) {
-		session = factory.openSession();
+		Session session = factory.openSession();
 		List<TicketInfo> resultTranList = new ArrayList<TicketInfo>();
 		Query<TicketInfo> query = session.createQuery(sql,TicketInfo.class);
 		resultTranList= query.list();
@@ -79,14 +75,14 @@ public class BookingDAOImpl  implements BookingDAO {
 	}
 
 	private List<StationInfo> getInfoByStation() {
-		session = factory.openSession();
+		Session session = factory.openSession();
 		Query<StationInfo> query = session.createQuery("from StationInfo",StationInfo.class);
 		return query.list();
 	}
 	
 	@Override
 	public List<PriceInfo> getInfoByPrice() {
-		session = factory.openSession();
+		Session session = factory.openSession();
 		Query<PriceInfo> query = session.createQuery("from PriceInfo",PriceInfo.class);
 		return query.list();
 	}
