@@ -34,7 +34,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<main>
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">Dashboard</h1>
-
 			<hr>
 			<div class="card mb-4">
 				<div class="card-header">
