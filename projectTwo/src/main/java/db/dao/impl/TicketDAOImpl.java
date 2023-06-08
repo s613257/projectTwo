@@ -30,7 +30,7 @@ public class TicketDAOImpl  implements TicketDAO {
 		Transaction tx = session.beginTransaction();
 		try {
 			session.persist(ticket);
-			tx.commit();
+			session.getTransaction().commit();
 		} catch (Exception e) {
 			tx.rollback();
 			return false;

@@ -1,46 +1,10 @@
-<%@page import="model.dto.PriceInfo"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.Map.*"%>
-<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page isELIgnored="false"%>
-<!DOCTYPE html>
-<html lang="en">
-
-
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>Dashboard - SB Admin</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
-	rel="stylesheet" />
-<link href="/projectTwo/dashboard/css/styles.css" rel="stylesheet" />
-<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-	crossorigin="anonymous"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<title>SelectPage</title>
+<%@ include file="header/PageHeader.jsp"%>
+<!-- ↓↓↓↓↓↓↓ head field ↓↓↓↓↓↓↓  -->
 <style>
 .container {
 	width: 500px;
-	height: 500px;
 }
 
 .aside {
@@ -49,7 +13,6 @@
 	background-color: #FFF;
 	box-shadow: 3px 3px 3px gray;
 	margin: 10px 0px 0px 0px;
-}
 
 .section {
 	border-radius: 5px;
@@ -57,14 +20,12 @@
 	line-height: 2em;
 }
 </style>
-</head>
+<!-- ↑↑↑↑↑↑↑ head field ↑↑↑↑↑↑↑  -->
+</head> <!-- << 不能省略 補足PageHeader.jsp裡面的<head>  -->
 
 <%
-Map<Set<String>, Integer> priceInfos = (Map<Set<String>, Integer>) request.getAttribute("priceInfos");
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 		+ request.getContextPath() + "/";
-
-
 %>
 
 <body onload="showPrice()" class="sb-nav-fixed">
@@ -189,17 +150,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</main>
 	<%@ include file="footer/NavBarFooter.jsp"%>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
-	<script src="/projectTwo/dashboard/js/scripts.js"></script>
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-		crossorigin="anonymous"></script>
-	<script src="/projectTwo/dashboard/js/datatables-simple-demo.js"></script>
-	<script src="https://kit.fontawesome.com/0a9f356c66.js"
-		crossorigin="anonymous"></script>
+	
 	<script type="text/javascript">
 		var priceInfos = new Map();
 		let tmpS;
