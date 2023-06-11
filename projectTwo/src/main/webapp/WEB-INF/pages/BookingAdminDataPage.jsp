@@ -13,6 +13,7 @@
 	background-color: #FFF;
 	box-shadow: 3px 3px 3px gray;
 	margin: 10px 0px 0px 0px;
+}
 
 .section {
 	border-radius: 5px;
